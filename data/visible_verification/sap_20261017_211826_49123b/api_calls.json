@@ -1,0 +1,778 @@
+[
+  {
+    "method": "ApplicationStart",
+    "return_code": 0
+  },
+  {
+    "method": "GetVersion",
+    "return_code": 0
+  },
+  {
+    "method": "InitializeNewModel",
+    "return_code": 0
+  },
+  {
+    "method": "File.NewBlank",
+    "return_code": 0
+  },
+  {
+    "method": "SetPresentUnits",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.SetActiveDOF",
+    "return_code": 0
+  },
+  {
+    "method": "PropMaterial.SetMaterial",
+    "return_code": 0
+  },
+  {
+    "method": "PropMaterial.SetMPIsotropic",
+    "return_code": 0
+  },
+  {
+    "method": "PropMaterial.SetWeightAndMass",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.AddCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.AddCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.AddCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.AddCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.AddCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.AddCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.SetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.AddByPoint",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.SetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "LoadPatterns.Add",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.SetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.SetRunCaseFlag(all off)",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.SetRunCaseFlag(CASE_I)",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.SetSolverOption_3",
+    "return_code": 0
+  },
+  {
+    "method": "View.RefreshView",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.GetCaseStatus(after View.RefreshView)",
+    "return_code": 0
+  },
+  {
+    "after": "View.RefreshView",
+    "model_locked": false,
+    "case_status": {
+      "DEAD": 1,
+      "MODAL": 1,
+      "CASE_I": 1
+    }
+  },
+  {
+    "method": "File.Save",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetNameList",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetNameList",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetCoordCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetCoordCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetCoordCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetCoordCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetCoordCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetCoordCartesian",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetRestraint",
+    "return_code": 0
+  },
+  {
+    "method": "PointObj.GetLoadForce",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetPoints",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetSection",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetRectangle",
+    "return_code": 0
+  },
+  {
+    "method": "PropFrame.GetSectProps",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetReleases",
+    "return_code": 0
+  },
+  {
+    "method": "FrameObj.GetAutoMesh",
+    "return_code": 0
+  },
+  {
+    "method": "PropMaterial.GetMPIsotropic",
+    "return_code": 0
+  },
+  {
+    "method": "PropMaterial.GetWeightAndMass",
+    "return_code": 0
+  },
+  {
+    "method": "LoadPatterns.GetSelfWTMultiplier",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.GetActiveDOF",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.RunAnalysis",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.GetCaseStatus(after Analyze.RunAnalysis)",
+    "return_code": 0
+  },
+  {
+    "after": "Analyze.RunAnalysis",
+    "model_locked": true,
+    "case_status": {
+      "DEAD": 1,
+      "MODAL": 1,
+      "CASE_I": 4
+    }
+  },
+  {
+    "method": "Results.Setup.DeselectAll",
+    "return_code": 0
+  },
+  {
+    "method": "Results.Setup.SelectCASE_I",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointDispl",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointReact",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointDispl",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointReact",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointDispl",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointReact",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointDispl",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointReact",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointDispl",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointReact",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointDispl",
+    "return_code": 0
+  },
+  {
+    "method": "Results.JointReact",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "Results.FrameForce",
+    "return_code": 0
+  },
+  {
+    "method": "View.RefreshWindow",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.GetCaseStatus(after View.RefreshWindow)",
+    "return_code": 0
+  },
+  {
+    "after": "View.RefreshWindow",
+    "model_locked": true,
+    "case_status": {
+      "DEAD": 1,
+      "MODAL": 1,
+      "CASE_I": 4
+    }
+  },
+  {
+    "method": "File.Save(results)",
+    "return_code": 0
+  },
+  {
+    "method": "Analyze.GetCaseStatus(after File.Save(results))",
+    "return_code": 0
+  },
+  {
+    "after": "File.Save(results)",
+    "model_locked": true,
+    "case_status": {
+      "DEAD": 1,
+      "MODAL": 1,
+      "CASE_I": 4
+    }
+  },
+  {
+    "method": "Analyze.GetCaseStatus(final)",
+    "return_code": 0
+  }
+]

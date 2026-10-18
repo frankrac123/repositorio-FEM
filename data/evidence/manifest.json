@@ -1,0 +1,447 @@
+{
+  "purpose": "Curated scientific evidence; original local results are preserved",
+  "files": [
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_215357_b86c77/configuration.json",
+      "published_relative": "data/evidence/asam/seed42/configuration.json",
+      "source_sha256": "7b71e9f7d51fba990f40c6e3e19af8b24190f02a624fea3e721959c0cdc1d3b9",
+      "published_sha256": "b111758d9861f348a74141ab0cf0ef62bf9c241c75b4961f24bedccdf84e8c38",
+      "bytes": 3866,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_215357_b86c77/evaluations.jsonl",
+      "published_relative": "data/evidence/asam/seed42/evaluations.jsonl.gz",
+      "source_sha256": "25ad793b2d5387dd1af6b817d23c18613910900cfb64e472bc2452106ce1777f",
+      "published_sha256": "b66a9e21846468d9a3076594c67f33e0f2d746e0c1e41fce8b0d59f1d325c8d1",
+      "bytes": 1842043,
+      "compression": "gzip"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_215357_b86c77/convergence.csv",
+      "published_relative": "data/evidence/asam/seed42/convergence.csv.gz",
+      "source_sha256": "7c121fa35967d088cc485faf6945eb9588517cbce7ca94e9d7429bd4590dee3b",
+      "published_sha256": "abb963c82e1dd36df0fdb7ebe9fb0e27f1785c64321afb859e5fe433e50a8578",
+      "bytes": 204238,
+      "compression": "gzip"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_215824_46bc35/configuration.json",
+      "published_relative": "data/evidence/asam/seed7/configuration.json",
+      "source_sha256": "9ca4ae5cb49c263451cd5df8b9be2632c041119b38819e36266e6d7f45b60b25",
+      "published_sha256": "5edb9254cae8257dc9e3d6f08e610807ed026c2dcabe23d5c7bce938560cf901",
+      "bytes": 3865,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_215824_46bc35/evaluations.jsonl",
+      "published_relative": "data/evidence/asam/seed7/evaluations.jsonl.gz",
+      "source_sha256": "daf7832450734ce7803ceab25e50482bedb31d242de8d842731342b6009829b2",
+      "published_sha256": "b4818a7e114ec01f472b789662b3ff2ac6adcd19082bcdab251f9959bfb9372d",
+      "bytes": 1847630,
+      "compression": "gzip"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_215824_46bc35/convergence.csv",
+      "published_relative": "data/evidence/asam/seed7/convergence.csv.gz",
+      "source_sha256": "93489e4d6e6398657ca078d5ecff92f986e241e7b9dfd53f326dfcbfc74575cb",
+      "published_sha256": "9dbf90960cccb73965c2c77a2c4e3b25b48d72590dea2ee3013c4e034ab2b0af",
+      "bytes": 210363,
+      "compression": "gzip"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_220744_a3598d/configuration.json",
+      "published_relative": "data/evidence/asam/seed17/configuration.json",
+      "source_sha256": "9137f08daa94e28b45052fa9a93725539c4aaccce2fda8b3d59bc76730ea00cf",
+      "published_sha256": "e5ccd50189d90676b79d27a458dd1b302bf10a15a4e80600eda415bfa83b35de",
+      "bytes": 3866,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_220744_a3598d/evaluations.jsonl",
+      "published_relative": "data/evidence/asam/seed17/evaluations.jsonl.gz",
+      "source_sha256": "6050547b289ac905a0dc84112d798e81491485d1ba28d148f745ca9f7ee2424f",
+      "published_sha256": "3390f8014f746477cc99a6bbf96a01dcd3fe49bc8254fd16dcd7937f6e2e2aef",
+      "bytes": 1846264,
+      "compression": "gzip"
+    },
+    {
+      "source_relative": "data/phase3_asam/optimization_20261017_220744_a3598d/convergence.csv",
+      "published_relative": "data/evidence/asam/seed17/convergence.csv.gz",
+      "source_sha256": "6b42f889622ea5f20d6a4a36ab5b5a30979818399c35d2a95b16b713f7379ad5",
+      "published_sha256": "26e61d51edc90eeb9214197932f339c375717e1ca52d130758cdb2adc42c7784",
+      "bytes": 211013,
+      "compression": "gzip"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/best.trusslab.json",
+      "published_relative": "data/evidence/sap/sap_mode/best.trusslab.json",
+      "source_sha256": "7331ba8ad0012dff940c442de2406954cc07cb55112e79d0b9f778630de20163",
+      "published_sha256": "e7b58f61d5eb74517bbdf02779456836b7cd71d52786f4fd7d30b785d8fab01d",
+      "bytes": 54147,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/configuration.json",
+      "published_relative": "data/evidence/sap/sap_mode/configuration.json",
+      "source_sha256": "349f29ca5cfcef4ca476d260f72fbd2d5d469fbe7ab7cfc2a283576f7299d664",
+      "published_sha256": "938efa5bffdee1add1aac35912c202a3f90e90dc9263e053a22d8fc6512c3f7f",
+      "bytes": 3861,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/convergence.csv",
+      "published_relative": "data/evidence/sap/sap_mode/convergence.csv",
+      "source_sha256": "142e895ff2e88f4ca3d3f0041027feabe7ce2565cec20b937f28c59c4815199d",
+      "published_sha256": "6f31cd86622f4f490d8596321f094cbb6ddd6159b5366c4a144d980de0920341",
+      "bytes": 403,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/evaluations.jsonl",
+      "published_relative": "data/evidence/sap/sap_mode/evaluations.jsonl",
+      "source_sha256": "761b506524a4b72886ddaed9326b7fea90a3cca0f89e45e85095f194fbb44852",
+      "published_sha256": "44763650afec0139e7fca03528636aa6835454a372e0ad55952d497f6d04927a",
+      "bytes": 2033,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/api_calls.json",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/api_calls.json",
+      "source_sha256": "bd7ae7b736651d44ae14e1ba1096541c4dc0a883880836066149405cf360bb39",
+      "published_sha256": "b68b352ddfb477eb30c7bd1071ca769113450bc4a46d9390cff1834e0dbd0b2d",
+      "bytes": 12751,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/batch_api_calls.jsonl",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/batch_api_calls.jsonl",
+      "source_sha256": "b76770e72cbde5cf1b9de4bc1b5e1ec6c59f4a3eaa01f4a74bc344fe8d165761",
+      "published_sha256": "1c2c202b6c6f072edb1e32dc966eb08171840c1f86794a5c5fc110b705218825",
+      "bytes": 10134,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/candidate_results.jsonl",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/candidate_results.jsonl",
+      "source_sha256": "792a201d74275c7a4f9f0ce04666fb41bff1ab1a850047c6bee2fc47f037ac92",
+      "published_sha256": "6494f781f2b2489a5a8d4252405e86de66610f70cf6574c5a8cb1773da204676",
+      "bytes": 124212,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/comparison.csv",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/comparison.csv",
+      "source_sha256": "edcb9a99b16832e8de356fd4929dbcea508e23e557aa670ab339ec0a0e722f11",
+      "published_sha256": "7823ac800adbe1ead8f3adb8724c2973bfeca5511f29829a836b95ffcc045ad9",
+      "bytes": 5060,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/comparison.json",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/comparison.json",
+      "source_sha256": "94141c8c634a0c43742d6d6575121b8526b656c3626d685b692e08a63914a8ee",
+      "published_sha256": "769f48739940e1fe05346db37d8332a939a22d13fb99be9b99e63a54b653894e",
+      "bytes": 19889,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/input_audit.json",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/input_audit.json",
+      "source_sha256": "7e72a4dd6ac684d3230d4c1533598abd10eba3b43e1ba551ea252690a1efbe95",
+      "published_sha256": "8396f03a813c52f34c767ebd12b4feaa4c2fc210ed411578050401af95cec149",
+      "bytes": 6736,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/operation.json",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/operation.json",
+      "source_sha256": "846db88b60cc08e7ae06b0c7429885884912a3e87ca826cc2564e135c496b69d",
+      "published_sha256": "846db88b60cc08e7ae06b0c7429885884912a3e87ca826cc2564e135c496b69d",
+      "bytes": 94,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/results.json",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/results.json",
+      "source_sha256": "74f28d60401e63a04f3a78651225cf861db60fafc423968ff7c08269bb7661d7",
+      "published_sha256": "879a2b2c692a07335c4f831b7eb81c44c1e5609618a6e81f1dd19f6d5095e93a",
+      "bytes": 51359,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/transferred.trusslab.json",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/transferred.trusslab.json",
+      "source_sha256": "5705c605651609acdce95d2abf9771185ace46107e13f1c338c2f68caf68238d",
+      "published_sha256": "3163f897eb6d66e28fe8c14a16c643f3adcde94875fb07ce10ff11d57f5f9d72",
+      "bytes": 58340,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/TrussLab_CaseI.sdb",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/TrussLab_CaseI.sdb",
+      "source_sha256": "1c2ad6040a0e0b1adf1f9513ea718024bf3388d4f99f52cd45ae31e9bc60df4a",
+      "published_sha256": "1c2ad6040a0e0b1adf1f9513ea718024bf3388d4f99f52cd45ae31e9bc60df4a",
+      "bytes": 9854,
+      "compression": null
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_215914_d4eaf8/sap/sap_20261017_215914_88775c/VISTAS_EN_SAP2000.txt",
+      "published_relative": "data/evidence/sap/sap_mode/sap/sap_20261017_215914_88775c/VISTAS_EN_SAP2000.txt",
+      "source_sha256": "dad75a878e2cfb7108f861d4ee3e3075541b75541ca831d63185a7e8041bdc5b",
+      "published_sha256": "9f46f040ee0b31378aa6e4379621df8705a4b611f7f8fb240bc55c05c92e5fe7",
+      "bytes": 572,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/best.trusslab.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/best.trusslab.json",
+      "source_sha256": "4972b35eb3c1e809e397b75dda933daf0f4c8ce2d5f608271db982fe31d81340",
+      "published_sha256": "cd2f1794b20b2e9cfa10228d1009cb29d66d433b77adcf730b0e047f3e393511",
+      "bytes": 78836,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/configuration.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/configuration.json",
+      "source_sha256": "e1d60c4bc71e8d84d0e3aa0e4d0f39a47923051a02b79a593777ad2095f0ef45",
+      "published_sha256": "f7f45aa05f07636db007d03ca169f84e8533915549144bc7aa035f83465bb458",
+      "bytes": 3865,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/convergence.csv",
+      "published_relative": "data/evidence/sap/hybrid_mode/convergence.csv",
+      "source_sha256": "e0ed3992506c776de7eccd27d7a784e081b46b8f730d746ca6f50364996d04f9",
+      "published_sha256": "3128fa3f17073745b52aa5a04c7d0e23d526de8ae39bad874dd99e63efcfad63",
+      "bytes": 2840,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/evaluations.jsonl",
+      "published_relative": "data/evidence/sap/hybrid_mode/evaluations.jsonl",
+      "source_sha256": "3c27ff0d0f48de1ac23f2106f73171bfbbe5d93c679f40f4c1f281a73796a965",
+      "published_sha256": "ebf2b6d9635922be4e5681151264ae0d2f2efbe5f553e8126d28ecaf0e96395c",
+      "bytes": 20677,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/api_calls.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/api_calls.json",
+      "source_sha256": "bd7ae7b736651d44ae14e1ba1096541c4dc0a883880836066149405cf360bb39",
+      "published_sha256": "b68b352ddfb477eb30c7bd1071ca769113450bc4a46d9390cff1834e0dbd0b2d",
+      "bytes": 12751,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/batch_api_calls.jsonl",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/batch_api_calls.jsonl",
+      "source_sha256": "2237db7691940766dff1e6a71aa77c99b9afc5b16526649981faaeb711b4281c",
+      "published_sha256": "d7bf7de2ca59b5fae80504a4b785f7594d87ebf524a310b9e00465426015554a",
+      "bytes": 6756,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/candidate_results.jsonl",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/candidate_results.jsonl",
+      "source_sha256": "bc32156b8e97444e4bc3d05469b4207bb20d59dbf8ace2302330a0f5e54d98b8",
+      "published_sha256": "1c33872d44321a1f6d2e8fcdc6975c8f02b52e6bb291e98cd0cef2d1aa392872",
+      "bytes": 94486,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/comparison.csv",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/comparison.csv",
+      "source_sha256": "41f799a2a02440970ce15059ed777686d1e94c683ebc8b3f3a7e860fd4277ce4",
+      "published_sha256": "976000a25d207a7bd75a48b46238b5b72257d479e6d99e9e5ef05c1e7ab16ca3",
+      "bytes": 5013,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/comparison.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/comparison.json",
+      "source_sha256": "6e58ffee5c4a5b5408b532c66a84a847af3b9f25938680c8678a4d0af717923b",
+      "published_sha256": "2a2f9ec7cab5576ae75d460fc03b37dc384eafc9ad64e37f2a4b16d9c726c51c",
+      "bytes": 19824,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/input_audit.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/input_audit.json",
+      "source_sha256": "07de5c1e71b18bc1e8e2072e868a86a99ff141649d17e999eb2d8a6738c2ea6a",
+      "published_sha256": "588a14e68c37cc0933af821a459660ad514730a45af079dde977595239d86c16",
+      "bytes": 6869,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/operation.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/operation.json",
+      "source_sha256": "7b4cdaf7d9c744afa60dda6c3913ac74a310c8b012bb81dece860c38e2f0e5ac",
+      "published_sha256": "7b4cdaf7d9c744afa60dda6c3913ac74a310c8b012bb81dece860c38e2f0e5ac",
+      "bytes": 94,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/results.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/results.json",
+      "source_sha256": "10c894b486ead6dc28e5c5f344071781e66120a6fb637f6d18d24db2b40a2118",
+      "published_sha256": "1c5bf323c0d2f8212e4c65eae5900227d311d4e5572e325559bc49099430d17e",
+      "bytes": 51506,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/transferred.trusslab.json",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/transferred.trusslab.json",
+      "source_sha256": "64ab0d5f1c573e57c09c07e243e5043872c456b94bd2c80dd6cdcf1347d9fbe9",
+      "published_sha256": "dfd94d373fb41e3e47b0e148c7e01a1a664789ae8224c0f3a9ac9176be051ef8",
+      "bytes": 58617,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/TrussLab_CaseI.sdb",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/TrussLab_CaseI.sdb",
+      "source_sha256": "9c3f79e6a509760982205e8b83f3faf92b6e36224309938f8271e498356137f2",
+      "published_sha256": "9c3f79e6a509760982205e8b83f3faf92b6e36224309938f8271e498356137f2",
+      "bytes": 9987,
+      "compression": null
+    },
+    {
+      "source_relative": "data/phase3_verification/optimization_20261017_220155_cc6342/sap/sap_20261017_220157_533f28/VISTAS_EN_SAP2000.txt",
+      "published_relative": "data/evidence/sap/hybrid_mode/sap/sap_20261017_220157_533f28/VISTAS_EN_SAP2000.txt",
+      "source_sha256": "dad75a878e2cfb7108f861d4ee3e3075541b75541ca831d63185a7e8041bdc5b",
+      "published_sha256": "9f46f040ee0b31378aa6e4379621df8705a4b611f7f8fb240bc55c05c92e5fe7",
+      "bytes": 572,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/api_calls.json",
+      "published_relative": "data/evidence/sap/persistent/api_calls.json",
+      "source_sha256": "bd7ae7b736651d44ae14e1ba1096541c4dc0a883880836066149405cf360bb39",
+      "published_sha256": "b68b352ddfb477eb30c7bd1071ca769113450bc4a46d9390cff1834e0dbd0b2d",
+      "bytes": 12751,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/batch_api_calls.jsonl",
+      "published_relative": "data/evidence/sap/persistent/batch_api_calls.jsonl",
+      "source_sha256": "2237db7691940766dff1e6a71aa77c99b9afc5b16526649981faaeb711b4281c",
+      "published_sha256": "d7bf7de2ca59b5fae80504a4b785f7594d87ebf524a310b9e00465426015554a",
+      "bytes": 6756,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/candidate_results.jsonl",
+      "published_relative": "data/evidence/sap/persistent/candidate_results.jsonl",
+      "source_sha256": "cd376701d1f6a87c9166015073ad689af7063feb4011f4f39032857287470728",
+      "published_sha256": "e3fd73edfa26b9c98671e98249c49b2a48b8588dbfd420f92b7ff3b6c11f3a5a",
+      "bytes": 93771,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/comparison.csv",
+      "published_relative": "data/evidence/sap/persistent/comparison.csv",
+      "source_sha256": "edcb9a99b16832e8de356fd4929dbcea508e23e557aa670ab339ec0a0e722f11",
+      "published_sha256": "7823ac800adbe1ead8f3adb8724c2973bfeca5511f29829a836b95ffcc045ad9",
+      "bytes": 5060,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/comparison.json",
+      "published_relative": "data/evidence/sap/persistent/comparison.json",
+      "source_sha256": "94141c8c634a0c43742d6d6575121b8526b656c3626d685b692e08a63914a8ee",
+      "published_sha256": "769f48739940e1fe05346db37d8332a939a22d13fb99be9b99e63a54b653894e",
+      "bytes": 19889,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/input_audit.json",
+      "published_relative": "data/evidence/sap/persistent/input_audit.json",
+      "source_sha256": "7e72a4dd6ac684d3230d4c1533598abd10eba3b43e1ba551ea252690a1efbe95",
+      "published_sha256": "8396f03a813c52f34c767ebd12b4feaa4c2fc210ed411578050401af95cec149",
+      "bytes": 6736,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/operation.json",
+      "published_relative": "data/evidence/sap/persistent/operation.json",
+      "source_sha256": "825f96da237ef0baf8c29bb33e69d957a4a6524b9d7f2d37ee15cfaf80be7312",
+      "published_sha256": "825f96da237ef0baf8c29bb33e69d957a4a6524b9d7f2d37ee15cfaf80be7312",
+      "bytes": 94,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/results.json",
+      "published_relative": "data/evidence/sap/persistent/results.json",
+      "source_sha256": "8d507e85d8fab1e0097bcbe91d8f4445ebe325acec071d678557aaf20312aeed",
+      "published_sha256": "cdde0c3d559a730a829f3bee3622de48951a09f1e74e0fcbaaf181fd131a504f",
+      "bytes": 51299,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/transferred.trusslab.json",
+      "published_relative": "data/evidence/sap/persistent/transferred.trusslab.json",
+      "source_sha256": "48179d3d3fe4e7acd04a6658c8007111eed1ad2e19536b73d0f82016028c292a",
+      "published_sha256": "6d23b99ed58e6cc353af5391cf3f07168dd0608e171dc789d26c1d5c797b3661",
+      "bytes": 58280,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/TrussLab_CaseI.sdb",
+      "published_relative": "data/evidence/sap/persistent/TrussLab_CaseI.sdb",
+      "source_sha256": "aa17760ad111ecd2630deee650f789556e22f4c0c857590b651779cfbc1ef92e",
+      "published_sha256": "aa17760ad111ecd2630deee650f789556e22f4c0c857590b651779cfbc1ef92e",
+      "bytes": 9704,
+      "compression": null
+    },
+    {
+      "source_relative": "data/phase3_verification/persistent/sap_20261017_215730_6173bf/VISTAS_EN_SAP2000.txt",
+      "published_relative": "data/evidence/sap/persistent/VISTAS_EN_SAP2000.txt",
+      "source_sha256": "dad75a878e2cfb7108f861d4ee3e3075541b75541ca831d63185a7e8041bdc5b",
+      "published_sha256": "9f46f040ee0b31378aa6e4379621df8705a4b611f7f8fb240bc55c05c92e5fe7",
+      "bytes": 572,
+      "compression": null,
+      "text_normalization": "LF line endings; numeric content unchanged"
+    }
+  ],
+  "asam_seed42_repeat_identical": true
+}

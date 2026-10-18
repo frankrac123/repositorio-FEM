@@ -1,6 +1,6 @@
 """Regenerate the stage report from executed evidence, without running solvers."""
 from pathlib import Path
-import csv,json
+import csv,json,gzip
 import xml.etree.ElementTree as ET
 import matplotlib
 matplotlib.use('Agg')
@@ -17,7 +17,14 @@ with (folder/'runs.csv').open('w',newline='',encoding='utf-8-sig') as file:
     keys=['seed','weight_lb','stress_ratio','displacement_ratio','evaluations','iterations','termination']
     writer=csv.DictWriter(file,fieldnames=keys,extrasaction='ignore');writer.writeheader();writer.writerows(rows)
 fig,ax=plt.subplots(figsize=(8,4.6),layout='constrained')
-history=[json.loads(line) for line in (Path(rows[0]['run_directory'])/'evaluations.jsonl').read_text().splitlines()]
+local_trace=Path(rows[0]['run_directory'])/'evaluations.jsonl'
+if local_trace.is_file() and local_trace.resolve().is_relative_to(root.resolve()):
+    trace_text=local_trace.read_text()
+else:
+    # Published evidence is portable; historical Windows paths are provenance.
+    with gzip.open(root/'data/evidence/asam/seed42/evaluations.jsonl.gz','rt',encoding='utf-8') as stream:
+        trace_text=stream.read()
+history=[json.loads(line) for line in trace_text.splitlines()]
 for feasible,color,label in [(True,'#4194ee','Candidato factible'),(False,'#e67b8d','Candidato infactible')]:
     sample=[h for h in history if h['feasible']==feasible]
     ax.scatter([h['evaluations'] for h in sample],[h['weight_lb'] for h in sample],s=2,alpha=.25,color=color,label=label,rasterized=True)

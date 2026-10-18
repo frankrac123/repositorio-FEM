@@ -1,0 +1,443 @@
+{
+  "schema": "trusslab/1",
+  "model": {
+    "name": "Cercha de 10 barras Â· Caso I",
+    "nodes": [
+      {
+        "id": 1,
+        "xyz": [
+          720.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "xyz": [
+          720.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          -100.0
+        ]
+      },
+      {
+        "id": 3,
+        "xyz": [
+          360.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 4,
+        "xyz": [
+          360.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          -100.0
+        ]
+      },
+      {
+        "id": 5,
+        "xyz": [
+          0.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          true,
+          true,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 6,
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          true,
+          true,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "members": [
+      {
+        "id": 1,
+        "start": 5,
+        "end": 3,
+        "area": 27.384581513055874
+      },
+      {
+        "id": 2,
+        "start": 3,
+        "end": 1,
+        "area": 0.10004132177320058
+      },
+      {
+        "id": 3,
+        "start": 6,
+        "end": 4,
+        "area": 24.55600923789794
+      },
+      {
+        "id": 4,
+        "start": 4,
+        "end": 2,
+        "area": 18.122386852571776
+      },
+      {
+        "id": 5,
+        "start": 3,
+        "end": 4,
+        "area": 0.10002171226285905
+      },
+      {
+        "id": 6,
+        "start": 1,
+        "end": 2,
+        "area": 0.483480737128298
+      },
+      {
+        "id": 7,
+        "start": 5,
+        "end": 4,
+        "area": 7.56500138334793
+      },
+      {
+        "id": 8,
+        "start": 6,
+        "end": 3,
+        "area": 23.129711897897796
+      },
+      {
+        "id": 9,
+        "start": 3,
+        "end": 2,
+        "area": 19.638005146570347
+      },
+      {
+        "id": 10,
+        "start": 4,
+        "end": 1,
+        "area": 0.10008399258474868
+      }
+    ],
+    "elastic_modulus": 10000.0,
+    "density": 0.1,
+    "stress_limit": 25.0,
+    "displacement_limit": 2.0,
+    "area_min": 0.1,
+    "area_max": 35.0,
+    "material_name": "Benchmark Â· E = 10,000 ksi"
+  },
+  "results": {
+    "engine": "FEM Â· NumPy",
+    "timestamp": "2026-10-18T02:58:20.562530+00:00",
+    "weight_lb": 5114.493883659725,
+    "members": [
+      {
+        "id": 1,
+        "force": 202.567148873211,
+        "stress": 7.397124136318647,
+        "ratio": 0.2958849654527459,
+        "length": 360.0,
+        "area": 27.384581513055874
+      },
+      {
+        "id": 2,
+        "force": -0.11371445184427871,
+        "stress": -1.1366748242498825,
+        "ratio": 0.045466992969995304,
+        "length": 360.0,
+        "area": 0.10004132177320058
+      },
+      {
+        "id": 3,
+        "force": -197.43285112678916,
+        "stress": -8.040103308891325,
+        "ratio": 0.321604132355653,
+        "length": 360.0,
+        "area": 24.55600923789794
+      },
+      {
+        "id": 4,
+        "force": -100.11371445184433,
+        "stress": -5.52431174029579,
+        "ratio": 0.2209724696118316,
+        "length": 360.0,
+        "area": 18.122386852571776
+      },
+      {
+        "id": 5,
+        "force": 2.453434421366649,
+        "stress": 24.529018408712844,
+        "ratio": 0.9811607363485138,
+        "length": 360.0,
+        "area": 0.10002171226285905
+      },
+      {
+        "id": 6,
+        "force": -0.11371445184427573,
+        "stress": -0.2351995500786624,
+        "ratio": 0.009407982003146496,
+        "length": 360.0,
+        "area": 0.483480737128298
+      },
+      {
+        "id": 7,
+        "force": 137.7908594841838,
+        "stress": 18.214254367155682,
+        "ratio": 0.7285701746862273,
+        "length": 509.11688245431424,
+        "area": 7.56500138334793
+      },
+      {
+        "id": 8,
+        "force": -145.05185299043526,
+        "stress": -6.271234749085599,
+        "ratio": 0.25084938996342393,
+        "length": 509.11688245431424,
+        "area": 23.129711897897796
+      },
+      {
+        "id": 9,
+        "force": 141.58217275734555,
+        "stress": 7.209600552634135,
+        "ratio": 0.2883840221053654,
+        "length": 509.11688245431424,
+        "area": 19.638005146570347
+      },
+      {
+        "id": 10,
+        "force": 0.16081652003600116,
+        "stress": 1.6068155944101217,
+        "ratio": 0.06427262377640487,
+        "length": 509.11688245431424,
+        "area": 0.10008399258474868
+      }
+    ],
+    "displacements": {
+      "1": [
+        0.2253761752344755,
+        0.0,
+        -1.9999992051123314
+      ],
+      "2": [
+        -0.48831894177073615,
+        0.0,
+        -1.9915320213094996
+      ],
+      "3": [
+        0.2662964689074713,
+        0.0,
+        -0.7178253708416344
+      ],
+      "4": [
+        -0.2894437191200877,
+        0.0,
+        -1.6008700335552968
+      ],
+      "5": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "6": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "reactions": {
+      "1": [
+        2.220446049250313e-16,
+        0.0,
+        3.552713678800501e-15
+      ],
+      "2": [
+        -5.684341886080802e-14,
+        0.0,
+        0.0
+      ],
+      "3": [
+        1.1368683772161603e-13,
+        0.0,
+        -5.684341886080802e-14
+      ],
+      "4": [
+        1.199040866595169e-14,
+        0.0,
+        1.4210854715202004e-14
+      ],
+      "5": [
+        -300.00000000000006,
+        0.0,
+        97.43285112678906
+      ],
+      "6": [
+        300.0000000000001,
+        0.0,
+        102.56714887321095
+      ]
+    },
+    "stress_ratio": 0.9811607363485138,
+    "displacement_ratio": 0.9999996025561657,
+    "feasible": true,
+    "residual_kip": 1.1368683772161603e-13,
+    "condition_number": 447.1879827105598,
+    "model_fingerprint": "dae3d4b2c29cff81ba6f3de5f91447d92e1192ae0df10d690190dcf98beb43b7",
+    "external_validation": "pending",
+    "optimization": {
+      "method": "ASAM",
+      "engine_mode": "FEM",
+      "seed": 42,
+      "evaluations": 13400,
+      "fem_evaluations": 13400,
+      "sap_evaluations": 0,
+      "max_evaluations": 16000,
+      "initial_weight_lb": 14687.636354360402,
+      "elapsed_seconds": 263.5779999999995,
+      "feasible_evaluations": 3665,
+      "global_optimum_proven": false,
+      "design_space": {
+        "type": "size",
+        "groups": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            6
+          ],
+          [
+            7
+          ],
+          [
+            8
+          ],
+          [
+            9
+          ],
+          [
+            10
+          ]
+        ],
+        "fixed_member_ids": [],
+        "lower": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ],
+        "upper": [
+          35.0,
+          35.0,
+          35.0,
+          35.0,
+          35.0,
+          35.0,
+          35.0,
+          35.0,
+          35.0,
+          35.0
+        ]
+      },
+      "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_asam\\optimization_20261017_215357_b86c77",
+      "asam": {
+        "temperature_initial": 0.05,
+        "temperature_final": 1e-06,
+        "cooling": 0.96,
+        "initial_points": 100,
+        "radius_initial": 17.45,
+        "radius_reduction": 0.96,
+        "proposals_per_temperature": 50,
+        "convergence_tolerance": 0.0,
+        "convergence_patience": 30
+      },
+      "converged": true,
+      "message": "temperature_final",
+      "iterations": 266,
+      "options": {
+        "temperature_initial": 0.05,
+        "temperature_final": 1e-06,
+        "cooling": 0.96,
+        "initial_points": 100,
+        "radius_initial": 17.45,
+        "radius_reduction": 0.96,
+        "proposals_per_temperature": 50,
+        "convergence_tolerance": 0.0,
+        "convergence_patience": 30
+      }
+    }
+  },
+  "history": []
+}

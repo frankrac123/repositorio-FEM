@@ -1,0 +1,7 @@
+View → Set 2D View: plano X-Z, Y = 0; para una cercha espacial usa la vista 3D.
+View → Set Display Options: activar Joint Labels, Frame Labels y restricciones.
+Display → Show Object Assigns → Frame: consultar secciones TL_A<ID>.
+Display → Show Load Assigns → Joint: patrón CASE_I para las cargas.
+Display → Show Deformed Shape: caso CASE_I para la deformada y desplazamientos.
+Display → Show Forces/Stresses → Frames/Cables/Tendons: Axial Force, CASE_I.
+Display → Show Forces/Stresses → Joints: reacciones; clic derecho en nodos/barras para valores.

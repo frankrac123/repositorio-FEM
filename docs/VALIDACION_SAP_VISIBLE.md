@@ -44,7 +44,7 @@ El nuevo peso fue **5584.524682454 lb**. La lectura de entradas, la comparación
 
 La interfaz procesó **474 eventos periódicos de 100 ms** durante esta prueba asíncrona. El botón y la recepción de resultados fueron comprobados mediante componentes Qt de una instancia de prueba; no se inyectó entrada en las ventanas del usuario. La tabla se comprobó por separado: **57 filas, 9 columnas, todos los estados OK**.
 
-Evidencias: [flujo de interfaz y actualización](../data/ui_sap_verification.json), [tabla Qt](../data/ui_comparison_verified.json), [ventanas después de liberar COM](../data/windows_after_release.json).
+Evidencias: [flujo de interfaz y actualización](../data/ui_sap_verification.json) y [tabla Qt](../data/ui_comparison_verified.json). El inventario local de ventanas utilizado durante el desarrollo no se publica en el repositorio.
 
 ## Modo automático
 

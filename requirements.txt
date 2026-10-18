@@ -1,0 +1,2 @@
+# Reproduce the tested Windows desktop environment (Python 3.11, 64 bit).
+-r requirements-lock.txt

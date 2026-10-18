@@ -1,0 +1,431 @@
+{
+  "passed": true,
+  "issues": [],
+  "node_count": 6,
+  "member_count": 10,
+  "nodes": [
+    {
+      "id": 1,
+      "sap_name": "N1",
+      "xyz": [
+        720.0,
+        0.0,
+        360.0
+      ],
+      "restraints": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "loads": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "load_coordinate_systems": []
+    },
+    {
+      "id": 2,
+      "sap_name": "N2",
+      "xyz": [
+        720.0,
+        0.0,
+        0.0
+      ],
+      "restraints": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "loads": [
+        0.0,
+        0.0,
+        -100.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "load_coordinate_systems": [
+        "GLOBAL"
+      ]
+    },
+    {
+      "id": 3,
+      "sap_name": "N3",
+      "xyz": [
+        360.0,
+        0.0,
+        360.0
+      ],
+      "restraints": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "loads": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "load_coordinate_systems": []
+    },
+    {
+      "id": 4,
+      "sap_name": "N4",
+      "xyz": [
+        360.0,
+        0.0,
+        0.0
+      ],
+      "restraints": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "loads": [
+        0.0,
+        0.0,
+        -100.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "load_coordinate_systems": [
+        "GLOBAL"
+      ]
+    },
+    {
+      "id": 5,
+      "sap_name": "N5",
+      "xyz": [
+        0.0,
+        0.0,
+        360.0
+      ],
+      "restraints": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "loads": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "load_coordinate_systems": []
+    },
+    {
+      "id": 6,
+      "sap_name": "N6",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "restraints": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "loads": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "load_coordinate_systems": []
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "sap_name": "B1",
+      "start": "N5",
+      "end": "N3",
+      "section": "TL_A1",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.98529379814857,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 2,
+      "sap_name": "B2",
+      "start": "N3",
+      "end": "N1",
+      "section": "TL_A2",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.98529379814857,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "sap_name": "B3",
+      "start": "N6",
+      "end": "N4",
+      "section": "TL_A3",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.98529376089566,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "sap_name": "B4",
+      "start": "N4",
+      "end": "N2",
+      "section": "TL_A4",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.98529376089566,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 5,
+      "sap_name": "B5",
+      "start": "N3",
+      "end": "N4",
+      "section": "TL_A5",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.98529376089566,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 6,
+      "sap_name": "B6",
+      "start": "N1",
+      "end": "N2",
+      "section": "TL_A6",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.98529376089566,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 7,
+      "sap_name": "B7",
+      "start": "N5",
+      "end": "N4",
+      "section": "TL_A7",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.97920223325481,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 8,
+      "sap_name": "B8",
+      "start": "N6",
+      "end": "N3",
+      "section": "TL_A8",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.979202196001914,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 9,
+      "sap_name": "B9",
+      "start": "N3",
+      "end": "N2",
+      "section": "TL_A9",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.979202196001914,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 10,
+      "sap_name": "B10",
+      "start": "N4",
+      "end": "N1",
+      "section": "TL_A10",
+      "material": "TL_BENCHMARK",
+      "area_in2": 34.979202196001914,
+      "releases_start": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "releases_end": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    }
+  ],
+  "elastic_modulus_ksi": 10000.0,
+  "density_kip_in3": 0.0001,
+  "self_weight_multiplier": 0.0,
+  "active_dof": [
+    true,
+    false,
+    true,
+    false,
+    false,
+    false
+  ]
+}

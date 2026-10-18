@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "error": null,
+  "heartbeat_ticks": 474,
+  "warnings": [],
+  "results": [
+    {
+      "kind": "open",
+      "weight_lb": 5076.668036816261,
+      "sdb": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\sap_20261017_210859_db5261\\TrussLab_CaseI.sdb",
+      "status": {
+        "id": "820b6dda35a64f8691648a3fc55a01c1",
+        "visible": true,
+        "model_file": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\sap_20261017_210859_db5261\\TrussLab_CaseI.sdb",
+        "analysis_locked": false
+      },
+      "fingerprint": "3906118075901034a12487ac8584256bd2aba0b60361c0c34df459e427448f75"
+    },
+    {
+      "kind": "update",
+      "weight_lb": 5584.524682453693,
+      "sdb": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\sap_20261017_211610_791ea0\\TrussLab_CaseI.sdb",
+      "status": {
+        "id": "f7592d5c5887420d82e6491f42c01dd6",
+        "visible": true,
+        "model_file": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\sap_20261017_211610_791ea0\\TrussLab_CaseI.sdb",
+        "analysis_locked": true,
+        "case_status": {
+          "DEAD": 1,
+          "MODAL": 1,
+          "CASE_I": 4
+        }
+      },
+      "previous_preserved": true,
+      "previous_status": {
+        "id": "820b6dda35a64f8691648a3fc55a01c1",
+        "visible": true,
+        "model_file": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\sap_20261017_210859_db5261\\TrussLab_CaseI.sdb",
+        "analysis_locked": false
+      },
+      "fingerprint": "6e6ebfaa46b069ee8817e7b575f4f91a4033c4397588a70eb45c4579bcf085f6"
+    }
+  ]
+}
