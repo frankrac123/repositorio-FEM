@@ -10,7 +10,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
-Para trabajar exclusivamente en el núcleo numérico, sin interfaz ni SAP, basta instalar `numpy`, `scipy` y `pytest`. GitHub Actions ejecuta esas pruebas en Windows y Linux. No valida automáticamente la interfaz gráfica ni una instalación real de SAP2000.
+Para trabajar exclusivamente en el núcleo numérico, sin interfaz ni SAP, basta instalar `numpy`, `scipy` y `pytest`. Las pruebas unitarias de colas y ciclo de vida utilizan un doble COM limitado a esas pruebas; las integraciones opcionales conservan COM real. GitHub Actions ejecuta las pruebas unitarias en Windows y Linux. No valida automáticamente la interfaz gráfica ni una instalación real de SAP2000.
 
 ## Pruebas de integración explícitas
 
