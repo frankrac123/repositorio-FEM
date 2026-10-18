@@ -14,6 +14,23 @@ from trusslab.sap import VisibleSapSessions,analyze
 
 
 @pytest.mark.integration
+@pytest.mark.skipif(os.environ.get('TRUSSLAB_RUN_SAP_BATCH')!='1',reason='Opt-in real hidden persistent SAP session')
+def test_real_batch_updates_sections_and_preserves_results(tmp_path):
+    from trusslab.sap import SapBatchSession
+    with SapBatchSession(tmp_path) as session:
+        ids=[]
+        for area in [35.,30.,25.]:
+            model=benchmark()
+            for m in model.members:m.area=area
+            result=session.evaluate(model);ids.append(result['batch_session_id'])
+            assert result['validation']['passed'] and result['analysis_case_status']['CASE_I']==4
+            assert session.last_fingerprint==model.fingerprint()
+            assert all(m['area']==area for m in result['members'])
+        assert len(set(ids))==1
+    assert session.closed and not session.refs
+
+
+@pytest.mark.integration
 @pytest.mark.skipif(os.environ.get('TRUSSLAB_RUN_SAP_INTEGRATION')!='1',reason='Requires explicit opt-in to open real SAP2000')
 def test_real_visible_update_and_automatic_are_independent(tmp_path):
     manager=VisibleSapSessions()

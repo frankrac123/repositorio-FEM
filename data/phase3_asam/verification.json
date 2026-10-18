@@ -1,0 +1,107 @@
+{
+  "runs": [
+    {
+      "seed": 42,
+      "weight_lb": 5114.493883659725,
+      "stress_ratio": 0.9811607363485138,
+      "displacement_ratio": 0.9999996025561657,
+      "evaluations": 13400,
+      "iterations": 266,
+      "termination": "temperature_final",
+      "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_asam\\optimization_20261017_215357_b86c77",
+      "areas_in2": [
+        27.384581513055874,
+        0.10004132177320058,
+        24.55600923789794,
+        18.122386852571776,
+        0.10002171226285905,
+        0.483480737128298,
+        7.56500138334793,
+        23.129711897897796,
+        19.638005146570347,
+        0.10008399258474868
+      ]
+    },
+    {
+      "seed": 7,
+      "weight_lb": 5097.238502999194,
+      "stress_ratio": 0.9691694714217236,
+      "displacement_ratio": 0.9999994762007711,
+      "evaluations": 13400,
+      "iterations": 266,
+      "termination": "temperature_final",
+      "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_asam\\optimization_20261017_215824_46bc35",
+      "areas_in2": [
+        28.256218943612847,
+        0.10007069757980333,
+        23.958416040530615,
+        17.305426373109697,
+        0.10007250144327032,
+        0.7093577248731121,
+        7.233157691771176,
+        19.430300581125305,
+        23.5545110632044,
+        0.10002932322855074
+      ]
+    },
+    {
+      "seed": 17,
+      "weight_lb": 5082.111427018728,
+      "stress_ratio": 0.9996487721322831,
+      "displacement_ratio": 0.99999771607344,
+      "evaluations": 13400,
+      "iterations": 266,
+      "termination": "temperature_final",
+      "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_asam\\optimization_20261017_220744_a3598d",
+      "areas_in2": [
+        32.90524262717378,
+        0.10006560383893373,
+        22.196625264086514,
+        14.429286695230267,
+        0.10000728161886344,
+        0.5537837771301329,
+        7.81677496780938,
+        22.337461326664293,
+        19.868839524047935,
+        0.10001202233178788
+      ]
+    },
+    {
+      "seed": 42,
+      "weight_lb": 5114.493883659725,
+      "stress_ratio": 0.9811607363485138,
+      "displacement_ratio": 0.9999996025561657,
+      "evaluations": 13400,
+      "iterations": 266,
+      "termination": "temperature_final",
+      "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_asam\\optimization_20261017_221250_f6fd6c",
+      "areas_in2": [
+        27.384581513055874,
+        0.10004132177320058,
+        24.55600923789794,
+        18.122386852571776,
+        0.10002171226285905,
+        0.483480737128298,
+        7.56500138334793,
+        23.129711897897796,
+        19.638005146570347,
+        0.10008399258474868
+      ]
+    }
+  ],
+  "repeat_seed42_identical": true,
+  "constraint_ratio_tolerance": 1e-06,
+  "published_rounded_areas": {
+    "weight_lb": 5060.871666808213,
+    "stress_ratio": 0.9999473868419354,
+    "displacement_ratio": 1.0000017598463335,
+    "feasible": false
+  },
+  "earlier_solution_recomputed": {
+    "weight_lb": 5060.855730007684,
+    "stress_ratio": 0.9999983949969259,
+    "displacement_ratio": 0.99999999,
+    "feasible": true,
+    "residual_kip": 1.5365486660812167e-13
+  }
+}

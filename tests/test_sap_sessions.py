@@ -39,3 +39,12 @@ def test_failed_visible_operation_keeps_references_until_shutdown(monkeypatch,tm
     owner=retained[0].owner
     assert manager.shutdown()
     assert not retained[0].refs and detached==[owner]
+
+
+def test_batch_closes_only_its_owned_reference(tmp_path):
+    calls=[]
+    class OwnApp:
+        def ApplicationExit(self,save):calls.append(save);return 0
+    session=sap.SapBatchSession(tmp_path);session.refs={'app':OwnApp()}
+    session.__exit__(None,None,None)
+    assert calls==[False] and session.closed and not session.refs

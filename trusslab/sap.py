@@ -119,7 +119,40 @@ MANUAL_VIEWS = [
 ]
 
 
-def analyze(model, output_root, visible=False, progress=None, *, _session=None):
+def recover_results(model,s,points,frames,call,metadata):
+    result=dict(metadata)
+    result.update(members=[],displacements={},reactions={})
+    for n in model.nodes:
+        r = call('Results.JointDispl', s.Results.JointDispl, points[n.id], 0, 0, *([[]]*11))
+        if r[0] < 1:
+            raise SapError(f'No hay desplazamientos para el nodo {n.id}')
+        result['displacements'][str(n.id)] = [float(r[k][0]) for k in (6, 7, 8)]
+        if any(n.fixed):
+            r = call('Results.JointReact', s.Results.JointReact, points[n.id], 0, 0, *([[]]*11))
+            if r[0] < 1:
+                raise SapError(f'No hay reacciones para el nodo {n.id}')
+            result['reactions'][str(n.id)] = [float(r[k][0]) for k in (6, 7, 8)]
+        else:
+            result['reactions'][str(n.id)] = [0.,0.,0.]
+    max_bending = 0.
+    for m in model.members:
+        r = call('Results.FrameForce', s.Results.FrameForce, frames[m.id], 0, 0, *([[]]*13))
+        if r[0] < 1:
+            raise SapError(f'No hay fuerza axial para la barra {m.id}')
+        p = float(r[8][0])
+        max_bending = max(max_bending, *[abs(float(v)) for k in (9,10,11,12,13) for v in r[k]])
+        stress = p/m.area
+        result['members'].append({'id': m.id, 'force': p, 'stress': stress, 'area': m.area,
+                                  'ratio': abs(stress)/model.stress_limit, 'length': model.length(m)})
+    result['stress_ratio'] = max(m['ratio'] for m in result['members'])
+    result['displacement_ratio'] = max(abs(result['displacements'][str(n.id)][d])/model.displacement_limit
+                                        for n in model.nodes for d in range(3) if not n.fixed[d])
+    result['feasible'] = result['stress_ratio'] <= 1+1e-6 and result['displacement_ratio'] <= 1+1e-6
+    result['max_nonaxial_component'] = max_bending
+    return result
+
+
+def analyze(model, output_root, visible=False, progress=None, *, _session=None, _batch=None):
     """Automatic mode closes only its own instance.
 
     Persistent mode is provided by VisibleSapSessions, never by a temporary Job.
@@ -128,13 +161,15 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None):
     if _session is not None:
         _session.assert_owner()
         visible=True
+    holder=_session if _session is not None else _batch
+    if holder is not None:holder.assert_owner()
     model.validate()
     install = find_installation()
     if install is None:
         raise SapError('No se encontró SAP2000.exe. Configura TRUSSLAB_SAP_EXE con la ruta existente.')
     run_dir = Path(output_root).resolve() / ('sap_' + datetime.now().strftime('%Y%m%d_%H%M%S_') + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True, exist_ok=False)
-    if _session is not None:_session.run_directory=run_dir
+    if holder is not None:holder.run_directory=run_dir
     log, app = [], None
     def stage(name):
         (run_dir/'operation.json').write_text(json.dumps({'operation':name,'timestamp':datetime.now(timezone.utc).isoformat()}),encoding='utf-8')
@@ -162,11 +197,11 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None):
             app = helper.CreateObject(str(install))
             if not app:
                 raise SapError('OAPI no pudo crear una instancia de SAP2000.')
-            if _session is not None:_session.refs={'helper':helper,'app':app}
+            if holder is not None:holder.refs={'helper':helper,'app':app}
             call('ApplicationStart', app.ApplicationStart, 3, visible, '')  # kip_in_F
             s = app.SapModel
-            if _session is not None:
-                _session.refs={'helper':helper,'app':app,'sap_model':s}
+            if holder is not None:
+                holder.refs={'helper':helper,'app':app,'sap_model':s}
             version = list(call('GetVersion', s.GetVersion))
             call('InitializeNewModel', s.InitializeNewModel, 3)
             call('File.NewBlank', s.File.NewBlank)
@@ -222,34 +257,10 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None):
                       'sap_model': str(path), 'version': version, 'run_directory': str(run_dir)}
             result['input_audit']=audit
             result['model_fingerprint']=model.fingerprint()
-            result['mode']='visible_persistent' if _session is not None else 'automatic'
-            for n in model.nodes:
-                r = call('Results.JointDispl', s.Results.JointDispl, points[n.id], 0, 0, *([[]]*11))
-                if r[0] < 1:
-                    raise SapError(f'No hay desplazamientos para el nodo {n.id}')
-                result['displacements'][str(n.id)] = [float(r[k][0]) for k in (6, 7, 8)]
-                if any(n.fixed):
-                    r = call('Results.JointReact', s.Results.JointReact, points[n.id], 0, 0, *([[]]*11))
-                    if r[0] < 1:
-                        raise SapError(f'No hay reacciones para el nodo {n.id}')
-                    result['reactions'][str(n.id)] = [float(r[k][0]) for k in (6, 7, 8)]
-                else:
-                    result['reactions'][str(n.id)] = [0.,0.,0.]
-            max_bending = 0.
-            for m in model.members:
-                r = call('Results.FrameForce', s.Results.FrameForce, frames[m.id], 0, 0, *([[]]*13))
-                if r[0] < 1:
-                    raise SapError(f'No hay fuerza axial para la barra {m.id}')
-                p = float(r[8][0])
-                max_bending = max(max_bending, *[abs(float(v)) for k in (9,10,11,12,13) for v in r[k]])
-                stress = p/m.area
-                result['members'].append({'id': m.id, 'force': p, 'stress': stress, 'area': m.area,
-                                          'ratio': abs(stress)/model.stress_limit, 'length': model.length(m)})
-            result['stress_ratio'] = max(m['ratio'] for m in result['members'])
-            result['displacement_ratio'] = max(abs(result['displacements'][str(n.id)][d])/model.displacement_limit
-                                                for n in model.nodes for d in range(3) if not n.fixed[d])
-            result['feasible'] = result['stress_ratio'] <= 1+1e-6 and result['displacement_ratio'] <= 1+1e-6
-            result['max_nonaxial_component'] = max_bending
+            result['mode']='visible_persistent' if _session is not None else ('optimization_batch' if _batch is not None else 'automatic')
+            if _batch is not None:
+                _batch.points=points;_batch.frames=frames;_batch.version=version;_batch.path=path;_batch.initial_audit=audit
+            result=recover_results(model,s,points,frames,call,result)
             fem=solve(model)
             result['validation']=validation_report(model,fem,result)
             result['comparison']=result['validation']['comparison']
@@ -280,7 +291,7 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None):
             (run_dir / 'error.txt').write_text(str(e), encoding='utf-8')
             raise
         finally:
-            if app is not None and _session is None:
+            if app is not None and holder is None:
                 try:
                     call('ApplicationExit', app.ApplicationExit, False)
                 except Exception as e:
@@ -309,6 +320,97 @@ class _ManagedSession:
         self.assert_owner()
         # No ApplicationExit and no save: SAP belongs to manual inspection now.
         self.refs.clear()
+
+
+class SapBatchSession(_ManagedSession):
+    """One owned, hidden SAP instance for a size-optimization run, on one thread."""
+    def __init__(self, output_root):
+        super().__init__()
+        self.output_root=Path(output_root)
+        self.evaluations=0
+        self.signature=None
+        self.initialized=False
+        self.closed=False
+
+    def __enter__(self):
+        import comtypes
+        comtypes.CoInitialize()
+        self.initialized=True
+        return self
+
+    @staticmethod
+    def geometry_signature(model):
+        clone=model.clone()
+        for member in clone.members:member.area=clone.area_min
+        return clone.fingerprint()
+
+    def evaluate(self,model):
+        self.assert_owner()
+        if self.closed or not self.initialized:raise SapError('La sesión de optimización no está abierta.')
+        signature=self.geometry_signature(model)
+        if self.signature is not None and signature!=self.signature:
+            raise SapError('Una sesión de tamaño no puede cambiar geometría, material, cargas o restricciones.')
+        try:
+            if not self.refs:
+                self.signature=signature
+                result=analyze(model,self.output_root,_batch=self)
+            else:
+                with _lock:
+                    s=self.refs['sap_model'];log=[]
+                    def call(name,function,*args):
+                        value=checked(function(*args),name,log)
+                        with (self.run_directory/'batch_api_calls.jsonl').open('a',encoding='utf-8') as stream:
+                            stream.write(json.dumps({'candidate':self.evaluations+1,**log[-1]})+'\n')
+                        return value
+                    call('SetModelIsLocked(False)',s.SetModelIsLocked,False)
+                    for member in model.members:
+                        side=member.area**.5;section=f'TL_A{member.id}'
+                        call('PropFrame.SetRectangle',s.PropFrame.SetRectangle,section,'TL_BENCHMARK',side,side)
+                        area=call('PropFrame.GetSectProps',s.PropFrame.GetSectProps,section,*([0.]*12))[0]
+                        if abs(area-member.area)>1e-9*max(1.,member.area):raise SapError('SAP no confirmó la nueva área.')
+                    call('File.Save',s.File.Save)
+                    call('Analyze.RunAnalysis',s.Analyze.RunAnalysis)
+                    call('Results.Setup.DeselectAll',s.Results.Setup.DeselectAllCasesAndCombosForOutput)
+                    call('Results.Setup.SelectCASE_I',s.Results.Setup.SetCaseSelectedForOutput,'CASE_I')
+                    result=recover_results(model,s,self.points,self.frames,call,
+                        {'engine':'SAP2000 '+str(self.version[0]),'weight_lb':model.weight(),
+                         'model_fingerprint':model.fingerprint(),'mode':'optimization_batch',
+                         'sap_model':str(self.path),'run_directory':str(self.run_directory),
+                         'timestamp':datetime.now(timezone.utc).isoformat()})
+                    # Independent FEM is an audit only; never supplies SAP result values.
+                    result['validation']=validation_report(model,solve(model),result)
+                    result['comparison']=result['validation']['comparison']
+                    call('File.Save(results)',s.File.Save)
+                    status=call('Analyze.GetCaseStatus',s.Analyze.GetCaseStatus,0,[],[])
+                    result['analysis_case_status']=dict(zip(status[1],status[2]))
+                    if result['analysis_case_status'].get('CASE_I')!=4:raise SapError('CASE_I no está analizado.')
+            if not result['validation']['passed']:
+                raise SapError('La evaluación SAP difiere del control independiente FEM o no satisface el equilibrio.')
+            self.evaluations+=1
+            self.last_fingerprint=model.fingerprint()
+            result['batch_session_id']=self.id;result['batch_evaluation']=self.evaluations
+            with (self.run_directory/'candidate_results.jsonl').open('a',encoding='utf-8') as stream:
+                stream.write(json.dumps(result)+'\n')
+            return result
+        except Exception as error:
+            self.output_root.mkdir(parents=True,exist_ok=True)
+            with (self.output_root/'batch_errors.jsonl').open('a',encoding='utf-8') as stream:
+                stream.write(json.dumps({'session':self.id,'candidate':self.evaluations+1,'error':str(error)})+'\n')
+            raise
+
+    def __exit__(self,*exc):
+        self.assert_owner()
+        try:
+            app=self.refs.get('app')
+            if app is not None:
+                code=app.ApplicationExit(False)
+                if code!=0:raise SapError(f'ApplicationExit: código {code}')
+        finally:
+            app=None
+            self.refs.clear();self.closed=True
+            if self.initialized:
+                import comtypes
+                comtypes.CoUninitialize();self.initialized=False
 
 
 class VisibleSapSessions:

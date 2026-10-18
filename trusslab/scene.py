@@ -6,6 +6,7 @@ from pyvistaqt import QtInteractor
 from PySide6.QtCore import Qt, QPointF, QRectF, QTimer, QEvent, Signal
 from PySide6.QtGui import QPainter, QColor, QPen, QFont, QPolygonF
 from PySide6.QtWidgets import QWidget, QVBoxLayout
+from .result_styles import signed_color,section_radius
 
 
 class Overlay(QWidget):
@@ -51,6 +52,7 @@ class Overlay(QWidget):
                 p.setFont(QFont('Segoe UI', 9))
         # Loads display their real magnitude and direction from the model.
         for n in s.model.nodes:
+            if not s.loads:break
             load = np.array(n.load)
             norm = np.linalg.norm(load)
             if norm < 1e-12:
@@ -68,7 +70,32 @@ class Overlay(QWidget):
             p.setPen(QColor('#da2645'))
             p.setFont(QFont('Segoe UI', 10, QFont.DemiBold))
             p.drawText(QRectF(end.x()+10,end.y()-12,100,24), Qt.AlignVCenter, f'{norm:g} kips')
-        if s.dimensions and s.view in ('Frontal','Isométrica'):
+        if s.result and s.reactions:
+            for n in s.model.nodes:
+                reaction=np.array(s.result['reactions'][str(n.id)])
+                norm=np.linalg.norm(reaction)
+                if norm<1e-7:continue
+                start=s.project(n.xyz)
+                end=s.project(np.array(n.xyz)+reaction/norm*s.span*.09)
+                p.setPen(QPen(QColor('#8457bb'),2.5));p.drawLine(start,end)
+                d=end-start;length=math.hypot(d.x(),d.y()) or 1
+                u=QPointF(d.x()/length,d.y()/length);v=QPointF(-u.y(),u.x())
+                p.setBrush(QColor('#8457bb'));p.drawPolygon(QPolygonF([end,end-u*10+v*4,end-u*10-v*4]))
+                p.drawText(QRectF(end.x()-65,end.y()-22,135,20),Qt.AlignCenter,f'R = {norm:.3f} kip')
+        if s.result and s.displacement_labels:
+            p.setPen(QColor('#8761a2'));p.setFont(QFont('Segoe UI',8))
+            for n in s.model.nodes:
+                pos=s.project(n.xyz)
+                uz=s.result['displacements'][str(n.id)][2]
+                p.drawText(QRectF(pos.x()+12,pos.y()+28,130,20),f'uz = {uz:+.4f} in')
+        if s.result and s.critical:
+            p.setPen(QColor('#ae741c'));p.setFont(QFont('Segoe UI',9,QFont.Bold))
+            for m in s.model.members:
+                r=next(r for r in s.result['members'] if r['id']==m.id)
+                if r['ratio']>=.95:
+                    mid=s.project((np.array(s.model.node(m.start).xyz)+np.array(s.model.node(m.end).xyz))*.5)
+                    p.drawText(mid+QPointF(8,16),f'! {r["ratio"]:.3f}')
+        if s.dimensions and s.view in ('Frontal','IsomÃ©trica'):
             self.draw_dimensions(p)
         # Triad uses the same XZ convention as the numerical model.
         base = QPointF(43,self.height()-46)
@@ -89,12 +116,12 @@ class Overlay(QWidget):
         p.setPen(QPen(QColor('#547c9f'),2))
         p.drawLine(bx,by,bx+30,by)
         p.setPen(QColor('#62758e'))
-        p.drawText(bx+40,by+4,'Geometría original')
+        p.drawText(bx+40,by+4,'GeometrÃ­a original')
         if s.deformed:
             p.setPen(QPen(QColor('#ef7186'),1.8,Qt.DashLine))
             p.drawLine(bx,by+19,bx+30,by+19)
             p.setPen(QColor('#62758e'))
-            p.drawText(bx+40,by+23,f'Deformada ×{s.deform_scale:g}')
+            p.drawText(bx+40,by+23,f'Deformada Ã—{s.deform_scale:g}')
         p.end()
 
     def draw_dimensions(self,p):
@@ -130,13 +157,21 @@ class ModelScene(QWidget):
         self.dimensions=True
         self.deformed=True
         self.stress_colors=False
+        self.result_quantity='stress'
+        self.loads=True
+        self.reactions=False
+        self.displacement_labels=False
+        self.critical=False
+        self.section_scale=1.5
         self.deform_scale=12.
-        self.view='Isométrica'
+        self.view='IsomÃ©trica'
         self.center=np.array([360.,0.,180.])
         self.span=720.
         layout=QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
-        self.plotter=QtInteractor(self, auto_update=10)
+        # Static geometry needs no perpetual render loop; camera interactions
+        # and explicit model changes render on demand. Overlay has its own timer.
+        self.plotter=QtInteractor(self, auto_update=False)
         layout.addWidget(self.plotter.interactor)
         self.plotter.set_background('#e8f0f7', top='#f8fbff')
         self.plotter.enable_parallel_projection()
@@ -197,39 +232,41 @@ class ModelScene(QWidget):
         self.plotter.set_background('#e8f0f7',top='#f8fbff')
         radius=self.span*.0055
         forces={r['id']:r for r in result['members']} if result else {}
+        quantity=self.result_quantity
+        maxvalue=max((abs(r.get(quantity,r['stress'])) for r in forces.values()),default=0.)
         for m in model.members:
             a,b=model.node(m.start).xyz,model.node(m.end).xyz
             color='#5f92bc'
             if self.stress_colors and m.id in forces:
-                color='#ed7788' if forces[m.id]['force']<0 else '#3a91ef'
-            if self.selected==('member',m.id):color='#2385ec'
-            tube=pv.Line(a,b).tube(radius=radius,n_sides=20)
-            self.plotter.add_mesh(tube,color=color,smooth_shading=True,specular=.8,specular_power=45,ambient=.22)
+                color=signed_color(forces[m.id].get(quantity,forces[m.id]['stress']),maxvalue)
+            if self.selected==('member',m.id) and not self.stress_colors:color='#2385ec'
+            tube=pv.Line(a,b).tube(radius=section_radius(m.area,self.section_scale),n_sides=20)
+            self.plotter.add_mesh(tube,color=color,smooth_shading=True,specular=.8,specular_power=45,ambient=.22,render=False)
         for n in model.nodes:
             self.plotter.add_mesh(pv.Sphere(radius=radius*2.7,center=n.xyz,theta_resolution=24,phi_resolution=24),
-                                  color='#3786c1' if self.selected!=('node',n.id) else '#ffb13f',smooth_shading=True,specular=.9,specular_power=35,ambient=.18)
+                                  color='#3786c1' if self.selected!=('node',n.id) else '#ffb13f',smooth_shading=True,specular=.9,specular_power=35,ambient=.18,render=False)
             if n.fixed[0] and n.fixed[2]:
                 x,y,z=n.xyz
                 d=self.span*.046
                 support=pv.PolyData(np.array([[x-d,y,z-d*.65],[x-d,y,z+d*.65],[x,y,z]]),faces=[3,0,1,2])
-                self.plotter.add_mesh(support,color='#8397ac',show_edges=True,edge_color='#5e728a',ambient=.6)
+                self.plotter.add_mesh(support,color='#8397ac',show_edges=True,edge_color='#5e728a',ambient=.6,render=False)
                 for i in range(6):
                     z0=z-d*.7+i*d*.28
-                    self.plotter.add_mesh(pv.Line([x-d*1.3,y,z0-d*.2],[x-d,y,z0+d*.1]),color='#687e95',line_width=1)
+                    self.plotter.add_mesh(pv.Line([x-d*1.3,y,z0-d*.2],[x-d,y,z0+d*.1]),color='#687e95',line_width=1,render=False)
         # A reference grid on the XY plane below the structure.
         floor=float(xyz[:,2].min())-self.span*.045
         step=self.span/12
         cx,cy,_=self.center
         for i in range(-12,13):
             c='#dae4ee' if i%3 else '#cddbe8'
-            self.plotter.add_mesh(pv.Line([cx-2*self.span,cy+i*step,floor],[cx+2*self.span,cy+i*step,floor]),color=c,line_width=.6,opacity=.6)
-            self.plotter.add_mesh(pv.Line([cx+i*step,cy-2*self.span,floor],[cx+i*step,cy+2*self.span,floor]),color=c,line_width=.6,opacity=.6)
+            self.plotter.add_mesh(pv.Line([cx-2*self.span,cy+i*step,floor],[cx+2*self.span,cy+i*step,floor]),color=c,line_width=.6,opacity=.6,render=False)
+            self.plotter.add_mesh(pv.Line([cx+i*step,cy-2*self.span,floor],[cx+i*step,cy+2*self.span,floor]),color=c,line_width=.6,opacity=.6,render=False)
         if result and self.deformed:
             for m in model.members:
                 a=np.array(model.node(m.start).xyz)+self.deform_scale*np.array(result['displacements'][str(m.start)])
                 b=np.array(model.node(m.end).xyz)+self.deform_scale*np.array(result['displacements'][str(m.end)])
                 for t in np.arange(0,1,.075):
-                    self.plotter.add_mesh(pv.Line(a+(b-a)*t,a+(b-a)*min(t+.04,1)),color='#ef96a4',line_width=1.5,opacity=.85)
+                    self.plotter.add_mesh(pv.Line(a+(b-a)*t,a+(b-a)*min(t+.04,1)),color='#ef96a4',line_width=1.5,opacity=.85,render=False)
         if camera is None:self.set_view(self.view)
         else:self.plotter.camera_position=camera
         self.plotter.render()

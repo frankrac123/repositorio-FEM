@@ -8,6 +8,8 @@ La barra superior incluye **ABRIR EN SAP2000**. Transfiere el diseño actual, lo
 
 Consulta [la guía de uso y ciclo de vida](docs/SAP2000_VISIBLE.md) y [la validación real](docs/VALIDACION_SAP_VISIBLE.md). Si TrussLab ya estaba abierto, vuelve a iniciarlo para cargar el código actualizado.
 
+La ampliación actual incorpora el panel de resultados SAP, motores FEM/SAP/híbrido y ASAM. Consulta [fundamento y uso](docs/ASAM_Y_MOTORES.md) y [resultados de las etapas 2–4](docs/VALIDACION_FASE3.md). El laboratorio comparativo y las etapas posteriores siguen pendientes.
+
 ## Abrir en este equipo
 
 Abre **TrussLab3D.exe** en esta carpeta. También puedes usar **Abrir_TrussLab.cmd**. El ejecutable es un lanzador local: requiere conservar juntos el código y la carpeta `.venv`. No es un instalador autónomo ni un ejecutable portable.
@@ -26,14 +28,16 @@ Para reconstruir el entorno en otro equipo, instala Python 3.11 de 64 bits y eje
 - Análisis matricial de cerchas planas y espaciales con comprobación de estabilidad.
 - Diagnóstico OAPI, análisis automático y sesiones SAP2000 visibles y persistentes.
 - Actualización mediante copias nuevas, auditoría de datos leídos desde SAP y tabla FEM/SAP con errores, equilibrio y límites.
-- SLSQP local y evolución diferencial con restricciones explícitas y convergencia calculada.
+- ASAM, SLSQP y evolución diferencial con restricciones explícitas, presupuesto y trazabilidad.
+- Motores seleccionables FEM, SAP2000 por candidato e híbrido con K verificaciones externas.
+- Panel de resultados SAP auténticos, amplificación visual y controles de pausa/detención.
 - Guardar/abrir proyectos JSON; exportar CSV, PNG, informe JSON y script Python del modelo.
 
-La opción Python exporta un script; no incluye una consola integrada. ASAM, GA, PSO, pandeo, perfiles comerciales y comprobaciones normativas quedan pendientes. Los optimizadores actuales evalúan candidatos con FEM; SAP2000 verifica el diseño final mediante la acción correspondiente. Todavía no se implementa el bucle de actualización de secciones dentro de una misma instancia SAP durante cada evaluación.
+La opción Python exporta un script; no incluye una consola integrada. La ampliación de etapas 2–4 se describe en [ASAM y motores](docs/ASAM_Y_MOTORES.md). SAP actualiza secciones en una sesión propia persistente durante la optimización. GA/PSO, laboratorio comparativo, pandeo, perfiles comerciales y comprobaciones normativas quedan pendientes.
 
 ## Uso
 
-El proyecto de inicio es `examples/Caso_I_calculado.trusslab.json`: contiene un diseño calculado mediante SLSQP y su historial real. **Nuevo** restaura el Caso I con áreas iniciales de 35 in². **Analizar** permite elegir FEM o SAP2000. **Optimizar** configura el algoritmo, semilla e iteraciones. Un doble clic en una barra de la tabla permite cambiar su área.
+El proyecto de inicio es `examples/Caso_I_calculado.trusslab.json`: contiene un diseño calculado mediante SLSQP y su historial real. **Nuevo** restaura el Caso I con áreas iniciales de 35 in². **Analizar** permite elegir FEM o SAP2000. **Optimizar** configura algoritmo, motor, semilla, iteraciones, presupuesto, grupos y parámetros ASAM. El menú SAP incluye **RESULTADOS ESTRUCTURALES — SAP2000** después de analizar el diseño actual con SAP. Un doble clic en una barra de la tabla permite cambiar su área.
 
 Los cambios del modelo invalidan el historial anterior y recalculan FEM. Si el cambio produce un mecanismo, los resultados se retiran y se informa la inestabilidad; no se añade rigidez artificial. Los campos del panel de propiedades tienen desplazamiento vertical cuando la ventana es pequeña. Los divisores permiten redistribuir el espacio.
 

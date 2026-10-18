@@ -1,0 +1,188 @@
+{
+  "persistent_candidates": [
+    {
+      "area": 35.0,
+      "session_id": "e8df185ba4934ad9b4113f857b536a94",
+      "evaluation": 1,
+      "weight_lb": 14687.636354360402,
+      "passed": true,
+      "fingerprint": "d3a51f80935832f51f04faf9bc96871cdedddb6a67faaf47e02f91db9d656357",
+      "sap_model": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_verification\\persistent\\sap_20261017_215730_6173bf\\TrussLab_CaseI.sdb"
+    },
+    {
+      "area": 30.0,
+      "session_id": "e8df185ba4934ad9b4113f857b536a94",
+      "evaluation": 2,
+      "weight_lb": 12589.402589451769,
+      "passed": true,
+      "fingerprint": "c1bc18ca306ad76a42648a1f248610744455deffbc22483ee552a6dd1824e8fc",
+      "sap_model": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_verification\\persistent\\sap_20261017_215730_6173bf\\TrussLab_CaseI.sdb"
+    },
+    {
+      "area": 25.0,
+      "session_id": "e8df185ba4934ad9b4113f857b536a94",
+      "evaluation": 3,
+      "weight_lb": 10491.168824543143,
+      "passed": true,
+      "fingerprint": "b9f054031d3c4d82394a6ed54097d44a716a494f3a982a0526547750cfb8bf8a",
+      "sap_model": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_verification\\persistent\\sap_20261017_215730_6173bf\\TrussLab_CaseI.sdb"
+    }
+  ],
+  "closed_owned_session": true,
+  "sap_optimization": {
+    "method": "SLSQP",
+    "engine_mode": "SAP",
+    "seed": 42,
+    "evaluations": 4,
+    "fem_evaluations": 0,
+    "sap_evaluations": 4,
+    "max_evaluations": 4,
+    "initial_weight_lb": 14687.636354360402,
+    "elapsed_seconds": 158.67200000000048,
+    "feasible_evaluations": 4,
+    "global_optimum_proven": false,
+    "design_space": {
+      "type": "size",
+      "groups": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ],
+        [
+          9
+        ],
+        [
+          10
+        ]
+      ],
+      "fixed_member_ids": [],
+      "lower": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "upper": [
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0
+      ]
+    },
+    "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_verification\\optimization_20261017_215914_d4eaf8",
+    "asam": null,
+    "converged": false,
+    "message": "max_evaluations",
+    "iterations": 0
+  },
+  "hybrid_optimization": {
+    "method": "SLSQP",
+    "engine_mode": "HYBRID",
+    "seed": 42,
+    "evaluations": 36,
+    "fem_evaluations": 33,
+    "sap_evaluations": 3,
+    "max_evaluations": 60,
+    "initial_weight_lb": 14687.636354360402,
+    "elapsed_seconds": 165.10999999999876,
+    "feasible_evaluations": 36,
+    "global_optimum_proven": false,
+    "design_space": {
+      "type": "size",
+      "groups": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ],
+        [
+          9
+        ],
+        [
+          10
+        ]
+      ],
+      "fixed_member_ids": [],
+      "lower": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "upper": [
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0
+      ]
+    },
+    "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_verification\\optimization_20261017_220155_cc6342",
+    "asam": null,
+    "converged": false,
+    "message": "Iteration limit reached",
+    "iterations": 2
+  }
+}

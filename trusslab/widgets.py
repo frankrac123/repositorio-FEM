@@ -36,53 +36,54 @@ class Panel(QFrame):
 
 class Convergence(QFrame):
     def __init__(self):
-        super().__init__()
-        self.history=[]
-        self.setMinimumHeight(145)
-        self.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Expanding)
+        super().__init__();self.history=[];self.setMouseTracking(True)
+        self.setMinimumHeight(145);self.setSizePolicy(QSizePolicy.Expanding,QSizePolicy.Expanding)
+
+    def mouseMoveEvent(self,event):
+        if not self.history:return
+        ratio=max(0.,min(1.,(event.position().x()-48)/max(self.width()-63,1)))
+        target=ratio*max(h.get('evaluations',i+1) for i,h in enumerate(self.history))
+        h=min(self.history,key=lambda h:abs(h.get('evaluations',0)-target))
+        best=h.get('best_feasible_lb');best='ninguno' if best is None else f'{best:,.3f} lb'
+        self.setToolTip(f'Evaluación {h.get("evaluations",0)} · {h.get("backend","FEM")}\nCandidato: {h["weight_lb"]:,.3f} lb · '+('factible' if h['feasible'] else 'INFACTIBLE')+f'\nMejor factible acumulado: {best}')
+        super().mouseMoveEvent(event)
 
     def paintEvent(self,event):
-        p=QPainter(self)
-        p.setRenderHint(QPainter.Antialiasing)
-        r=QRectF(48,30,max(self.width()-63,10),max(self.height()-69,10))
-        p.setFont(QFont('Segoe UI',8))
+        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing);p.setFont(QFont('Segoe UI',8))
+        r=QRectF(48,32,max(self.width()-63,10),max(self.height()-71,10))
         weights=[h['weight_lb'] for h in self.history]
-        ymax=max(weights or [15000])*1.04
-        ymin=min(weights or [5000])*.93
-        if abs(ymax-ymin)<1:ymax=ymin+1
+        bests=[h['best_feasible_lb'] for h in self.history if h.get('best_feasible_lb') is not None]
+        ymax=max(weights+bests or [15000])*1.04;ymin=min(weights+bests or [5000])*.93
+        if ymax-ymin<1:ymax=ymin+1
+        xmax=max([h.get('evaluations',i+1) for i,h in enumerate(self.history)] or [1])
         for i in range(6):
-            y=r.top()+r.height()*i/5
-            p.setPen(QPen(QColor('#e0e8f0'),.8,Qt.DotLine))
-            p.drawLine(QPointF(r.left(),y),QPointF(r.right(),y))
-            p.setPen(QColor('#6b7c94'))
-            p.drawText(QRectF(0,y-9,41,18),Qt.AlignRight|Qt.AlignVCenter,f'{(ymax-(ymax-ymin)*i/5)/1000:.1f}')
-        for i in range(6):
-            x=r.left()+r.width()*i/5
-            p.setPen(QPen(QColor('#e0e8f0'),.8,Qt.DotLine));p.drawLine(QPointF(x,r.top()),QPointF(x,r.bottom()))
-            p.setPen(QColor('#6b7c94'));p.drawText(QRectF(x-16,r.bottom()+6,32,18),Qt.AlignCenter,str(round(max(len(weights)-1,1)*i/5)))
+            y=r.top()+r.height()*i/5;x=r.left()+r.width()*i/5
+            p.setPen(QPen(QColor('#e0e8f0'),.8,Qt.DotLine));p.drawLine(QPointF(r.left(),y),QPointF(r.right(),y));p.drawLine(QPointF(x,r.top()),QPointF(x,r.bottom()))
+            p.setPen(QColor('#6b7c94'));p.drawText(QRectF(0,y-9,41,18),Qt.AlignRight|Qt.AlignVCenter,f'{(ymax-(ymax-ymin)*i/5)/1000:.1f}')
+            p.drawText(QRectF(x-22,r.bottom()+6,44,18),Qt.AlignCenter,str(round(xmax*i/5)))
         p.setPen(QPen(QColor('#9caec2'),1));p.drawLine(r.bottomLeft(),r.bottomRight());p.drawLine(r.bottomLeft(),r.topLeft())
-        p.setPen(QColor('#536a86'))
-        p.drawText(QRectF(r.left(),self.height()-19,r.width(),17),Qt.AlignCenter,'Iteración')
+        p.setPen(QColor('#536a86'));p.drawText(QRectF(r.left(),self.height()-19,r.width(),17),Qt.AlignCenter,'Evaluaciones estructurales')
         p.save();p.translate(12,r.center().y());p.rotate(-90);p.drawText(QRectF(-60,-10,120,18),Qt.AlignCenter,'Peso (×1,000 lb)');p.restore()
+        def point(h,w):return QPointF(r.left()+h.get('evaluations',0)/xmax*r.width(),r.bottom()-(w-ymin)/(ymax-ymin)*r.height())
         if weights:
-            def point(i,w):return QPointF(r.left()+i/max(len(weights)-1,1)*r.width(),r.bottom()-(w-ymin)/(ymax-ymin)*r.height())
-            path=QPainterPath(point(0,weights[0]))
-            for i,w in enumerate(weights[1:],1):path.lineTo(point(i,w))
-            area=QPainterPath(path);area.lineTo(r.bottomRight());area.lineTo(r.bottomLeft());area.closeSubpath()
-            grad=QLinearGradient(r.topLeft(),r.bottomLeft());grad.setColorAt(0,QColor(50,133,246,45));grad.setColorAt(1,QColor(50,133,246,0))
-            p.fillPath(area,grad)
-            p.setPen(QPen(QColor('#2c86f6'),2));p.drawPath(path)
-            p.setBrush(QColor('#2c86f6'));p.setPen(Qt.NoPen)
-            for i in set([0,len(weights)-1]+list(range(0,len(weights),max(1,len(weights)//14)))):p.drawEllipse(point(i,weights[i]),2.7,2.7)
-            last=self.history[-1].get('best_feasible_lb')
-            if last:
-                y=point(0,last).y()
-                p.setPen(QPen(QColor('#22bd86'),1.5,Qt.DashLine));p.drawLine(QPointF(r.left(),y),QPointF(r.right(),y))
-        else:
-            p.setPen(QColor('#8b9bb0'));p.drawText(r,Qt.AlignCenter,'Ejecuta una optimización\npara ver la convergencia')
-        x=max(self.width()-158,65)
-        p.setPen(QPen(QColor('#2c86f6'),2));p.drawLine(x,10,x+20,10)
-        p.setPen(QColor('#536a86'));p.drawText(x+27,14,'Peso del candidato')
+            p.setPen(QPen(QColor('#a6bbd7'),.7));path=QPainterPath(point(self.history[0],weights[0]))
+            for h in self.history[1:]:path.lineTo(point(h,h['weight_lb']))
+            p.drawPath(path)
+            # Red samples are infeasible; the green curve contains only the best
+            # feasible weight accumulated at each completed structural evaluation.
+            stride=max(1,len(self.history)//450)
+            for h in self.history[::stride]+self.history[-1:]:
+                p.setBrush(QColor('#2c86f6' if h['feasible'] else '#e47385'));p.setPen(Qt.NoPen);p.drawEllipse(point(h,h['weight_lb']),1.8,1.8)
+            bestpath=None
+            for h in self.history:
+                best=h.get('best_feasible_lb')
+                if best is None:continue
+                pt=point(h,best)
+                if bestpath is None:bestpath=QPainterPath(pt)
+                else:bestpath.lineTo(pt)
+            if bestpath is not None:p.setPen(QPen(QColor('#17ad76'),2));p.drawPath(bestpath)
+        else:p.setPen(QColor('#8b9bb0'));p.drawText(r,Qt.AlignCenter,'Ejecuta una optimización\npara ver la convergencia')
+        p.setPen(QColor('#536a86'));p.drawText(48,13,'Azul: factible · Rojo: infactible');p.setPen(QColor('#159d6e'));p.drawText(48,27,'Verde: mejor factible acumulado')
         p.end()
 
 

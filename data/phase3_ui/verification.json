@@ -1,0 +1,95 @@
+{
+  "ticks": 32,
+  "done": true,
+  "paused_count": 173,
+  "stable": true,
+  "result": {
+    "method": "ASAM",
+    "engine_mode": "FEM",
+    "seed": 42,
+    "evaluations": 310,
+    "fem_evaluations": 310,
+    "sap_evaluations": 0,
+    "max_evaluations": 100000,
+    "initial_weight_lb": 14687.636354360402,
+    "elapsed_seconds": 7.563000000000102,
+    "feasible_evaluations": 84,
+    "global_optimum_proven": false,
+    "design_space": {
+      "type": "size",
+      "groups": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ],
+        [
+          9
+        ],
+        [
+          10
+        ]
+      ],
+      "fixed_member_ids": [],
+      "lower": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "upper": [
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0
+      ]
+    },
+    "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\phase3_ui\\optimization_20261017_221642_fb55c1",
+    "asam": {
+      "temperature_initial": 0.05,
+      "temperature_final": 1e-06,
+      "cooling": 0.96,
+      "initial_points": 20,
+      "radius_initial": 17.45,
+      "radius_reduction": 0.96,
+      "proposals_per_temperature": 50,
+      "convergence_tolerance": 0.0,
+      "convergence_patience": 30
+    },
+    "converged": false,
+    "message": "cancelled",
+    "iterations": 6
+  },
+  "feasible": true
+}

@@ -329,7 +329,8 @@ class MainWindow(QMainWindow):
             self.summary_symbol.setText('✓' if feasible else '!')
             self.summary_symbol.setStyleSheet(f'color:white; background:{"#25b982" if feasible else "#e76b80"};border-radius:15px;font-size:22px;')
             sub=f'{opt["method"]} · {opt["iterations"]} iteraciones' if opt else 'Análisis lineal completado'
-            if opt and not opt['converged']:sub+=' · límite alcanzado'
+            if opt and not opt['converged']:sub+=' · '+str(opt.get('message','límite alcanzado'))
+            if r.get('external_validation')=='pending':sub+=' · pendiente de SAP2000'
             self.summary_subtitle.setText(sub)
             self.metric_weight.value.setText(f'{r["weight_lb"]:,.1f}')
             if opt:
@@ -477,12 +478,17 @@ class MainWindow(QMainWindow):
         self.job.start()
 
     def finish_job(self):
+        if getattr(self,"optimization_progress",None):
+            self.optimization_progress.finish();self.optimization_progress=None
+        if getattr(self,'show_progress_button',None):
+            self.statusBar().removeWidget(self.show_progress_button);self.show_progress_button.deleteLater();self.show_progress_button=None
         job=self.job;self.job=None
         if job:job.deleteLater()
         self.analyze_button.setEnabled(True);self.optimize_button.setEnabled(True);self.properties.setEnabled(True);self.explorer.setEnabled(True)
         self.open_sap_button.setEnabled(True);self.sap_button.setEnabled(True)
 
     def job_progress(self,item):
+        if getattr(self,"optimization_progress",None):self.optimization_progress.update_progress(item)
         if isinstance(item,str):self.statusBar().showMessage(item)
         else:
             self.history.append(item);self.chart.history=self.history;self.chart.update()
@@ -552,6 +558,7 @@ class MainWindow(QMainWindow):
         menu.addAction('Diagnóstico de conexión',self.diagnose_sap)
         menu.addAction('Análisis automático en segundo plano',self.run_sap)
         menu.addAction('Ver comparación numérica',self.show_comparison)
+        menu.addAction('RESULTADOS ESTRUCTURALES — SAP2000',self.show_sap_results)
         menu.addAction('Cómo consultar vistas y resultados en SAP2000',self.show_sap_views)
         menu.exec(self.sap_button.mapToGlobal(self.sap_button.rect().bottomLeft()))
 
@@ -604,29 +611,35 @@ class MainWindow(QMainWindow):
         from .sap import MANUAL_VIEWS
         self.show_text('Vistas y resultados en SAP2000','SAP2000 queda visible con la geometría ajustada a la ventana.\nLa OAPI instalada permite refrescar y ajustar el zoom; las capas y vistas de resultados se activan manualmente:\n\n'+'\n\n'.join(MANUAL_VIEWS))
 
+    def show_sap_results(self):
+        result=self.result if self.result and self.result.get('engine','').startswith('SAP2000') else self.last_sap_result
+        if not result or result.get('model_fingerprint')!=self.model.fingerprint():
+            self.error('Analiza o abre el diseño actual en SAP2000 antes de consultar sus resultados estructurales.');return
+        from .results_ui import StructuralResultsDialog
+        dialog=StructuralResultsDialog(self.model,result,self);dialog.exec()
+
     def optimize_dialog(self):
         if self.job:return
-        d=QDialog(self);d.setWindowTitle('Optimización de áreas');d.setMinimumWidth(440)
-        l=QVBoxLayout(d);l.addWidget(label('Minimizar peso con restricciones explícitas','panelTitle'))
-        note=label('Cada candidato se calcula con FEM. El diseño final puede\ncomprobarse después con SAP2000.','muted');note.setWordWrap(True);l.addWidget(note)
-        f=QFormLayout();l.addLayout(f)
-        method=QComboBox();method.addItem('SLSQP · optimización local','SLSQP');method.addItem('DE · evolución diferencial','DE');f.addRow('Algoritmo',method)
-        iterations=QSpinBox();iterations.setRange(1,10000);iterations.setValue(250);f.addRow('Máximo de iteraciones',iterations)
-        seed=QSpinBox();seed.setRange(0,2147483647);seed.setValue(42);f.addRow('Semilla aleatoria',seed)
-        f.addRow('Áreas',label(f'{self.model.area_min:g} – {self.model.area_max:g} in²'))
-        f.addRow('Esfuerzo admisible',label(f'±{self.model.stress_limit:g} ksi'))
-        f.addRow('Desplazamiento admisible',label(f'±{self.model.displacement_limit:g} in por componente'))
-        l.addWidget(label('ASAM, GA y PSO: pendientes de implementación y validación.','muted'))
-        box=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);box.button(QDialogButtonBox.Ok).setText('Iniciar optimización');box.accepted.connect(d.accept);box.rejected.connect(d.reject);l.addWidget(box)
-        if d.exec():
-            from .optimization import optimize
-            snapshot=self.model.clone();self.history=[];self.chart.history=[];self.chart.update()
-            algo,maxiter,rng=method.currentData(),iterations.value(),seed.value()
-            self.chart_note.setText(f'{algo} · FEM · semilla {rng}')
-            def done(data):
-                self.model,self.result,self.history=data;self.dirty=True;self.refresh()
-                self.statusBar().showMessage('Optimización terminada · mejor diseño factible calculado')
-            self.start_job(lambda job:optimize(snapshot,algo,maxiter,rng,progress=job.progress.emit,cancelled=job.isInterruptionRequested),done)
+        from .optimization_ui import OptimizationDialog,OptimizationProgress
+        from .optimization import optimize,RunControl
+        d=OptimizationDialog(self.model,self)
+        if not d.exec():return
+        config=d.configuration();snapshot=self.model.clone()
+        self.history=[];self.chart.history=[];self.chart.update()
+        self.chart_note.setText(f'{config["method"]} · {config["engine"]} · semilla {config["seed"]}')
+        self.optimization_control=RunControl()
+        self.optimization_progress=OptimizationProgress(self.optimization_control,config['max_evaluations'],self)
+        self.show_progress_button=button('Ver ejecución')
+        self.show_progress_button.clicked.connect(lambda:self.optimization_progress.show())
+        self.statusBar().addPermanentWidget(self.show_progress_button)
+        self.optimization_progress.show()
+        def done(data):
+            self.model,self.result,self.history=data;self.dirty=True;self.refresh()
+            metadata=self.result['optimization']
+            self.statusBar().showMessage(f'Búsqueda terminada: {metadata["message"]} · {metadata["evaluations"]} evaluaciones · {self.result["external_validation"]}')
+        self.start_job(lambda job:optimize(snapshot,progress=job.progress.emit,
+            cancelled=job.isInterruptionRequested,control=self.optimization_control,
+            output_dir=ROOT/'data',**config),done)
 
     def confirm_unsaved(self):
         if not self.dirty:return True

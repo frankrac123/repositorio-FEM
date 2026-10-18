@@ -21,14 +21,15 @@ history=list(h1)
 best=min(x['best_feasible_lb'] for x in h1 if x['best_feasible_lb'] is not None)
 for row in h2:
     row=dict(row)
-    row['iteration']=len(history)
+    row['iteration']+=r1['optimization']['iterations']
     row['evaluations']+=h1[-1]['evaluations']
     best=min(best,row['best_feasible_lb'] if row['best_feasible_lb'] is not None else best)
     row['best_feasible_lb']=best
     history.append(row)
 result['optimization']['initial_weight_lb']=original.weight()
-result['optimization']['iterations']=len(history)-1
+result['optimization']['iterations']=r1['optimization']['iterations']+r2['optimization']['iterations']
 result['optimization']['evaluations']=history[-1]['evaluations']
+result['optimization']['fem_evaluations']=r1['optimization']['fem_evaluations']+r2['optimization']['fem_evaluations']
 result['optimization']['starts']='Uniform 35 in², then first result with A3 = 1 in²'
 root.joinpath('examples').mkdir(exist_ok=True)
 save_project(root/'examples'/'Caso_I_calculado.trusslab.json',chosen,result,history)
