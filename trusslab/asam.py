@@ -47,24 +47,34 @@ def reflect_into_bounds(x,lower,upper):
 
 
 def violation(result):
+    if result.get('analysis_status')=='failed':return float('inf')
+    if result.get('constraint_violation') is not None:return result['constraint_violation']
     return float(sum(max(0.,r['ratio']-1.-1e-6)**2 for r in result['members'])
                  +max(0.,result['displacement_ratio']-1.-1e-6)**2)
 
 
-def quality(result,weight_scale):
+def quality(result,weight_scale,policy='feasible_first',penalty_coefficient=100.):
+    if result.get('analysis_status')=='failed':return (2,float('inf'),result['weight_lb']/weight_scale)
+    if policy=='penalty':return (0,result['weight_lb']/weight_scale+penalty_coefficient*violation(result),result['weight_lb']/weight_scale)
     return (0 if result['feasible'] else 1,
             result['weight_lb']/weight_scale if result['feasible'] else violation(result),
             result['weight_lb']/weight_scale)
 
 
-def run_asam(evaluate,lower,upper,options,iterations,seed,weight_scale,checkpoint=lambda:None):
+def run_asam(evaluate,lower,upper,options,iterations,seed,weight_scale,checkpoint=lambda:None,*,
+             initial_population=None,constraint_policy='feasible_first',penalty_coefficient=100.):
+    if constraint_policy not in ('feasible_first','penalty') or penalty_coefficient<=0:raise ValueError('Política de restricciones ASAM inválida.')
     options.validate();rng=np.random.default_rng(seed)
+    generated=preliminary_points(rng,options.initial_points,lower,upper)
+    points=generated if initial_population is None else np.asarray(initial_population)
+    if points.shape!=generated.shape or not np.isfinite(points).all() or np.any(points<lower) or np.any(points>upper):raise ValueError('Exploración preliminar ASAM inválida.')
+    score=lambda r:quality(r,weight_scale,constraint_policy,penalty_coefficient)
     current=None;current_r=None
-    for x in preliminary_points(rng,options.initial_points,lower,upper):
+    for x in points:
         checkpoint();r=evaluate(x,{'phase':'preliminary','iteration':0})
-        if current_r is None or quality(r,weight_scale)<quality(current_r,weight_scale):current,current_r=x.copy(),r
+        if current_r is None or score(r)<score(current_r):current,current_r=x.copy(),r
     temperature=options.temperature_initial;radius=options.radius_initial
-    best_score=quality(current_r,weight_scale);stagnant=0
+    best_score=score(current_r);stagnant=0
     for iteration in range(1,iterations+1):
         if temperature<=options.temperature_final:return {'converged':True,'message':'temperature_final','iterations':iteration-1,'options':asdict(options)}
         previous=best_score
@@ -72,9 +82,10 @@ def run_asam(evaluate,lower,upper,options,iterations,seed,weight_scale,checkpoin
             checkpoint()
             x=reflect_into_bounds(current+rng.uniform(-radius,radius,len(current)),lower,upper)
             r=evaluate(x,{'phase':'search','iteration':iteration,'temperature':temperature,'radius':radius})
-            q,old=quality(r,weight_scale),quality(current_r,weight_scale)
+            q,old=score(r),score(current_r)
             if q[0]<old[0]:accept=True
             elif q[0]>old[0]:accept=False  # Never leave a feasible state for an infeasible one.
+            elif not math.isfinite(q[1]):accept=False
             else:
                 delta=q[1]-old[1]
                 if delta==0:delta=q[2]-old[2]

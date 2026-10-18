@@ -9,7 +9,7 @@ from PySide6.QtGui import QAction, QFont, QKeySequence, QColor
 from PySide6.QtWidgets import (QApplication,QMainWindow,QWidget,QFrame,QLabel,QPushButton,QVBoxLayout,QHBoxLayout,
     QTreeWidget,QTreeWidgetItem,QTableWidget,QTableWidgetItem,QHeaderView,QSplitter,QComboBox,QDoubleSpinBox,
     QFormLayout,QScrollArea,QCheckBox,QLineEdit,QFileDialog,QMessageBox,QDialog,QDialogButtonBox,QSpinBox,QMenu,
-    QInputDialog,QPlainTextEdit,QProgressBar,QAbstractItemView)
+    QInputDialog,QPlainTextEdit,QProgressBar,QAbstractItemView,QTabWidget)
 from .core import benchmark,Node,Member,save_project,load_project
 from .fem import solve
 from .scene import ModelScene
@@ -58,8 +58,9 @@ class MainWindow(QMainWindow):
         root=QWidget();root.setObjectName('root');self.setCentralWidget(root)
         main=QVBoxLayout(root);main.setContentsMargins(0,0,0,0);main.setSpacing(0)
         main.addWidget(self.make_toolbar())
-        body=QHBoxLayout();body.setContentsMargins(10,9,10,8);body.setSpacing(8)
-        main.addLayout(body,1)
+        self.main_tabs=QTabWidget();main.addWidget(self.main_tabs,1)
+        model_page=QWidget();body=QHBoxLayout(model_page);body.setContentsMargins(10,9,10,8);body.setSpacing(8)
+        self.main_tabs.addTab(model_page,'Modelado y análisis')
         self.explorer=self.make_explorer()
         self.explorer.setMinimumWidth(225);self.explorer.setMaximumWidth(290)
         self.properties=self.make_properties();self.properties.setMinimumWidth(277);self.properties.setMaximumWidth(345)
@@ -90,6 +91,8 @@ class MainWindow(QMainWindow):
         self.statusBar().addPermanentWidget(self.status_units)
         self.setup_shortcuts()
         self.refresh(reset=True)
+        from .lab_ui import LaboratoryTab
+        self.laboratory=LaboratoryTab(self);self.main_tabs.addTab(self.laboratory,'LABORATORIO DE OPTIMIZACIÓN')
         QTimer.singleShot(500,self.scene.fit)
 
     def make_toolbar(self):
@@ -718,7 +721,7 @@ class MainWindow(QMainWindow):
         QMessageBox.warning(self,'TrussLab 3D',message)
 
     def closeEvent(self,event):
-        if self.job:
+        if self.job or (hasattr(self,'laboratory') and self.laboratory.running):
             self.error('Hay una operación en curso. Espera a que termine antes de cerrar.');event.ignore();return
         if not self.confirm_unsaved():event.ignore();return
         if not self.sap_sessions.shutdown():

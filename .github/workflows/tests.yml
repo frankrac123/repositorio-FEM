@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install numerical test dependencies
-        run: python -m pip install numpy==2.4.6 scipy==1.17.1 pytest==9.1.1
+        run: python -m pip install numpy==2.4.6 scipy==1.17.1 pytest==9.1.1 matplotlib==3.11.2 reportlab==5.0.1 openpyxl==3.1.5 pypdf==6.21.1
       - name: Run tests without opening SAP2000
         run: python -m pytest -q --junitxml=test-results.xml
       - name: Preserve test results

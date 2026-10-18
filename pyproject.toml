@@ -12,6 +12,9 @@ dependencies = ["numpy>=2.0", "scipy>=1.15", "PySide6>=6.8", "pyvista>=0.46", "p
 [project.scripts]
 trusslab = "trusslab.ui:main"
 
+[project.optional-dependencies]
+research = ["matplotlib>=3.9", "reportlab>=4", "openpyxl>=3.1", "pypdf>=6"]
+
 [tool.setuptools.packages.find]
 include = ["trusslab*"]
 
