@@ -4,6 +4,8 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QDialog,QVBoxLayout,QFormLayout,QComboBox,QSpinBox,QDoubleSpinBox,
     QLabel,QDialogButtonBox,QGroupBox,QProgressBar,QHBoxLayout,QPushButton,QLineEdit,QMessageBox)
 from .asam import ASAMOptions
+from .editor_properties import NumberEdit
+from .analysis import design_cases
 
 
 class OptimizationDialog(QDialog):
@@ -23,6 +25,7 @@ class OptimizationDialog(QDialog):
         self.topk=self.integer(1,1000,3);form.addRow('Diseños a verificar en híbrido',self.topk)
         self.active=QLineEdit();self.active.setPlaceholderText('Vacío = todas; ejemplo: 1,2,5');form.addRow('Barras optimizables (ID)',self.active)
         self.groups=QLineEdit();self.groups.setPlaceholderText('Ejemplo: 1,2;3,4 · resto individuales');form.addRow('Grupos de área compartida',self.groups)
+        form.addRow('Casos verificados',QLabel(', '.join(design_cases(model))))
         form.addRow('Límites del modelo',QLabel(f'A: {model.area_min:g}–{model.area_max:g} in² · σ: ±{model.stress_limit:g} ksi · u: ±{model.displacement_limit:g} in'))
         self.asam=QGroupBox('ASAM · parámetros científicos');af=QFormLayout(self.asam);layout.addWidget(self.asam)
         labels={'temperature_initial':'Temperatura inicial (energía normalizada)','temperature_final':'Temperatura final',
@@ -35,9 +38,9 @@ class OptimizationDialog(QDialog):
             value=getattr(defaults,field.name)
             if isinstance(value,int):control=self.integer(1,1000000,value)
             else:
-                control=QDoubleSpinBox();control.setDecimals(9);control.setRange(0.,100000.);control.setValue(value)
+                control=NumberEdit(value,0.,100000.,9)
             self.parameters[field.name]=control;af.addRow(labels[field.name],control)
-        note=QLabel('ASAM: exploración uniforme, radio decreciente y aceptación logística.\nEl motor SAP usa una sesión propia; no cambia al FEM si falla. GA/PSO y el laboratorio comparativo corresponden a etapas posteriores.');note.setWordWrap(True);layout.addWidget(note)
+        note=QLabel('ASAM: exploración uniforme, radio decreciente y aceptación logística.\nEl motor SAP usa una sesión propia; no cambia al FEM si falla. Los grupos y los casos marcados en Cargas se toman del modelo actual.');note.setWordWrap(True);layout.addWidget(note)
         buttons=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);buttons.button(QDialogButtonBox.Ok).setText('Iniciar búsqueda');buttons.accepted.connect(self.validate);buttons.rejected.connect(self.reject);layout.addWidget(buttons)
         self.method.currentIndexChanged.connect(self.refresh);self.engine.currentIndexChanged.connect(self.refresh);self.refresh()
 

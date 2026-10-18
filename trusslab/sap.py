@@ -13,6 +13,8 @@ import queue
 from concurrent.futures import Future
 from .fem import solve, compare
 from .core import save_project
+from .sap_mapping import transfer_definition,pattern_forces,active_dof
+from .analysis import design_cases,combine_cases
 from .validation import validation_report, write_comparison_csv
 
 _lock = threading.Lock()
@@ -58,28 +60,33 @@ def diagnose():
 
 
 def audit_model(s,model,points,frames,call):
-    """Read back the actual SAP inputs, independently of the write requests."""
+    """Read back geometry, per-member properties, every pattern and case."""
+    mapping,materials,patterns,cases=transfer_definition(model)
     issues=[]
     def require(ok,message):
         if not ok:issues.append(message)
     pn=call('PointObj.GetNameList',s.PointObj.GetNameList,0,[])
     fn=call('FrameObj.GetNameList',s.FrameObj.GetNameList,0,[])
-    require(pn[0]==len(model.nodes) and set(pn[1])==set(points.values()),'Número o nombres de nodos incorrectos.')
-    require(fn[0]==len(model.members) and set(fn[1])==set(frames.values()),'Número o nombres de barras incorrectos.')
-    nodes=[];members=[]
+    require(pn[0]==len(model.nodes) and set(pn[1])==set(points.values()),'Número/nombres de nodos.')
+    require(fn[0]==len(model.members) and set(fn[1])==set(frames.values()),'Número/nombres de barras.')
+    expected={p.id:pattern_forces(model,p.id) for p in patterns}
+    nodes=[];members=[];material_rows=[];pattern_rows=[];case_rows=[]
     for n in model.nodes:
         xyz=call('PointObj.GetCoordCartesian',s.PointObj.GetCoordCartesian,points[n.id],0.,0.,0.)
         restraint=call('PointObj.GetRestraint',s.PointObj.GetRestraint,points[n.id],[])[0]
         require(all(abs(x-y)<1e-8 for x,y in zip(xyz[:3],n.xyz)),f'Coordenadas N{n.id}.')
-        require(list(restraint)==list(n.fixed)+[True]*3,f'Apoyos N{n.id}.')
+        require(list(restraint)==model.restraints(n)+[True]*3,f'Apoyos N{n.id}.')
         r=call('PointObj.GetLoadForce',s.PointObj.GetLoadForce,points[n.id],0,*([[]]*10))
-        values=[0.]*6
-        for i in range(r[0]):
-            if r[2][i]=='CASE_I':
-                require(str(r[4][i]).casefold()=='global',f'Sistema de cargas N{n.id}: {r[4][i]}.')
-                for d in range(6):values[d]+=float(r[5+d][i])
-        require(all(abs(a-b)<1e-9 for a,b in zip(values,list(n.load)+[0.]*3)),f'Cargas N{n.id}.')
-        nodes.append({'id':n.id,'sap_name':points[n.id],'xyz':list(xyz[:3]),'restraints':list(restraint),'loads':values,'load_coordinate_systems':list(r[4])})
+        loads={}
+        for pattern in patterns:
+            values=[0.]*6
+            for i in range(r[0]):
+                if r[2][i]==mapping['patterns'][pattern.id]:
+                    require(str(r[4][i]).casefold()=='global',f'Sistema de cargas N{n.id}.')
+                    for d in range(6):values[d]+=float(r[5+d][i])
+            require(all(abs(a-b)<1e-9 for a,b in zip(values,expected[pattern.id][str(n.id)]+[0.]*3)),f'Cargas N{n.id}/{pattern.id}.')
+            loads[pattern.id]=values
+        nodes.append({'id':n.id,'sap_name':points[n.id],'xyz':list(xyz[:3]),'restraints':list(restraint),'loads_by_pattern':loads})
     for m in model.members:
         ends=call('FrameObj.GetPoints',s.FrameObj.GetPoints,frames[m.id],'','')
         sec=call('FrameObj.GetSection',s.FrameObj.GetSection,frames[m.id],'','')[0]
@@ -89,32 +96,37 @@ def audit_model(s,model,points,frames,call):
         mesh=call('FrameObj.GetAutoMesh',s.FrameObj.GetAutoMesh,frames[m.id],False,False,False,0,0.)
         require(list(ends[:2])==[points[m.start],points[m.end]],f'Conectividad B{m.id}.')
         require(abs(area-m.area)<1e-9*max(1,m.area),f'Área B{m.id}.')
-        require(rectangle[1]=='TL_BENCHMARK',f'Material B{m.id}.')
+        require(rectangle[1]==mapping['materials'][model.member_material(m).id],f'Material B{m.id}.')
         require(list(releases[0])==[False,False,False,True,True,True] and list(releases[1])==[False,False,False,False,True,True],f'Articulaciones B{m.id}.')
         require(not mesh[0],f'Automallado B{m.id}.')
-        members.append({'id':m.id,'sap_name':frames[m.id],'start':ends[0],'end':ends[1],'section':sec,
-                        'material':rectangle[1],'area_in2':float(area),'releases_start':list(releases[0]),'releases_end':list(releases[1])})
-    material=call('PropMaterial.GetMPIsotropic',s.PropMaterial.GetMPIsotropic,'TL_BENCHMARK',0.,0.,0.,0.)
-    weight=call('PropMaterial.GetWeightAndMass',s.PropMaterial.GetWeightAndMass,'TL_BENCHMARK',0.,0.)
-    self_weight=call('LoadPatterns.GetSelfWTMultiplier',s.LoadPatterns.GetSelfWTMultiplier,'CASE_I',0.)[0]
-    dof=list(call('Analyze.GetActiveDOF',s.Analyze.GetActiveDOF,[])[0])
-    planar=all(n.fixed[1] and abs(n.xyz[1])<1e-10 for n in model.nodes)
-    require(abs(material[0]-model.elastic_modulus)<1e-8,'Módulo de elasticidad.')
-    require(abs(weight[0]-model.density/1000.)<1e-12,'Peso específico del material.')
-    require(abs(self_weight)<1e-12,'El peso propio debe estar desactivado.')
-    require(dof==[True,not planar,True,False,False,False],'Grados de libertad globales.')
-    return {'passed':not issues,'issues':issues,'node_count':pn[0],'member_count':fn[0],
-            'nodes':nodes,'members':members,'elastic_modulus_ksi':float(material[0]),
-            'density_kip_in3':float(weight[0]),'self_weight_multiplier':float(self_weight),'active_dof':dof}
+        members.append({'id':m.id,'sap_name':frames[m.id],'start':ends[0],'end':ends[1],'section':sec,'material':rectangle[1],'area_in2':float(area)})
+    for id,mat in materials.items():
+        material=call('PropMaterial.GetMPIsotropic',s.PropMaterial.GetMPIsotropic,mapping['materials'][id],0.,0.,0.,0.)
+        weight=call('PropMaterial.GetWeightAndMass',s.PropMaterial.GetWeightAndMass,mapping['materials'][id],0.,0.)
+        require(abs(material[0]-mat.elastic_modulus)<1e-8,'Módulo de elasticidad '+id)
+        require(abs(weight[0]-mat.density/1000.)<1e-12,'Peso específico '+id)
+        material_rows.append({'id':id,'E_ksi':float(material[0]),'density_kip_in3':float(weight[0])})
+    for pattern in patterns:
+        sw=call('LoadPatterns.GetSelfWTMultiplier',s.LoadPatterns.GetSelfWTMultiplier,mapping['patterns'][pattern.id],0.)[0]
+        require(abs(sw)<1e-12,'Peso propio distribuido inesperado.')
+        pattern_rows.append({'id':pattern.id,'requested_self_weight':pattern.self_weight,'sap_self_weight':float(sw),'policy':'lumped_nodal_axial_truss'})
+    for id,case in cases.items():
+        data=call('LoadCases.StaticLinear.GetLoads',s.LoadCases.StaticLinear.GetLoads,mapping['cases'][id],0,[],[],[])
+        factors={mapping['patterns'][key]:value for key,value in case.factors.items()}
+        require(data[0]==len(factors) and dict(zip(data[2],data[3]))==factors and all(t=='Load' for t in data[1]),'Factores del caso '+id)
+        case_rows.append({'id':id,'factors':dict(zip(data[2],data[3]))})
+    dof=list(call('Analyze.GetActiveDOF',s.Analyze.GetActiveDOF,[])[0]);require(dof==active_dof(model),'Grados de libertad globales.')
+    return {'passed':not issues,'issues':issues,'node_count':pn[0],'member_count':fn[0],'nodes':nodes,'members':members,
+            'materials':material_rows,'patterns':pattern_rows,'cases':case_rows,'active_dof':dof,'mapping':mapping}
 
 
 MANUAL_VIEWS = [
     'View → Set 2D View: plano X-Z, Y = 0; para una cercha espacial usa la vista 3D.',
     'View → Set Display Options: activar Joint Labels, Frame Labels y restricciones.',
-    'Display → Show Object Assigns → Frame: consultar secciones TL_A<ID>.',
-    'Display → Show Load Assigns → Joint: patrón CASE_I para las cargas.',
-    'Display → Show Deformed Shape: caso CASE_I para la deformada y desplazamientos.',
-    'Display → Show Forces/Stresses → Frames/Cables/Tendons: Axial Force, CASE_I.',
+    'Display → Show Object Assigns → Frame: consultar las secciones por barra del proyecto.',
+    'Display → Show Load Assigns → Joint: el patrón del proyecto para las cargas.',
+    'Display → Show Deformed Shape: el caso del proyecto para la deformada y desplazamientos.',
+    'Display → Show Forces/Stresses → Frames/Cables/Tendons: Axial Force, caso del proyecto.',
     'Display → Show Forces/Stresses → Joints: reacciones; clic derecho en nodos/barras para valores.',
 ]
 
@@ -127,7 +139,7 @@ def recover_results(model,s,points,frames,call,metadata):
         if r[0] < 1:
             raise SapError(f'No hay desplazamientos para el nodo {n.id}')
         result['displacements'][str(n.id)] = [float(r[k][0]) for k in (6, 7, 8)]
-        if any(n.fixed):
+        if any(model.restraints(n)):
             r = call('Results.JointReact', s.Results.JointReact, points[n.id], 0, 0, *([[]]*11))
             if r[0] < 1:
                 raise SapError(f'No hay reacciones para el nodo {n.id}')
@@ -146,9 +158,26 @@ def recover_results(model,s,points,frames,call,metadata):
                                   'ratio': abs(stress)/model.stress_limit, 'length': model.length(m)})
     result['stress_ratio'] = max(m['ratio'] for m in result['members'])
     result['displacement_ratio'] = max(abs(result['displacements'][str(n.id)][d])/model.displacement_limit
-                                        for n in model.nodes for d in range(3) if not n.fixed[d])
+                                        for n in model.nodes for d in range(3) if not model.restraints(n)[d])
     result['feasible'] = result['stress_ratio'] <= 1+1e-6 and result['displacement_ratio'] <= 1+1e-6
     result['max_nonaxial_component'] = max_bending
+    return result
+
+
+def recover_cases(model,s,points,frames,call,metadata,mapping):
+    results={}
+    for case in design_cases(model):
+        name=mapping['cases'][case]
+        call('Results.Setup.DeselectAll',s.Results.Setup.DeselectAllCasesAndCombosForOutput)
+        call('Results.Setup.SelectCase',s.Results.Setup.SetCaseSelectedForOutput,name)
+        r=recover_results(model,s,points,frames,call,{**metadata,'analysis_case':case,'sap_analysis_case':name})
+        r['validation']=validation_report(model,solve(model,case=case),r)
+        r['comparison']=r['validation']['comparison'];results[case]=r
+    result=combine_cases(model,results)
+    if len(results)>1:
+        result['validation']={**result['validation'],'cases':{c:r['validation'] for c,r in results.items()},
+            'passed':all(r['validation']['passed'] for r in results.values()),
+            'design_feasible':all(r['validation']['design_feasible'] for r in results.values())}
     return result
 
 
@@ -163,7 +192,9 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None, 
         visible=True
     holder=_session if _session is not None else _batch
     if holder is not None:holder.assert_owner()
-    model.validate()
+    model.validate();solve(model)  # Reject instability before starting COM.
+    mapping,materials,patterns,cases=transfer_definition(model)
+    case_name=mapping['cases'][model.active_case]
     install = find_installation()
     if install is None:
         raise SapError('No se encontró SAP2000.exe. Configura TRUSSLAB_SAP_EXE con la ruta existente.')
@@ -206,42 +237,50 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None, 
             call('InitializeNewModel', s.InitializeNewModel, 3)
             call('File.NewBlank', s.File.NewBlank)
             call('SetPresentUnits', s.SetPresentUnits, 3)
-            # Planar XZ or general spatial truss. Rotations are inactive throughout.
-            planar = all(n.fixed[1] and abs(n.xyz[1]) < 1e-10 for n in model.nodes)
-            call('Analyze.SetActiveDOF', s.Analyze.SetActiveDOF, [True, not planar, True, False, False, False])
-            call('PropMaterial.SetMaterial', s.PropMaterial.SetMaterial, 'TL_BENCHMARK', 1)
-            call('PropMaterial.SetMPIsotropic', s.PropMaterial.SetMPIsotropic, 'TL_BENCHMARK', model.elastic_modulus, .3, 0.)
-            # Density conversion lb/in3 -> kip/in3; no self weight in load patterns.
-            call('PropMaterial.SetWeightAndMass', s.PropMaterial.SetWeightAndMass, 'TL_BENCHMARK', 1, model.density/1000.)
+            call('Analyze.SetActiveDOF',s.Analyze.SetActiveDOF,active_dof(model))
+            for id,material in materials.items():
+                name=mapping['materials'][id]
+                call('PropMaterial.SetMaterial',s.PropMaterial.SetMaterial,name,1)
+                call('PropMaterial.SetMPIsotropic',s.PropMaterial.SetMPIsotropic,name,material.elastic_modulus,.3,0.)
+                call('PropMaterial.SetWeightAndMass',s.PropMaterial.SetWeightAndMass,name,1,material.density/1000.)
             points, frames = {}, {}
             for n in model.nodes:
                 r = call('PointObj.AddCartesian', s.PointObj.AddCartesian, *n.xyz, '', f'N{n.id}')
                 points[n.id] = r[0]
-                call('PointObj.SetRestraint', s.PointObj.SetRestraint, points[n.id], list(n.fixed)+[True, True, True])
+                call('PointObj.SetRestraint', s.PointObj.SetRestraint, points[n.id], model.restraints(n)+[True, True, True])
             for m in model.members:
-                sec = f'TL_A{m.id}'
+                sec = mapping['sections'][m.id]
                 side = m.area**.5
                 # Nonzero section inertia only defines valid section metadata. End
                 # releases plus inactive joint rotations remove flexural action.
-                call('PropFrame.SetRectangle', s.PropFrame.SetRectangle, sec, 'TL_BENCHMARK', side, side)
+                call('PropFrame.SetRectangle', s.PropFrame.SetRectangle, sec, mapping['materials'][model.member_material(m).id], side, side)
                 r = call('FrameObj.AddByPoint', s.FrameObj.AddByPoint, points[m.start], points[m.end], '', sec, f'B{m.id}')
                 frames[m.id] = r[0]
                 # R1 release at one end, R2/R3 at both; avoids double torsion release.
                 call('FrameObj.SetReleases', s.FrameObj.SetReleases, frames[m.id],
                      [False, False, False, True, True, True], [False, False, False, False, True, True], [0.]*6, [0.]*6)
                 call('FrameObj.SetAutoMesh', s.FrameObj.SetAutoMesh, frames[m.id], False, False, False, 1, 0.)
-            call('LoadPatterns.Add', s.LoadPatterns.Add, 'CASE_I', 8, 0., True)
-            for n in model.nodes:
-                if any(n.load):
-                    call('PointObj.SetLoadForce', s.PointObj.SetLoadForce, points[n.id], 'CASE_I', list(n.load)+[0.,0.,0.], True)
-            call('Analyze.SetRunCaseFlag(all off)', s.Analyze.SetRunCaseFlag, '', False, True)
-            call('Analyze.SetRunCaseFlag(CASE_I)', s.Analyze.SetRunCaseFlag, 'CASE_I', True, False)
+            for pattern in patterns:
+                pattern_name=mapping['patterns'][pattern.id]
+                types={'Dead':1,'Live':3,'Wind':6,'Other':8}
+                # Self weight is lumped at joints to keep the axial-only model;
+                # distributed frame gravity would introduce shear and bending.
+                call('LoadPatterns.Add',s.LoadPatterns.Add,pattern_name,types.get(pattern.load_type,8),0.,False)
+                forces=pattern_forces(model,pattern.id)
+                for node in model.nodes:
+                    if any(forces[str(node.id)]):call('PointObj.SetLoadForce',s.PointObj.SetLoadForce,points[node.id],pattern_name,forces[str(node.id)]+[0.]*3,True)
+            for id,case in cases.items():
+                name=mapping['cases'][id]
+                call('LoadCases.StaticLinear.SetCase',s.LoadCases.StaticLinear.SetCase,name)
+                call('LoadCases.StaticLinear.SetLoads',s.LoadCases.StaticLinear.SetLoads,name,len(case.factors),['Load']*len(case.factors),[mapping['patterns'][k] for k in case.factors],list(case.factors.values()))
+            call('Analyze.SetRunCaseFlag(all off)',s.Analyze.SetRunCaseFlag,'',False,True)
+            for name in mapping['cases'].values():call('Analyze.SetRunCaseFlag(case)',s.Analyze.SetRunCaseFlag,name,True,False)
             call('Analyze.SetSolverOption_3', s.Analyze.SetSolverOption_3, 0, 1, 1, 0, 1, '')
             if _session is not None:
                 # Rebuild display object arrays before analysis and reset zoom.
                 if not app.Visible():call('Unhide',app.Unhide)
                 call('View.RefreshView',s.View.RefreshView,0,False)
-            path = run_dir / 'TrussLab_CaseI.sdb'
+            path = run_dir / (mapping['project']+'.sdb')
             call('File.Save', s.File.Save, str(path))
             audit=audit_model(s,model,points,frames,call)
             (run_dir/'input_audit.json').write_text(json.dumps(audit,indent=2),encoding='utf-8')
@@ -251,19 +290,18 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None, 
                 progress('Modelo creado. Ejecutando análisis SAP2000…')
             call('Analyze.RunAnalysis', s.Analyze.RunAnalysis)
             call('Results.Setup.DeselectAll', s.Results.Setup.DeselectAllCasesAndCombosForOutput)
-            call('Results.Setup.SelectCASE_I', s.Results.Setup.SetCaseSelectedForOutput, 'CASE_I')
+            call('Results.Setup.SelectCase',s.Results.Setup.SetCaseSelectedForOutput,case_name)
             result = {'engine': 'SAP2000 ' + str(version[0]), 'timestamp': datetime.now(timezone.utc).isoformat(),
                       'weight_lb': model.weight(), 'members': [], 'displacements': {}, 'reactions': {},
                       'sap_model': str(path), 'version': version, 'run_directory': str(run_dir)}
             result['input_audit']=audit
+            result['sap_mapping']=mapping;result['analysis_case']=model.active_case;result['sap_analysis_case']=case_name;result['model_id']=model.project_id
             result['model_fingerprint']=model.fingerprint()
             result['mode']='visible_persistent' if _session is not None else ('optimization_batch' if _batch is not None else 'automatic')
             if _batch is not None:
-                _batch.points=points;_batch.frames=frames;_batch.version=version;_batch.path=path;_batch.initial_audit=audit
-            result=recover_results(model,s,points,frames,call,result)
-            fem=solve(model)
-            result['validation']=validation_report(model,fem,result)
-            result['comparison']=result['validation']['comparison']
+                _batch.points=points;_batch.frames=frames;_batch.version=version;_batch.path=path;_batch.initial_audit=audit;_batch.mapping=mapping
+                _batch.previous_forces={p.id:pattern_forces(model,p.id) for p in patterns}
+            result=recover_cases(model,s,points,frames,call,result,mapping)
             if _session is not None:
                 # v26 returns 1 for Unhide when it is already visible.
                 if not app.Visible():call('Unhide',app.Unhide)
@@ -275,12 +313,12 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None, 
                 if not result['session']['visible']:
                     raise SapError('SAP2000 no confirmó que la sesión sea visible.')
             # A filename invokes Save As in v26.3 and invalidates analysis even
-            # when that filename is the same. Plain Save retains CASE_I results.
+            # when that filename is the same. Plain Save retains analysis results.
             call('File.Save(results)', s.File.Save)
             case_status=call('Analyze.GetCaseStatus(final)',s.Analyze.GetCaseStatus,0,[],[])
             result['analysis_case_status']={name:int(code) for name,code in zip(case_status[1],case_status[2])}
-            if result['analysis_case_status'].get('CASE_I')!=4:
-                raise SapError('El caso CASE_I no conserva sus resultados en SAP2000 después de guardar. Revisa el registro de operaciones.')
+            if any(result['analysis_case_status'].get(mapping['cases'][case])!=4 for case in design_cases(model)):
+                raise SapError('El el caso del proyecto no conserva sus resultados en SAP2000 después de guardar. Revisa el registro de operaciones.')
             (run_dir / 'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
             (run_dir/'comparison.json').write_text(json.dumps(result['validation'],indent=2),encoding='utf-8')
             write_comparison_csv(run_dir/'comparison.csv',result['comparison'])
@@ -364,26 +402,32 @@ class SapBatchSession(_ManagedSession):
                         return value
                     call('SetModelIsLocked(False)',s.SetModelIsLocked,False)
                     for member in model.members:
-                        side=member.area**.5;section=f'TL_A{member.id}'
-                        call('PropFrame.SetRectangle',s.PropFrame.SetRectangle,section,'TL_BENCHMARK',side,side)
+                        side=member.area**.5;section=self.mapping['sections'][member.id]
+                        call('PropFrame.SetRectangle',s.PropFrame.SetRectangle,section,self.mapping['materials'][model.member_material(member).id],side,side)
                         area=call('PropFrame.GetSectProps',s.PropFrame.GetSectProps,section,*([0.]*12))[0]
                         if abs(area-member.area)>1e-9*max(1.,member.area):raise SapError('SAP no confirmó la nueva área.')
+                    for pattern in transfer_definition(model)[2]:
+                        forces=pattern_forces(model,pattern.id)
+                        for node in model.nodes:
+                            values=forces[str(node.id)]
+                            if any(values):
+                                call('PointObj.SetLoadForce',s.PointObj.SetLoadForce,self.points[node.id],self.mapping['patterns'][pattern.id],values+[0.]*3,True)
+                            elif any(self.previous_forces[pattern.id][str(node.id)]):
+                                call('PointObj.DeleteLoadForce',s.PointObj.DeleteLoadForce,self.points[node.id],self.mapping['patterns'][pattern.id])
+                        self.previous_forces[pattern.id]=forces
                     call('File.Save',s.File.Save)
-                    call('Analyze.RunAnalysis',s.Analyze.RunAnalysis)
+                    call('Analyze.RunAnalysis' ,s.Analyze.RunAnalysis)
                     call('Results.Setup.DeselectAll',s.Results.Setup.DeselectAllCasesAndCombosForOutput)
-                    call('Results.Setup.SelectCASE_I',s.Results.Setup.SetCaseSelectedForOutput,'CASE_I')
-                    result=recover_results(model,s,self.points,self.frames,call,
+                    call('Results.Setup.SelectCase',s.Results.Setup.SetCaseSelectedForOutput,self.mapping['cases'][model.active_case])
+                    result=recover_cases(model,s,self.points,self.frames,call,
                         {'engine':'SAP2000 '+str(self.version[0]),'weight_lb':model.weight(),
-                         'model_fingerprint':model.fingerprint(),'mode':'optimization_batch',
+                         'model_fingerprint':model.fingerprint(),'mode':'optimization_batch','analysis_case':model.active_case,'sap_analysis_case':self.mapping['cases'][model.active_case],'sap_mapping':self.mapping,
                          'sap_model':str(self.path),'run_directory':str(self.run_directory),
-                         'timestamp':datetime.now(timezone.utc).isoformat()})
-                    # Independent FEM is an audit only; never supplies SAP result values.
-                    result['validation']=validation_report(model,solve(model),result)
-                    result['comparison']=result['validation']['comparison']
+                         'timestamp':datetime.now(timezone.utc).isoformat()},self.mapping)
                     call('File.Save(results)',s.File.Save)
                     status=call('Analyze.GetCaseStatus',s.Analyze.GetCaseStatus,0,[],[])
                     result['analysis_case_status']=dict(zip(status[1],status[2]))
-                    if result['analysis_case_status'].get('CASE_I')!=4:raise SapError('CASE_I no está analizado.')
+                    if any(result['analysis_case_status'].get(self.mapping['cases'][case])!=4 for case in design_cases(model)):raise SapError('Un caso seleccionado no está analizado.')
             if not result['validation']['passed']:
                 raise SapError('La evaluación SAP difiere del control independiente FEM o no satisface el equilibrio.')
             self.evaluations+=1

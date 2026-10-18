@@ -5,6 +5,7 @@ import gzip,json,time
 import numpy as np
 from .design_space import DesignSpace
 from .prepared_fem import PreparedTruss
+from .analysis import constraint_margins,design_cases
 from .optimization import RunControl,Cancelled
 
 
@@ -23,7 +24,7 @@ class EvaluationSession:
         by_id={m.id:i for i,m in enumerate(self.model.members)}
         self.indices=[[by_id[id] for id in group] for group in self.space.groups]
         self.original_areas=np.array([m.area for m in self.model.members])
-        self.constraint_count=len(self.model.members)+len(self.prepared.free)
+        self.constraint_count=(len(self.model.members)+len(self.prepared.free))*len(design_cases(self.model))
 
     def close(self):self.stream.close()
     def areas(self,x):
@@ -52,7 +53,7 @@ class EvaluationSession:
                 r=self.prepared.solve(areas);r['external_validation']='pending'
         except (ValueError,np.linalg.LinAlgError) as exc:
             self.failures+=1
-            r={'weight_lb':float(np.dot(areas,self.prepared.lengths)*self.model.density),'analysis_status':'failed',
+            r={'weight_lb':float(np.dot(areas,self.prepared.lengths*self.prepared.densities)),'analysis_status':'failed',
                'feasible':False,'members':[],'error':str(exc),'external_validation':'pending'}
         except Exception:
             # SAP errors are not replaced by FEM or artificial physical values.
@@ -75,7 +76,8 @@ class EvaluationSession:
             'external_validation':r['external_validation'],**(metadata or {})}
         if r['analysis_status']=='solved':
             item['axial_kip']=[m['force'] for m in r['members']];item['stress_ksi']=[m['stress'] for m in r['members']]
-            item['displacements_in']=r['displacements'];item['reactions_kip']=r['reactions']
+            item['displacements_in']=r['displacements'];item['reactions_kip']=r['reactions'];item['analysis_case']=r.get('analysis_case',self.model.active_case)
+            if r.get('case_results'):item['case_results']=r['case_results']
         else:item['error']=r['error']
         self.history.append(item);self.stream.write(json.dumps(item,allow_nan=False)+'\n')
         now=time.perf_counter()
@@ -84,8 +86,7 @@ class EvaluationSession:
 
     def margins_from_result(self,r):
         if r['analysis_status']!='solved':return np.full(self.constraint_count,-1e6)  # Algorithm penalty, not structural results.
-        return np.r_[[1-m['ratio'] for m in r['members']],
-            [1-abs(r['displacements'][str(n.id)][d])/self.model.displacement_limit for n in self.model.nodes for d in range(3) if not n.fixed[d]]]
+        return constraint_margins(self.model,r)
 
     def margins(self,x,limit=None):return self.margins_from_result(self.evaluate(x,limit=limit))
     def metrics(self):

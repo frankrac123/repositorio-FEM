@@ -1,0 +1,3609 @@
+{
+  "schema": "trusslab/2",
+  "model": {
+    "name": "Cercha de 10 barras · Caso I",
+    "nodes": [
+      {
+        "id": 1,
+        "xyz": [
+          720.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "xyz": [
+          720.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          -100.0
+        ]
+      },
+      {
+        "id": 3,
+        "xyz": [
+          360.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 4,
+        "xyz": [
+          360.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          -100.0
+        ]
+      },
+      {
+        "id": 5,
+        "xyz": [
+          0.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          true,
+          true,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 6,
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          true,
+          true,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "members": [
+      {
+        "id": 1,
+        "start": 5,
+        "end": 3,
+        "area": 30.537697619624634,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 2,
+        "start": 3,
+        "end": 1,
+        "area": 0.10000008396715267,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 3,
+        "start": 6,
+        "end": 4,
+        "area": 23.205987415159306,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 4,
+        "start": 4,
+        "end": 2,
+        "area": 15.209920047901962,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 5,
+        "start": 3,
+        "end": 4,
+        "area": 0.10000008400781225,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 6,
+        "start": 1,
+        "end": 2,
+        "area": 0.5506657480820305,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 7,
+        "start": 5,
+        "end": 4,
+        "area": 7.458912169455386,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 8,
+        "start": 6,
+        "end": 3,
+        "area": 21.04705324626224,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 9,
+        "start": 3,
+        "end": 2,
+        "area": 21.510266390969687,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 10,
+        "start": 4,
+        "end": 1,
+        "area": 0.1000000839709165,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      }
+    ],
+    "elastic_modulus": 10000.0,
+    "density": 0.1,
+    "stress_limit": 25.0,
+    "displacement_limit": 2.0,
+    "area_min": 0.1,
+    "area_max": 35.0,
+    "material_name": "Benchmark · E = 10,000 ksi",
+    "project_id": "b86a377358f25591b1e746225d99d542",
+    "structure_type": "3D",
+    "units": "kip-in-ksi",
+    "work_plane": "XZ",
+    "work_elevation": 0.0,
+    "grid_step": 25.0,
+    "materials": [],
+    "sections": [],
+    "load_patterns": [],
+    "analysis_cases": [],
+    "active_case": "LC1",
+    "optimization_config": {}
+  },
+  "results": {
+    "engine": "SAP2000 26.3.0",
+    "timestamp": "2026-10-18T06:10:34.161807+00:00",
+    "weight_lb": 5060.855730007684,
+    "members": [
+      {
+        "id": 1,
+        "force": 202.63092710941132,
+        "stress": 6.635435638710147,
+        "area": 30.537697619624634,
+        "ratio": 0.26541742554840586,
+        "length": 360.0
+      },
+      {
+        "id": 2,
+        "force": -0.1309290217270691,
+        "stress": -1.3092891178978985,
+        "area": 0.10000008396715267,
+        "ratio": 0.05237156471591594,
+        "length": 360.0
+      },
+      {
+        "id": 3,
+        "force": -197.3690728905887,
+        "stress": -8.505092645256603,
+        "area": 23.205987415159306,
+        "ratio": 0.3402037058102641,
+        "length": 360.0
+      },
+      {
+        "id": 4,
+        "force": -100.1309290217271,
+        "stress": -6.583264652698753,
+        "area": 15.209920047901962,
+        "ratio": 0.2633305861079501,
+        "length": 360.0
+      },
+      {
+        "id": 5,
+        "force": 2.4999980876842485,
+        "stress": 24.999959874923128,
+        "area": 0.10000008400781225,
+        "ratio": 0.9999983949969251,
+        "length": 360.0
+      },
+      {
+        "id": 6,
+        "force": -0.13092902172706644,
+        "stress": -0.23776496392429053,
+        "area": 0.5506657480820305,
+        "ratio": 0.009510598556971622,
+        "length": 360.0
+      },
+      {
+        "id": 7,
+        "force": 137.700663437565,
+        "stress": 18.4612260218663,
+        "area": 7.458912169455386,
+        "ratio": 0.7384490408746519,
+        "length": 509.11688245431424
+      },
+      {
+        "id": 8,
+        "force": -145.14204903705408,
+        "stress": -6.896074587677966,
+        "area": 21.04705324626224,
+        "ratio": 0.27584298350711867,
+        "length": 509.11688245431424
+      },
+      {
+        "id": 9,
+        "force": 141.6065178355442,
+        "stress": 6.583206142672069,
+        "area": 21.510266390969687,
+        "ratio": 0.2633282457068828,
+        "length": 509.11688245431424
+      },
+      {
+        "id": 10,
+        "force": 0.1851615982346626,
+        "stress": 1.8516144275290212,
+        "area": 0.1000000839709165,
+        "ratio": 0.07406457710116085,
+        "length": 509.11688245431424
+      }
+    ],
+    "displacements": {
+      "1": [
+        0.19174127474924096,
+        0.0,
+        -1.9999999800000006
+      ],
+      "2": [
+        -0.5431808627263929,
+        0.0,
+        -1.991440441298726
+      ],
+      "3": [
+        0.23887568299356532,
+        0.0,
+        -0.7353930533063788
+      ],
+      "4": [
+        -0.30618333522923774,
+        0.0,
+        -1.6353916088036118
+      ],
+      "5": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "6": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "reactions": {
+      "1": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "2": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "3": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "4": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "5": [
+        -300.0,
+        0.0,
+        97.3690728905887
+      ],
+      "6": [
+        300.0,
+        0.0,
+        102.63092710941132
+      ]
+    },
+    "sap_model": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\modeler\\benchmark_reference\\sap_20261018_011001_f8f5b2\\Cercha_de_10_barras_Caso_I_b86a3773.sdb",
+    "version": [
+      "26.3.0",
+      26.3,
+      0
+    ],
+    "run_directory": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\modeler\\benchmark_reference\\sap_20261018_011001_f8f5b2",
+    "input_audit": {
+      "passed": true,
+      "issues": [],
+      "node_count": 6,
+      "member_count": 10,
+      "nodes": [
+        {
+          "id": 1,
+          "sap_name": "N1",
+          "xyz": [
+            720.0,
+            0.0,
+            360.0
+          ],
+          "restraints": [
+            false,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "loads_by_pattern": {
+            "LC1": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "sap_name": "N2",
+          "xyz": [
+            720.0,
+            0.0,
+            0.0
+          ],
+          "restraints": [
+            false,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "loads_by_pattern": {
+            "LC1": [
+              0.0,
+              0.0,
+              -100.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "sap_name": "N3",
+          "xyz": [
+            360.0,
+            0.0,
+            360.0
+          ],
+          "restraints": [
+            false,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "loads_by_pattern": {
+            "LC1": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "id": 4,
+          "sap_name": "N4",
+          "xyz": [
+            360.0,
+            0.0,
+            0.0
+          ],
+          "restraints": [
+            false,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "loads_by_pattern": {
+            "LC1": [
+              0.0,
+              0.0,
+              -100.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "id": 5,
+          "sap_name": "N5",
+          "xyz": [
+            0.0,
+            0.0,
+            360.0
+          ],
+          "restraints": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "loads_by_pattern": {
+            "LC1": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "id": 6,
+          "sap_name": "N6",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "restraints": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "loads_by_pattern": {
+            "LC1": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "members": [
+        {
+          "id": 1,
+          "sap_name": "B1",
+          "start": "N5",
+          "end": "N3",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_1",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 30.537697619624634
+        },
+        {
+          "id": 2,
+          "sap_name": "B2",
+          "start": "N3",
+          "end": "N1",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_2",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 0.10000008396715267
+        },
+        {
+          "id": 3,
+          "sap_name": "B3",
+          "start": "N6",
+          "end": "N4",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_3",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 23.205987415159303
+        },
+        {
+          "id": 4,
+          "sap_name": "B4",
+          "start": "N4",
+          "end": "N2",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_4",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 15.209920047901962
+        },
+        {
+          "id": 5,
+          "sap_name": "B5",
+          "start": "N3",
+          "end": "N4",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_5",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 0.10000008400781224
+        },
+        {
+          "id": 6,
+          "sap_name": "B6",
+          "start": "N1",
+          "end": "N2",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_6",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 0.5506657480820305
+        },
+        {
+          "id": 7,
+          "sap_name": "B7",
+          "start": "N5",
+          "end": "N4",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_7",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 7.458912169455386
+        },
+        {
+          "id": 8,
+          "sap_name": "B8",
+          "start": "N6",
+          "end": "N3",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_8",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 21.04705324626224
+        },
+        {
+          "id": 9,
+          "sap_name": "B9",
+          "start": "N3",
+          "end": "N2",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_9",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 21.510266390969687
+        },
+        {
+          "id": 10,
+          "sap_name": "B10",
+          "start": "N4",
+          "end": "N1",
+          "section": "Cercha_de_10_barras_Caso_I_b86a3773_S_10",
+          "material": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea",
+          "area_in2": 0.10000008397091649
+        }
+      ],
+      "materials": [
+        {
+          "id": "legacy",
+          "E_ksi": 10000.0,
+          "density_kip_in3": 0.0001
+        }
+      ],
+      "patterns": [
+        {
+          "id": "LC1",
+          "requested_self_weight": 0.0,
+          "sap_self_weight": 0.0,
+          "policy": "lumped_nodal_axial_truss"
+        }
+      ],
+      "cases": [
+        {
+          "id": "LC1",
+          "factors": {
+            "Cercha_de_10_barras_Caso_I_b86a3773_P_LC1_705434": 1.0
+          }
+        }
+      ],
+      "active_dof": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "mapping": {
+        "project": "Cercha_de_10_barras_Caso_I_b86a3773",
+        "materials": {
+          "legacy": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea"
+        },
+        "sections": {
+          "1": "Cercha_de_10_barras_Caso_I_b86a3773_S_1",
+          "2": "Cercha_de_10_barras_Caso_I_b86a3773_S_2",
+          "3": "Cercha_de_10_barras_Caso_I_b86a3773_S_3",
+          "4": "Cercha_de_10_barras_Caso_I_b86a3773_S_4",
+          "5": "Cercha_de_10_barras_Caso_I_b86a3773_S_5",
+          "6": "Cercha_de_10_barras_Caso_I_b86a3773_S_6",
+          "7": "Cercha_de_10_barras_Caso_I_b86a3773_S_7",
+          "8": "Cercha_de_10_barras_Caso_I_b86a3773_S_8",
+          "9": "Cercha_de_10_barras_Caso_I_b86a3773_S_9",
+          "10": "Cercha_de_10_barras_Caso_I_b86a3773_S_10"
+        },
+        "patterns": {
+          "LC1": "Cercha_de_10_barras_Caso_I_b86a3773_P_LC1_705434"
+        },
+        "cases": {
+          "LC1": "Cercha_de_10_barras_Caso_I_b86a3773_C_LC1_705434"
+        }
+      }
+    },
+    "sap_mapping": {
+      "project": "Cercha_de_10_barras_Caso_I_b86a3773",
+      "materials": {
+        "legacy": "Cercha_de_10_barras_Caso_I_b86a3773_M_legacy_c49fea"
+      },
+      "sections": {
+        "1": "Cercha_de_10_barras_Caso_I_b86a3773_S_1",
+        "2": "Cercha_de_10_barras_Caso_I_b86a3773_S_2",
+        "3": "Cercha_de_10_barras_Caso_I_b86a3773_S_3",
+        "4": "Cercha_de_10_barras_Caso_I_b86a3773_S_4",
+        "5": "Cercha_de_10_barras_Caso_I_b86a3773_S_5",
+        "6": "Cercha_de_10_barras_Caso_I_b86a3773_S_6",
+        "7": "Cercha_de_10_barras_Caso_I_b86a3773_S_7",
+        "8": "Cercha_de_10_barras_Caso_I_b86a3773_S_8",
+        "9": "Cercha_de_10_barras_Caso_I_b86a3773_S_9",
+        "10": "Cercha_de_10_barras_Caso_I_b86a3773_S_10"
+      },
+      "patterns": {
+        "LC1": "Cercha_de_10_barras_Caso_I_b86a3773_P_LC1_705434"
+      },
+      "cases": {
+        "LC1": "Cercha_de_10_barras_Caso_I_b86a3773_C_LC1_705434"
+      }
+    },
+    "analysis_case": "LC1",
+    "sap_analysis_case": "Cercha_de_10_barras_Caso_I_b86a3773_C_LC1_705434",
+    "model_id": "b86a377358f25591b1e746225d99d542",
+    "model_fingerprint": "88658a49af193d2d16d55375e7ff8794a93e0234e2c7ad2a5c029885bc9ec49f",
+    "mode": "automatic",
+    "stress_ratio": 0.9999983949969251,
+    "displacement_ratio": 0.9999999900000003,
+    "feasible": true,
+    "max_nonaxial_component": 0.0,
+    "validation": {
+      "passed": true,
+      "comparison": {
+        "max_displacement_error_in": 6.661338147750939e-16,
+        "max_force_error_kip": 8.526512829121202e-14,
+        "max_stress_error_ksi": 1.7763568394002505e-14,
+        "max_reaction_error_kip": 1.5365486660812167e-13,
+        "weight_error_lb": 0.0,
+        "passed": true,
+        "issues": [],
+        "rows": [
+          {
+            "quantity": "displacement",
+            "entity": "N1",
+            "component": "X",
+            "unit": "in",
+            "fem": 0.19174127474924063,
+            "sap": 0.19174127474924096,
+            "absolute_error": 3.3306690738754696e-16,
+            "relative_error": 1.737064217514628e-15,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N1",
+            "component": "Y",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N1",
+            "component": "Z",
+            "unit": "in",
+            "fem": -1.99999998,
+            "sap": -1.9999999800000006,
+            "absolute_error": 6.661338147750939e-16,
+            "relative_error": 3.3306691071821607e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N1",
+            "component": "X",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N1",
+            "component": "Y",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N1",
+            "component": "Z",
+            "unit": "kip",
+            "fem": 7.105427357601002e-15,
+            "sap": 0.0,
+            "absolute_error": 7.105427357601002e-15,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N2",
+            "component": "X",
+            "unit": "in",
+            "fem": -0.5431808627263927,
+            "sap": -0.5431808627263929,
+            "absolute_error": 2.220446049250313e-16,
+            "relative_error": 4.0878576577702095e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N2",
+            "component": "Y",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N2",
+            "component": "Z",
+            "unit": "in",
+            "fem": -1.9914404412987254,
+            "sap": -1.991440441298726,
+            "absolute_error": 6.661338147750939e-16,
+            "relative_error": 3.344984871054804e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N2",
+            "component": "X",
+            "unit": "kip",
+            "fem": 2.842170943040401e-14,
+            "sap": 0.0,
+            "absolute_error": 2.842170943040401e-14,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N2",
+            "component": "Y",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N2",
+            "component": "Z",
+            "unit": "kip",
+            "fem": 2.842170943040401e-14,
+            "sap": 0.0,
+            "absolute_error": 2.842170943040401e-14,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N3",
+            "component": "X",
+            "unit": "in",
+            "fem": 0.2388756829935652,
+            "sap": 0.23887568299356532,
+            "absolute_error": 1.1102230246251565e-16,
+            "relative_error": 4.647702146622699e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N3",
+            "component": "Y",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N3",
+            "component": "Z",
+            "unit": "in",
+            "fem": -0.7353930533063785,
+            "sap": -0.7353930533063788,
+            "absolute_error": 3.3306690738754696e-16,
+            "relative_error": 4.5291005386854675e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N3",
+            "component": "X",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N3",
+            "component": "Y",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N3",
+            "component": "Z",
+            "unit": "kip",
+            "fem": 5.684341886080802e-14,
+            "sap": 0.0,
+            "absolute_error": 5.684341886080802e-14,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N4",
+            "component": "X",
+            "unit": "in",
+            "fem": -0.30618333522923774,
+            "sap": -0.30618333522923774,
+            "absolute_error": 0.0,
+            "relative_error": 0.0,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N4",
+            "component": "Y",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N4",
+            "component": "Z",
+            "unit": "in",
+            "fem": -1.6353916088036118,
+            "sap": -1.6353916088036118,
+            "absolute_error": 0.0,
+            "relative_error": 0.0,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N4",
+            "component": "X",
+            "unit": "kip",
+            "fem": -1.5365486660812167e-13,
+            "sap": 0.0,
+            "absolute_error": 1.5365486660812167e-13,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N4",
+            "component": "Y",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N4",
+            "component": "Z",
+            "unit": "kip",
+            "fem": -1.4210854715202004e-14,
+            "sap": 0.0,
+            "absolute_error": 1.4210854715202004e-14,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N5",
+            "component": "X",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N5",
+            "component": "Y",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N5",
+            "component": "Z",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N5",
+            "component": "X",
+            "unit": "kip",
+            "fem": -299.99999999999994,
+            "sap": -300.0,
+            "absolute_error": 5.684341886080802e-14,
+            "relative_error": 1.8947806286936009e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N5",
+            "component": "Y",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N5",
+            "component": "Z",
+            "unit": "kip",
+            "fem": 97.3690728905887,
+            "sap": 97.3690728905887,
+            "absolute_error": 0.0,
+            "relative_error": 0.0,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N6",
+            "component": "X",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N6",
+            "component": "Y",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "displacement",
+            "entity": "N6",
+            "component": "Z",
+            "unit": "in",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N6",
+            "component": "X",
+            "unit": "kip",
+            "fem": 300.0,
+            "sap": 300.0,
+            "absolute_error": 0.0,
+            "relative_error": 0.0,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N6",
+            "component": "Y",
+            "unit": "kip",
+            "fem": 0.0,
+            "sap": 0.0,
+            "absolute_error": 0.0,
+            "relative_error": null,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "reaction",
+            "entity": "N6",
+            "component": "Z",
+            "unit": "kip",
+            "fem": 102.63092710941126,
+            "sap": 102.63092710941132,
+            "absolute_error": 5.684341886080802e-14,
+            "relative_error": 5.538624707171282e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B1",
+            "component": "axial",
+            "unit": "kip",
+            "fem": 202.63092710941123,
+            "sap": 202.63092710941132,
+            "absolute_error": 8.526512829121202e-14,
+            "relative_error": 4.207902984383664e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B1",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": 6.6354356387101445,
+            "sap": 6.635435638710147,
+            "absolute_error": 2.6645352591003757e-15,
+            "relative_error": 4.0156146546820127e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B2",
+            "component": "axial",
+            "unit": "kip",
+            "fem": -0.13092902172706974,
+            "sap": -0.1309290217270691,
+            "absolute_error": 6.38378239159465e-16,
+            "relative_error": 4.875758107245366e-15,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B2",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": -1.309289117897905,
+            "sap": -1.3092891178978985,
+            "absolute_error": 6.439293542825908e-15,
+            "relative_error": 4.918160133465669e-15,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B3",
+            "component": "axial",
+            "unit": "kip",
+            "fem": -197.36907289058874,
+            "sap": -197.3690728905887,
+            "absolute_error": 2.842170943040401e-14,
+            "relative_error": 1.4400285219032033e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B3",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": -8.505092645256605,
+            "sap": -8.505092645256603,
+            "absolute_error": 1.7763568394002505e-15,
+            "relative_error": 2.0885802347972619e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B4",
+            "component": "axial",
+            "unit": "kip",
+            "fem": -100.13092902172704,
+            "sap": -100.1309290217271,
+            "absolute_error": 5.684341886080802e-14,
+            "relative_error": 5.676909164447458e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B4",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": -6.583264652698748,
+            "sap": -6.583264652698753,
+            "absolute_error": 4.440892098500626e-15,
+            "relative_error": 6.745729258628732e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B5",
+            "component": "axial",
+            "unit": "kip",
+            "fem": 2.4999980876842502,
+            "sap": 2.4999980876842485,
+            "absolute_error": 1.7763568394002505e-15,
+            "relative_error": 7.105432792733418e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B5",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": 24.999959874923146,
+            "sap": 24.999959874923128,
+            "absolute_error": 1.7763568394002505e-14,
+            "relative_error": 7.105438761852058e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B6",
+            "component": "axial",
+            "unit": "kip",
+            "fem": -0.13092902172706647,
+            "sap": -0.13092902172706644,
+            "absolute_error": 2.7755575615628914e-17,
+            "relative_error": 2.1198948292371688e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B6",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": -0.23776496392429058,
+            "sap": -0.23776496392429053,
+            "absolute_error": 5.551115123125783e-17,
+            "relative_error": 2.334706943994228e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B7",
+            "component": "axial",
+            "unit": "kip",
+            "fem": 137.70066343756503,
+            "sap": 137.700663437565,
+            "absolute_error": 2.842170943040401e-14,
+            "relative_error": 2.0640212415019133e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B7",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": 18.461226021866302,
+            "sap": 18.4612260218663,
+            "absolute_error": 3.552713678800501e-15,
+            "relative_error": 1.9244191445316295e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B8",
+            "component": "axial",
+            "unit": "kip",
+            "fem": -145.142049037054,
+            "sap": -145.14204903705408,
+            "absolute_error": 8.526512829121202e-14,
+            "relative_error": 5.874598633332253e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B8",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": -6.896074587677962,
+            "sap": -6.896074587677966,
+            "absolute_error": 4.440892098500626e-15,
+            "relative_error": 6.439739074800172e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B9",
+            "component": "axial",
+            "unit": "kip",
+            "fem": 141.60651783554425,
+            "sap": 141.6065178355442,
+            "absolute_error": 5.684341886080802e-14,
+            "relative_error": 4.014180966360851e-16,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B9",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": 6.583206142672072,
+            "sap": 6.583206142672069,
+            "absolute_error": 2.6645352591003757e-15,
+            "relative_error": 4.0474735278741575e-16,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "force",
+            "entity": "B10",
+            "component": "axial",
+            "unit": "kip",
+            "fem": 0.18516159823466335,
+            "sap": 0.1851615982346626,
+            "absolute_error": 7.494005416219807e-16,
+            "relative_error": 4.047278424720836e-15,
+            "tolerance": 0.0001,
+            "passed": true
+          },
+          {
+            "quantity": "stress",
+            "entity": "B10",
+            "component": "axial",
+            "unit": "ksi",
+            "fem": 1.8516144275290287,
+            "sap": 1.8516144275290212,
+            "absolute_error": 7.549516567451064e-15,
+            "relative_error": 4.077261688615087e-15,
+            "tolerance": 1e-05,
+            "passed": true
+          },
+          {
+            "quantity": "weight",
+            "entity": "Modelo",
+            "component": "W",
+            "unit": "lb",
+            "fem": 5060.855730007684,
+            "sap": 5060.855730007684,
+            "absolute_error": 0.0,
+            "relative_error": 0.0,
+            "tolerance": 1e-08,
+            "passed": true
+          }
+        ],
+        "tolerances": {
+          "displacement": 1e-05,
+          "force": 0.0001,
+          "stress": 1e-05,
+          "reaction": 0.0001,
+          "weight": 1e-08,
+          "equilibrium_force": 1e-06,
+          "equilibrium_moment": 0.001,
+          "relative_zero": 1e-12
+        }
+      },
+      "equilibrium": {
+        "fem": {
+          "net_force_kip": [
+            -5.684341886080802e-14,
+            0.0,
+            1.4210854715202004e-14
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            7.275957614183426e-12,
+            0.0
+          ],
+          "force_tolerance_kip": 1e-06,
+          "moment_tolerance_kip_in": 0.001,
+          "passed": true
+        },
+        "sap": {
+          "net_force_kip": [
+            0.0,
+            0.0,
+            1.4210854715202004e-14
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            7.275957614183426e-12,
+            0.0
+          ],
+          "force_tolerance_kip": 1e-06,
+          "moment_tolerance_kip_in": 0.001,
+          "passed": true
+        }
+      },
+      "constraints": {
+        "fem": {
+          "stress_ratio": 0.9999983949969259,
+          "displacement_ratio": 0.99999999,
+          "stress_passed": true,
+          "displacement_passed": true
+        },
+        "sap": {
+          "stress_ratio": 0.9999983949969251,
+          "displacement_ratio": 0.9999999900000003,
+          "stress_passed": true,
+          "displacement_passed": true
+        }
+      },
+      "input_audit_passed": true,
+      "axial_only_passed": true,
+      "design_feasible": true
+    },
+    "comparison": {
+      "max_displacement_error_in": 6.661338147750939e-16,
+      "max_force_error_kip": 8.526512829121202e-14,
+      "max_stress_error_ksi": 1.7763568394002505e-14,
+      "max_reaction_error_kip": 1.5365486660812167e-13,
+      "weight_error_lb": 0.0,
+      "passed": true,
+      "issues": [],
+      "rows": [
+        {
+          "quantity": "displacement",
+          "entity": "N1",
+          "component": "X",
+          "unit": "in",
+          "fem": 0.19174127474924063,
+          "sap": 0.19174127474924096,
+          "absolute_error": 3.3306690738754696e-16,
+          "relative_error": 1.737064217514628e-15,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N1",
+          "component": "Y",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N1",
+          "component": "Z",
+          "unit": "in",
+          "fem": -1.99999998,
+          "sap": -1.9999999800000006,
+          "absolute_error": 6.661338147750939e-16,
+          "relative_error": 3.3306691071821607e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N1",
+          "component": "X",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N1",
+          "component": "Y",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N1",
+          "component": "Z",
+          "unit": "kip",
+          "fem": 7.105427357601002e-15,
+          "sap": 0.0,
+          "absolute_error": 7.105427357601002e-15,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N2",
+          "component": "X",
+          "unit": "in",
+          "fem": -0.5431808627263927,
+          "sap": -0.5431808627263929,
+          "absolute_error": 2.220446049250313e-16,
+          "relative_error": 4.0878576577702095e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N2",
+          "component": "Y",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N2",
+          "component": "Z",
+          "unit": "in",
+          "fem": -1.9914404412987254,
+          "sap": -1.991440441298726,
+          "absolute_error": 6.661338147750939e-16,
+          "relative_error": 3.344984871054804e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N2",
+          "component": "X",
+          "unit": "kip",
+          "fem": 2.842170943040401e-14,
+          "sap": 0.0,
+          "absolute_error": 2.842170943040401e-14,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N2",
+          "component": "Y",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N2",
+          "component": "Z",
+          "unit": "kip",
+          "fem": 2.842170943040401e-14,
+          "sap": 0.0,
+          "absolute_error": 2.842170943040401e-14,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N3",
+          "component": "X",
+          "unit": "in",
+          "fem": 0.2388756829935652,
+          "sap": 0.23887568299356532,
+          "absolute_error": 1.1102230246251565e-16,
+          "relative_error": 4.647702146622699e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N3",
+          "component": "Y",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N3",
+          "component": "Z",
+          "unit": "in",
+          "fem": -0.7353930533063785,
+          "sap": -0.7353930533063788,
+          "absolute_error": 3.3306690738754696e-16,
+          "relative_error": 4.5291005386854675e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N3",
+          "component": "X",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N3",
+          "component": "Y",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N3",
+          "component": "Z",
+          "unit": "kip",
+          "fem": 5.684341886080802e-14,
+          "sap": 0.0,
+          "absolute_error": 5.684341886080802e-14,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N4",
+          "component": "X",
+          "unit": "in",
+          "fem": -0.30618333522923774,
+          "sap": -0.30618333522923774,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N4",
+          "component": "Y",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N4",
+          "component": "Z",
+          "unit": "in",
+          "fem": -1.6353916088036118,
+          "sap": -1.6353916088036118,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N4",
+          "component": "X",
+          "unit": "kip",
+          "fem": -1.5365486660812167e-13,
+          "sap": 0.0,
+          "absolute_error": 1.5365486660812167e-13,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N4",
+          "component": "Y",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N4",
+          "component": "Z",
+          "unit": "kip",
+          "fem": -1.4210854715202004e-14,
+          "sap": 0.0,
+          "absolute_error": 1.4210854715202004e-14,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N5",
+          "component": "X",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N5",
+          "component": "Y",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N5",
+          "component": "Z",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N5",
+          "component": "X",
+          "unit": "kip",
+          "fem": -299.99999999999994,
+          "sap": -300.0,
+          "absolute_error": 5.684341886080802e-14,
+          "relative_error": 1.8947806286936009e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N5",
+          "component": "Y",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N5",
+          "component": "Z",
+          "unit": "kip",
+          "fem": 97.3690728905887,
+          "sap": 97.3690728905887,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N6",
+          "component": "X",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N6",
+          "component": "Y",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "displacement",
+          "entity": "N6",
+          "component": "Z",
+          "unit": "in",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N6",
+          "component": "X",
+          "unit": "kip",
+          "fem": 300.0,
+          "sap": 300.0,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N6",
+          "component": "Y",
+          "unit": "kip",
+          "fem": 0.0,
+          "sap": 0.0,
+          "absolute_error": 0.0,
+          "relative_error": null,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "reaction",
+          "entity": "N6",
+          "component": "Z",
+          "unit": "kip",
+          "fem": 102.63092710941126,
+          "sap": 102.63092710941132,
+          "absolute_error": 5.684341886080802e-14,
+          "relative_error": 5.538624707171282e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B1",
+          "component": "axial",
+          "unit": "kip",
+          "fem": 202.63092710941123,
+          "sap": 202.63092710941132,
+          "absolute_error": 8.526512829121202e-14,
+          "relative_error": 4.207902984383664e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B1",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": 6.6354356387101445,
+          "sap": 6.635435638710147,
+          "absolute_error": 2.6645352591003757e-15,
+          "relative_error": 4.0156146546820127e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B2",
+          "component": "axial",
+          "unit": "kip",
+          "fem": -0.13092902172706974,
+          "sap": -0.1309290217270691,
+          "absolute_error": 6.38378239159465e-16,
+          "relative_error": 4.875758107245366e-15,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B2",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": -1.309289117897905,
+          "sap": -1.3092891178978985,
+          "absolute_error": 6.439293542825908e-15,
+          "relative_error": 4.918160133465669e-15,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B3",
+          "component": "axial",
+          "unit": "kip",
+          "fem": -197.36907289058874,
+          "sap": -197.3690728905887,
+          "absolute_error": 2.842170943040401e-14,
+          "relative_error": 1.4400285219032033e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B3",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": -8.505092645256605,
+          "sap": -8.505092645256603,
+          "absolute_error": 1.7763568394002505e-15,
+          "relative_error": 2.0885802347972619e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B4",
+          "component": "axial",
+          "unit": "kip",
+          "fem": -100.13092902172704,
+          "sap": -100.1309290217271,
+          "absolute_error": 5.684341886080802e-14,
+          "relative_error": 5.676909164447458e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B4",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": -6.583264652698748,
+          "sap": -6.583264652698753,
+          "absolute_error": 4.440892098500626e-15,
+          "relative_error": 6.745729258628732e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B5",
+          "component": "axial",
+          "unit": "kip",
+          "fem": 2.4999980876842502,
+          "sap": 2.4999980876842485,
+          "absolute_error": 1.7763568394002505e-15,
+          "relative_error": 7.105432792733418e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B5",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": 24.999959874923146,
+          "sap": 24.999959874923128,
+          "absolute_error": 1.7763568394002505e-14,
+          "relative_error": 7.105438761852058e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B6",
+          "component": "axial",
+          "unit": "kip",
+          "fem": -0.13092902172706647,
+          "sap": -0.13092902172706644,
+          "absolute_error": 2.7755575615628914e-17,
+          "relative_error": 2.1198948292371688e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B6",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": -0.23776496392429058,
+          "sap": -0.23776496392429053,
+          "absolute_error": 5.551115123125783e-17,
+          "relative_error": 2.334706943994228e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B7",
+          "component": "axial",
+          "unit": "kip",
+          "fem": 137.70066343756503,
+          "sap": 137.700663437565,
+          "absolute_error": 2.842170943040401e-14,
+          "relative_error": 2.0640212415019133e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B7",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": 18.461226021866302,
+          "sap": 18.4612260218663,
+          "absolute_error": 3.552713678800501e-15,
+          "relative_error": 1.9244191445316295e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B8",
+          "component": "axial",
+          "unit": "kip",
+          "fem": -145.142049037054,
+          "sap": -145.14204903705408,
+          "absolute_error": 8.526512829121202e-14,
+          "relative_error": 5.874598633332253e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B8",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": -6.896074587677962,
+          "sap": -6.896074587677966,
+          "absolute_error": 4.440892098500626e-15,
+          "relative_error": 6.439739074800172e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B9",
+          "component": "axial",
+          "unit": "kip",
+          "fem": 141.60651783554425,
+          "sap": 141.6065178355442,
+          "absolute_error": 5.684341886080802e-14,
+          "relative_error": 4.014180966360851e-16,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B9",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": 6.583206142672072,
+          "sap": 6.583206142672069,
+          "absolute_error": 2.6645352591003757e-15,
+          "relative_error": 4.0474735278741575e-16,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "force",
+          "entity": "B10",
+          "component": "axial",
+          "unit": "kip",
+          "fem": 0.18516159823466335,
+          "sap": 0.1851615982346626,
+          "absolute_error": 7.494005416219807e-16,
+          "relative_error": 4.047278424720836e-15,
+          "tolerance": 0.0001,
+          "passed": true
+        },
+        {
+          "quantity": "stress",
+          "entity": "B10",
+          "component": "axial",
+          "unit": "ksi",
+          "fem": 1.8516144275290287,
+          "sap": 1.8516144275290212,
+          "absolute_error": 7.549516567451064e-15,
+          "relative_error": 4.077261688615087e-15,
+          "tolerance": 1e-05,
+          "passed": true
+        },
+        {
+          "quantity": "weight",
+          "entity": "Modelo",
+          "component": "W",
+          "unit": "lb",
+          "fem": 5060.855730007684,
+          "sap": 5060.855730007684,
+          "absolute_error": 0.0,
+          "relative_error": 0.0,
+          "tolerance": 1e-08,
+          "passed": true
+        }
+      ],
+      "tolerances": {
+        "displacement": 1e-05,
+        "force": 0.0001,
+        "stress": 1e-05,
+        "reaction": 0.0001,
+        "weight": 1e-08,
+        "equilibrium_force": 1e-06,
+        "equilibrium_moment": 0.001,
+        "relative_zero": 1e-12
+      }
+    },
+    "analysis_case_status": {
+      "DEAD": 1,
+      "MODAL": 1,
+      "Cercha_de_10_barras_Caso_I_b86a3773_C_LC1_705434": 4
+    }
+  },
+  "history": [
+    {
+      "iteration": 0,
+      "weight_lb": 14687.636354360402,
+      "feasible": true,
+      "best_feasible_lb": 14687.636354360402,
+      "stress_ratio": 0.23386858632135815,
+      "displacement_ratio": 0.5627964264889764,
+      "evaluations": 1
+    },
+    {
+      "iteration": 1,
+      "weight_lb": 14686.40102887709,
+      "feasible": true,
+      "best_feasible_lb": 14686.40102887709,
+      "stress_ratio": 0.2338848860032903,
+      "displacement_ratio": 0.5628422133219704,
+      "evaluations": 24
+    },
+    {
+      "iteration": 2,
+      "weight_lb": 14680.224406039319,
+      "feasible": true,
+      "best_feasible_lb": 14680.224406039319,
+      "stress_ratio": 0.23396641848524724,
+      "displacement_ratio": 0.5630712623977555,
+      "evaluations": 46
+    },
+    {
+      "iteration": 3,
+      "weight_lb": 14649.341306888537,
+      "feasible": true,
+      "best_feasible_lb": 14649.341306888537,
+      "stress_ratio": 0.23437493399776937,
+      "displacement_ratio": 0.5642193941109501,
+      "evaluations": 68
+    },
+    {
+      "iteration": 4,
+      "weight_lb": 14494.925811134619,
+      "feasible": true,
+      "best_feasible_lb": 14494.925811134619,
+      "stress_ratio": 0.2364390758180405,
+      "displacement_ratio": 0.5700332005869645,
+      "evaluations": 90
+    },
+    {
+      "iteration": 5,
+      "weight_lb": 13722.847760013803,
+      "feasible": true,
+      "best_feasible_lb": 13722.847760013803,
+      "stress_ratio": 0.2473296153144525,
+      "displacement_ratio": 0.6010624231976482,
+      "evaluations": 112
+    },
+    {
+      "iteration": 6,
+      "weight_lb": 9862.457995404176,
+      "feasible": true,
+      "best_feasible_lb": 9862.457995404176,
+      "stress_ratio": 0.32129204576692694,
+      "displacement_ratio": 0.8305344621896618,
+      "evaluations": 134
+    },
+    {
+      "iteration": 7,
+      "weight_lb": 7836.250048593968,
+      "feasible": false,
+      "best_feasible_lb": 9862.457995404176,
+      "stress_ratio": 0.3809698427303545,
+      "displacement_ratio": 1.0481418445625545,
+      "evaluations": 156
+    },
+    {
+      "iteration": 8,
+      "weight_lb": 8183.0803109502685,
+      "feasible": false,
+      "best_feasible_lb": 9862.457995404176,
+      "stress_ratio": 0.3691784981347304,
+      "displacement_ratio": 1.0023107097497403,
+      "evaluations": 178
+    },
+    {
+      "iteration": 9,
+      "weight_lb": 8200.690898300489,
+      "feasible": false,
+      "best_feasible_lb": 9862.457995404176,
+      "stress_ratio": 0.3685394561361028,
+      "displacement_ratio": 1.000005712925052,
+      "evaluations": 200
+    },
+    {
+      "iteration": 10,
+      "weight_lb": 8196.15712011507,
+      "feasible": true,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.3683267448197307,
+      "displacement_ratio": 1.0000004079523166,
+      "evaluations": 222
+    },
+    {
+      "iteration": 11,
+      "weight_lb": 8173.332398324639,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.3672754326291702,
+      "displacement_ratio": 1.0000102156437831,
+      "evaluations": 244
+    },
+    {
+      "iteration": 12,
+      "weight_lb": 8060.866381075299,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.3621246920704979,
+      "displacement_ratio": 1.0002556494231802,
+      "evaluations": 266
+    },
+    {
+      "iteration": 13,
+      "weight_lb": 7538.202071130813,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.36213962440556563,
+      "displacement_ratio": 1.0063411245658935,
+      "evaluations": 288
+    },
+    {
+      "iteration": 14,
+      "weight_lb": 5726.942240937574,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.49330912439247565,
+      "displacement_ratio": 1.2151504146049983,
+      "evaluations": 310
+    },
+    {
+      "iteration": 15,
+      "weight_lb": 6332.409598882476,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.3676958672333069,
+      "displacement_ratio": 1.063127010724148,
+      "evaluations": 332
+    },
+    {
+      "iteration": 16,
+      "weight_lb": 6620.216467292878,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.349396996910701,
+      "displacement_ratio": 1.0042670841144323,
+      "evaluations": 354
+    },
+    {
+      "iteration": 17,
+      "weight_lb": 6629.4922578027745,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.3561265555111576,
+      "displacement_ratio": 1.0007731004111526,
+      "evaluations": 376
+    },
+    {
+      "iteration": 18,
+      "weight_lb": 6629.4159455722875,
+      "feasible": false,
+      "best_feasible_lb": 8196.15712011507,
+      "stress_ratio": 0.3611995756948167,
+      "displacement_ratio": 1.0003471821921988,
+      "evaluations": 398
+    },
+    {
+      "iteration": 19,
+      "weight_lb": 6630.565286990023,
+      "feasible": true,
+      "best_feasible_lb": 6630.565286990023,
+      "stress_ratio": 0.3611587078565816,
+      "displacement_ratio": 1.000000546667698,
+      "evaluations": 420
+    },
+    {
+      "iteration": 20,
+      "weight_lb": 6626.825428572468,
+      "feasible": true,
+      "best_feasible_lb": 6626.825428572468,
+      "stress_ratio": 0.36085690211657956,
+      "displacement_ratio": 1.000000652864822,
+      "evaluations": 442
+    },
+    {
+      "iteration": 21,
+      "weight_lb": 6608.186102887827,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.3593633432803866,
+      "displacement_ratio": 1.0000161759135286,
+      "evaluations": 464
+    },
+    {
+      "iteration": 22,
+      "weight_lb": 6516.86614472013,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.3522248210617766,
+      "displacement_ratio": 1.0004022531812629,
+      "evaluations": 486
+    },
+    {
+      "iteration": 23,
+      "weight_lb": 6110.170722832185,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.35737879580501264,
+      "displacement_ratio": 1.0096514768599965,
+      "evaluations": 508
+    },
+    {
+      "iteration": 24,
+      "weight_lb": 5831.3957907255435,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4031689889147562,
+      "displacement_ratio": 1.0126769449644273,
+      "evaluations": 530
+    },
+    {
+      "iteration": 25,
+      "weight_lb": 5870.4943689640095,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.41185225185649804,
+      "displacement_ratio": 1.0022285838277518,
+      "evaluations": 552
+    },
+    {
+      "iteration": 26,
+      "weight_lb": 5879.24373782272,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.41607194458233027,
+      "displacement_ratio": 1.000305259657202,
+      "evaluations": 574
+    },
+    {
+      "iteration": 27,
+      "weight_lb": 5880.591271648089,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4171771440329902,
+      "displacement_ratio": 1.0000170704124491,
+      "evaluations": 596
+    },
+    {
+      "iteration": 28,
+      "weight_lb": 5879.822267999628,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4188239339633775,
+      "displacement_ratio": 1.000027418564647,
+      "evaluations": 618
+    },
+    {
+      "iteration": 29,
+      "weight_lb": 5877.636060553326,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.42169129435859914,
+      "displacement_ratio": 1.0000782799318009,
+      "evaluations": 640
+    },
+    {
+      "iteration": 30,
+      "weight_lb": 5872.4270129050965,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4262191854438717,
+      "displacement_ratio": 1.0001895535304866,
+      "evaluations": 662
+    },
+    {
+      "iteration": 31,
+      "weight_lb": 5860.19044422668,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4331047880997947,
+      "displacement_ratio": 1.0004670402913192,
+      "evaluations": 684
+    },
+    {
+      "iteration": 32,
+      "weight_lb": 5835.359937567529,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4416448364328041,
+      "displacement_ratio": 1.0010290308366963,
+      "evaluations": 706
+    },
+    {
+      "iteration": 33,
+      "weight_lb": 5796.596070410898,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.44748342597870594,
+      "displacement_ratio": 1.0020270429494318,
+      "evaluations": 728
+    },
+    {
+      "iteration": 34,
+      "weight_lb": 5773.481829823429,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.44344082668683027,
+      "displacement_ratio": 1.0024243465930338,
+      "evaluations": 750
+    },
+    {
+      "iteration": 35,
+      "weight_lb": 5783.652866129062,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4380800844110398,
+      "displacement_ratio": 1.0002338767715813,
+      "evaluations": 772
+    },
+    {
+      "iteration": 36,
+      "weight_lb": 5783.976797553496,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4357094323475272,
+      "displacement_ratio": 1.0000549826410858,
+      "evaluations": 794
+    },
+    {
+      "iteration": 37,
+      "weight_lb": 5783.8383643988445,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.43455081525282907,
+      "displacement_ratio": 1.0000256245096157,
+      "evaluations": 816
+    },
+    {
+      "iteration": 38,
+      "weight_lb": 5783.646803675755,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.43397311634851526,
+      "displacement_ratio": 1.0000079158315673,
+      "evaluations": 838
+    },
+    {
+      "iteration": 39,
+      "weight_lb": 5782.057483408767,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.43241175167445095,
+      "displacement_ratio": 1.0000618699522617,
+      "evaluations": 860
+    },
+    {
+      "iteration": 40,
+      "weight_lb": 5778.880667322897,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.43021817311616034,
+      "displacement_ratio": 1.000115628984312,
+      "evaluations": 882
+    },
+    {
+      "iteration": 41,
+      "weight_lb": 5769.35790182578,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4262548527377718,
+      "displacement_ratio": 1.0003597244127886,
+      "evaluations": 904
+    },
+    {
+      "iteration": 42,
+      "weight_lb": 5745.247289220295,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4194449025876581,
+      "displacement_ratio": 1.0009436474944207,
+      "evaluations": 926
+    },
+    {
+      "iteration": 43,
+      "weight_lb": 5682.580276066026,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.40681776459674224,
+      "displacement_ratio": 1.0029529490188371,
+      "evaluations": 948
+    },
+    {
+      "iteration": 44,
+      "weight_lb": 5554.622372544867,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.3861922071882222,
+      "displacement_ratio": 1.0115057730853485,
+      "evaluations": 970
+    },
+    {
+      "iteration": 45,
+      "weight_lb": 5337.071733438235,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.4198531579547043,
+      "displacement_ratio": 1.0156084156050735,
+      "evaluations": 992
+    },
+    {
+      "iteration": 46,
+      "weight_lb": 5042.235306404381,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.5646738870519139,
+      "displacement_ratio": 1.0649486264945411,
+      "evaluations": 1014
+    },
+    {
+      "iteration": 47,
+      "weight_lb": 5235.293322292373,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.5208899241351851,
+      "displacement_ratio": 1.0048627314566116,
+      "evaluations": 1036
+    },
+    {
+      "iteration": 48,
+      "weight_lb": 5246.36190213838,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.5227872509171752,
+      "displacement_ratio": 1.0003605788849672,
+      "evaluations": 1058
+    },
+    {
+      "iteration": 49,
+      "weight_lb": 5248.006154493894,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.524875622844023,
+      "displacement_ratio": 1.0000100742132543,
+      "evaluations": 1080
+    },
+    {
+      "iteration": 50,
+      "weight_lb": 5246.91998896395,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.5305406762436498,
+      "displacement_ratio": 1.0000432198212394,
+      "evaluations": 1102
+    },
+    {
+      "iteration": 51,
+      "weight_lb": 5244.6836956878415,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.5399283867078093,
+      "displacement_ratio": 1.0000844031784804,
+      "evaluations": 1124
+    },
+    {
+      "iteration": 52,
+      "weight_lb": 5238.495887906428,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.5702473244296888,
+      "displacement_ratio": 1.0002322974975328,
+      "evaluations": 1146
+    },
+    {
+      "iteration": 53,
+      "weight_lb": 5223.4110631297135,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.6637034080859486,
+      "displacement_ratio": 1.0010220527880902,
+      "evaluations": 1168
+    },
+    {
+      "iteration": 54,
+      "weight_lb": 5209.377275222059,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.6673986692319066,
+      "displacement_ratio": 1.0001289199279264,
+      "evaluations": 1190
+    },
+    {
+      "iteration": 55,
+      "weight_lb": 5131.573160754336,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.7122679002395873,
+      "displacement_ratio": 1.002643154808836,
+      "evaluations": 1212
+    },
+    {
+      "iteration": 56,
+      "weight_lb": 5044.708028978236,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.8055535928425658,
+      "displacement_ratio": 1.0099896268930124,
+      "evaluations": 1234
+    },
+    {
+      "iteration": 57,
+      "weight_lb": 5091.459417929565,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.805509111227687,
+      "displacement_ratio": 1.0001058269434349,
+      "evaluations": 1256
+    },
+    {
+      "iteration": 58,
+      "weight_lb": 5091.814356753766,
+      "feasible": false,
+      "best_feasible_lb": 6626.825428036026,
+      "stress_ratio": 0.8090725954476955,
+      "displacement_ratio": 1.0000132722639445,
+      "evaluations": 1278
+    },
+    {
+      "iteration": 59,
+      "weight_lb": 5091.870006918675,
+      "feasible": true,
+      "best_feasible_lb": 5091.870006918675,
+      "stress_ratio": 0.8093210743266915,
+      "displacement_ratio": 1.000000066068266,
+      "evaluations": 1300
+    },
+    {
+      "iteration": 60,
+      "weight_lb": 5091.825701833162,
+      "feasible": true,
+      "best_feasible_lb": 5091.825701833162,
+      "stress_ratio": 0.8097433959662789,
+      "displacement_ratio": 1.000000198591922,
+      "evaluations": 1322
+    },
+    {
+      "iteration": 61,
+      "weight_lb": 5091.588645201075,
+      "feasible": true,
+      "best_feasible_lb": 5091.588645201075,
+      "stress_ratio": 0.8104753747887428,
+      "displacement_ratio": 1.0000007715732724,
+      "evaluations": 1344
+    },
+    {
+      "iteration": 62,
+      "weight_lb": 5090.381828080563,
+      "feasible": false,
+      "best_feasible_lb": 5091.588645201075,
+      "stress_ratio": 0.8117884479783212,
+      "displacement_ratio": 1.0000066526008449,
+      "evaluations": 1366
+    },
+    {
+      "iteration": 63,
+      "weight_lb": 5084.729052252082,
+      "feasible": false,
+      "best_feasible_lb": 5091.588645201075,
+      "stress_ratio": 0.8142572275297261,
+      "displacement_ratio": 1.0001248218141148,
+      "evaluations": 1388
+    },
+    {
+      "iteration": 64,
+      "weight_lb": 5068.857433435711,
+      "feasible": false,
+      "best_feasible_lb": 5091.588645201075,
+      "stress_ratio": 0.8189749117655635,
+      "displacement_ratio": 1.0018068518958405,
+      "evaluations": 1410
+    },
+    {
+      "iteration": 65,
+      "weight_lb": 5077.475501140605,
+      "feasible": false,
+      "best_feasible_lb": 5091.588645201075,
+      "stress_ratio": 0.8142644652699959,
+      "displacement_ratio": 1.0000210833930807,
+      "evaluations": 1432
+    },
+    {
+      "iteration": 66,
+      "weight_lb": 5077.576536839107,
+      "feasible": true,
+      "best_feasible_lb": 5077.576536839107,
+      "stress_ratio": 0.8137654206004605,
+      "displacement_ratio": 1.00000031903985,
+      "evaluations": 1454
+    },
+    {
+      "iteration": 67,
+      "weight_lb": 5077.57660174852,
+      "feasible": true,
+      "best_feasible_lb": 5077.576536839107,
+      "stress_ratio": 0.8135054684182311,
+      "displacement_ratio": 1.0000000821556587,
+      "evaluations": 1476
+    },
+    {
+      "iteration": 68,
+      "weight_lb": 5077.575149297295,
+      "feasible": true,
+      "best_feasible_lb": 5077.575149297295,
+      "stress_ratio": 0.8132877688439006,
+      "displacement_ratio": 1.0000000583979118,
+      "evaluations": 1498
+    },
+    {
+      "iteration": 69,
+      "weight_lb": 5077.568585141631,
+      "feasible": true,
+      "best_feasible_lb": 5077.568585141631,
+      "stress_ratio": 0.8128199449161183,
+      "displacement_ratio": 1.0000002814495355,
+      "evaluations": 1520
+    },
+    {
+      "iteration": 70,
+      "weight_lb": 5077.554364058267,
+      "feasible": true,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8121721721556966,
+      "displacement_ratio": 1.0000005903823348,
+      "evaluations": 1542
+    },
+    {
+      "iteration": 71,
+      "weight_lb": 5077.5157307119025,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8111856371465224,
+      "displacement_ratio": 1.0000016564725744,
+      "evaluations": 1564
+    },
+    {
+      "iteration": 72,
+      "weight_lb": 5077.425655939494,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8099618851581186,
+      "displacement_ratio": 1.0000039876422924,
+      "evaluations": 1586
+    },
+    {
+      "iteration": 73,
+      "weight_lb": 5077.2341792412435,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8089985739492843,
+      "displacement_ratio": 1.0000099240900053,
+      "evaluations": 1608
+    },
+    {
+      "iteration": 74,
+      "weight_lb": 5076.944482478802,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8096721254708372,
+      "displacement_ratio": 1.0000199698504042,
+      "evaluations": 1630
+    },
+    {
+      "iteration": 75,
+      "weight_lb": 5076.730525470038,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8127095179410928,
+      "displacement_ratio": 1.0000222562458594,
+      "evaluations": 1652
+    },
+    {
+      "iteration": 76,
+      "weight_lb": 5076.720696880654,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8155455840195746,
+      "displacement_ratio": 1.000008713518893,
+      "evaluations": 1674
+    },
+    {
+      "iteration": 77,
+      "weight_lb": 5076.749191033008,
+      "feasible": false,
+      "best_feasible_lb": 5077.554364058267,
+      "stress_ratio": 0.8164163964294135,
+      "displacement_ratio": 1.0000012803556184,
+      "evaluations": 1696
+    },
+    {
+      "iteration": 78,
+      "weight_lb": 5076.7550637375325,
+      "feasible": true,
+      "best_feasible_lb": 5076.7550637375325,
+      "stress_ratio": 0.8164508845729221,
+      "displacement_ratio": 1.000000053424056,
+      "evaluations": 1718
+    },
+    {
+      "iteration": 79,
+      "weight_lb": 5076.755219932604,
+      "feasible": true,
+      "best_feasible_lb": 5076.7550637375325,
+      "stress_ratio": 0.8164392105396721,
+      "displacement_ratio": 1.0000000024892395,
+      "evaluations": 1740
+    },
+    {
+      "iteration": 80,
+      "weight_lb": 5076.754705012506,
+      "feasible": true,
+      "best_feasible_lb": 5076.754705012506,
+      "stress_ratio": 0.816397683179021,
+      "displacement_ratio": 1.0000000250913652,
+      "evaluations": 1762
+    },
+    {
+      "iteration": 81,
+      "weight_lb": 5076.753733621257,
+      "feasible": true,
+      "best_feasible_lb": 5076.753733621257,
+      "stress_ratio": 0.8163305018516626,
+      "displacement_ratio": 1.000000044858663,
+      "evaluations": 1784
+    },
+    {
+      "iteration": 82,
+      "weight_lb": 5076.750966181565,
+      "feasible": true,
+      "best_feasible_lb": 5076.750966181565,
+      "stress_ratio": 0.8161939102776627,
+      "displacement_ratio": 1.0000001301351367,
+      "evaluations": 1806
+    },
+    {
+      "iteration": 83,
+      "weight_lb": 5076.744316981103,
+      "feasible": true,
+      "best_feasible_lb": 5076.744316981103,
+      "stress_ratio": 0.8159456223251644,
+      "displacement_ratio": 1.0000003253851948,
+      "evaluations": 1828
+    },
+    {
+      "iteration": 84,
+      "weight_lb": 5076.729221588928,
+      "feasible": true,
+      "best_feasible_lb": 5076.729221588928,
+      "stress_ratio": 0.8154955545388275,
+      "displacement_ratio": 1.0000008135620098,
+      "evaluations": 1850
+    },
+    {
+      "iteration": 85,
+      "weight_lb": 5076.702537044131,
+      "feasible": false,
+      "best_feasible_lb": 5076.729221588928,
+      "stress_ratio": 0.8148409895837629,
+      "displacement_ratio": 1.000001693663039,
+      "evaluations": 1872
+    },
+    {
+      "iteration": 86,
+      "weight_lb": 5076.673607335927,
+      "feasible": false,
+      "best_feasible_lb": 5076.729221588928,
+      "stress_ratio": 0.8142681816940117,
+      "displacement_ratio": 1.0000024623734136,
+      "evaluations": 1894
+    },
+    {
+      "iteration": 87,
+      "weight_lb": 5076.664316925062,
+      "feasible": false,
+      "best_feasible_lb": 5076.729221588928,
+      "stress_ratio": 0.8142064270829752,
+      "displacement_ratio": 1.000001640171874,
+      "evaluations": 1916
+    },
+    {
+      "iteration": 88,
+      "weight_lb": 5076.667675825083,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.8144016937553528,
+      "displacement_ratio": 1.000000389521046,
+      "evaluations": 1938
+    },
+    {
+      "iteration": 89,
+      "weight_lb": 5076.669198176814,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.8144796485828332,
+      "displacement_ratio": 1.0000000235087148,
+      "evaluations": 1960
+    },
+    {
+      "iteration": 90,
+      "weight_lb": 5076.669298152577,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.8144875498801554,
+      "displacement_ratio": 1.0000000003815495,
+      "evaluations": 1982
+    },
+    {
+      "iteration": 91,
+      "weight_lb": 5076.6692998191065,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.814488753432585,
+      "displacement_ratio": 1.0000000000082598,
+      "evaluations": 2004
+    },
+    {
+      "iteration": 92,
+      "weight_lb": 5076.6692998191065,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.814488753432585,
+      "displacement_ratio": 1.0000000000082598,
+      "evaluations": 2026
+    },
+    {
+      "iteration": 93,
+      "weight_lb": 5076.6692998191065,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.814488753432585,
+      "displacement_ratio": 1.0000000000082598,
+      "evaluations": 2026
+    },
+    {
+      "iteration": 94,
+      "weight_lb": 4250.741751488938,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 7.240480698004704,
+      "displacement_ratio": 4.744038330913383,
+      "evaluations": 2027
+    },
+    {
+      "iteration": 95,
+      "weight_lb": 4293.196517196091,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 3.5940978207476975,
+      "displacement_ratio": 2.88294211848777,
+      "evaluations": 2050
+    },
+    {
+      "iteration": 96,
+      "weight_lb": 4374.73807069974,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.811228455375889,
+      "displacement_ratio": 1.883229486701577,
+      "evaluations": 2072
+    },
+    {
+      "iteration": 97,
+      "weight_lb": 4537.700910380492,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.9388753875501488,
+      "displacement_ratio": 1.396128869887981,
+      "evaluations": 2094
+    },
+    {
+      "iteration": 98,
+      "weight_lb": 4863.337246914018,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.5338644844368655,
+      "displacement_ratio": 1.1614039378283643,
+      "evaluations": 2116
+    },
+    {
+      "iteration": 99,
+      "weight_lb": 5269.8461582693,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.5361867825170527,
+      "displacement_ratio": 1.0305786500205967,
+      "evaluations": 2138
+    },
+    {
+      "iteration": 100,
+      "weight_lb": 5371.250871757424,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.5727625199545796,
+      "displacement_ratio": 1.0005817203855987,
+      "evaluations": 2160
+    },
+    {
+      "iteration": 101,
+      "weight_lb": 5369.663829336042,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.5775690347087781,
+      "displacement_ratio": 0.999995094901232,
+      "evaluations": 2182
+    },
+    {
+      "iteration": 102,
+      "weight_lb": 5353.155204105887,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.5964887135778976,
+      "displacement_ratio": 0.9999323644963025,
+      "evaluations": 2204
+    },
+    {
+      "iteration": 103,
+      "weight_lb": 5266.969498470395,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.7144355437719604,
+      "displacement_ratio": 0.9978024986649178,
+      "evaluations": 2226
+    },
+    {
+      "iteration": 104,
+      "weight_lb": 5224.14858014306,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.7930131007551793,
+      "displacement_ratio": 0.9995411936967838,
+      "evaluations": 2248
+    },
+    {
+      "iteration": 105,
+      "weight_lb": 5213.461861027046,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.8158435798068289,
+      "displacement_ratio": 0.9995013991929548,
+      "evaluations": 2270
+    },
+    {
+      "iteration": 106,
+      "weight_lb": 5203.941330554393,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.8423809634980707,
+      "displacement_ratio": 0.9998388438686188,
+      "evaluations": 2292
+    },
+    {
+      "iteration": 107,
+      "weight_lb": 5164.767066458214,
+      "feasible": true,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.9777943742832436,
+      "displacement_ratio": 0.9975197198767743,
+      "evaluations": 2314
+    },
+    {
+      "iteration": 108,
+      "weight_lb": 5145.999996961661,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.9870425413739818,
+      "displacement_ratio": 1.00030146881752,
+      "evaluations": 2336
+    },
+    {
+      "iteration": 109,
+      "weight_lb": 5140.635939592453,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.9905184284567534,
+      "displacement_ratio": 1.000258109958392,
+      "evaluations": 2358
+    },
+    {
+      "iteration": 110,
+      "weight_lb": 5133.205581170542,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 0.9965314066806303,
+      "displacement_ratio": 1.0004584628043507,
+      "evaluations": 2380
+    },
+    {
+      "iteration": 111,
+      "weight_lb": 5130.192427952434,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000232655279488,
+      "displacement_ratio": 1.00022845893564,
+      "evaluations": 2402
+    },
+    {
+      "iteration": 112,
+      "weight_lb": 5128.630809623724,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000120058938635,
+      "displacement_ratio": 1.0001558008243256,
+      "evaluations": 2424
+    },
+    {
+      "iteration": 113,
+      "weight_lb": 5126.926507353935,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000153628534856,
+      "displacement_ratio": 1.0001533896630954,
+      "evaluations": 2446
+    },
+    {
+      "iteration": 114,
+      "weight_lb": 5125.26723298896,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000181037563936,
+      "displacement_ratio": 1.0001310793668163,
+      "evaluations": 2468
+    },
+    {
+      "iteration": 115,
+      "weight_lb": 5123.836730028493,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000247756604084,
+      "displacement_ratio": 1.0001003542529614,
+      "evaluations": 2490
+    },
+    {
+      "iteration": 116,
+      "weight_lb": 5123.630363252011,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.000007950460524,
+      "displacement_ratio": 1.0000109745579704,
+      "evaluations": 2512
+    },
+    {
+      "iteration": 117,
+      "weight_lb": 5120.951910516812,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0001126179300897,
+      "displacement_ratio": 1.0001200723362067,
+      "evaluations": 2534
+    },
+    {
+      "iteration": 118,
+      "weight_lb": 5116.551572730721,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0004483304577196,
+      "displacement_ratio": 1.0003036471549918,
+      "evaluations": 2556
+    },
+    {
+      "iteration": 119,
+      "weight_lb": 5113.575778107529,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0004131981908992,
+      "displacement_ratio": 1.0002072187818194,
+      "evaluations": 2578
+    },
+    {
+      "iteration": 120,
+      "weight_lb": 5107.478281871733,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0007411045631163,
+      "displacement_ratio": 1.00032718374503,
+      "evaluations": 2600
+    },
+    {
+      "iteration": 121,
+      "weight_lb": 5095.911143684083,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0013474679958967,
+      "displacement_ratio": 1.0005674905938127,
+      "evaluations": 2622
+    },
+    {
+      "iteration": 122,
+      "weight_lb": 5070.6740847366245,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.002721028488998,
+      "displacement_ratio": 1.0012837960669432,
+      "evaluations": 2644
+    },
+    {
+      "iteration": 123,
+      "weight_lb": 5042.359763376053,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0020369140656642,
+      "displacement_ratio": 1.0154447970657332,
+      "evaluations": 2666
+    },
+    {
+      "iteration": 124,
+      "weight_lb": 5046.829132876847,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0005482193285733,
+      "displacement_ratio": 1.014204449328877,
+      "evaluations": 2689
+    },
+    {
+      "iteration": 125,
+      "weight_lb": 5049.396445637316,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0004453014859165,
+      "displacement_ratio": 1.013698193560699,
+      "evaluations": 2712
+    },
+    {
+      "iteration": 126,
+      "weight_lb": 5055.53520457209,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0001304056975806,
+      "displacement_ratio": 1.0022694355970185,
+      "evaluations": 2735
+    },
+    {
+      "iteration": 127,
+      "weight_lb": 5060.838931343711,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000509789419296,
+      "displacement_ratio": 1.0001194504952382,
+      "evaluations": 2758
+    },
+    {
+      "iteration": 128,
+      "weight_lb": 5061.231439328371,
+      "feasible": false,
+      "best_feasible_lb": 5076.667675825083,
+      "stress_ratio": 1.0000020743020688,
+      "displacement_ratio": 1.0000206923391537,
+      "evaluations": 2780
+    },
+    {
+      "iteration": 129,
+      "weight_lb": 5061.326218907778,
+      "feasible": true,
+      "best_feasible_lb": 5061.326218907778,
+      "stress_ratio": 1.000000802854462,
+      "displacement_ratio": 1.0000003876820778,
+      "evaluations": 2802
+    },
+    {
+      "iteration": 130,
+      "weight_lb": 5061.325975514733,
+      "feasible": true,
+      "best_feasible_lb": 5061.325975514733,
+      "stress_ratio": 1.0000002797832073,
+      "displacement_ratio": 1.0000001307925288,
+      "evaluations": 2824
+    },
+    {
+      "iteration": 131,
+      "weight_lb": 5061.324666354537,
+      "feasible": true,
+      "best_feasible_lb": 5061.324666354537,
+      "stress_ratio": 1.0000001232609461,
+      "displacement_ratio": 1.0000000577615566,
+      "evaluations": 2846
+    },
+    {
+      "iteration": 132,
+      "weight_lb": 5061.317084376017,
+      "feasible": true,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.0000006588123183,
+      "displacement_ratio": 1.0000003193066098,
+      "evaluations": 2868
+    },
+    {
+      "iteration": 133,
+      "weight_lb": 5061.301293681691,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.0000012034543926,
+      "displacement_ratio": 1.0000006523026357,
+      "evaluations": 2890
+    },
+    {
+      "iteration": 134,
+      "weight_lb": 5061.259706305788,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.0000025132686046,
+      "displacement_ratio": 1.0000018244085287,
+      "evaluations": 2912
+    },
+    {
+      "iteration": 135,
+      "weight_lb": 5061.171080555372,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.000002369199002,
+      "displacement_ratio": 1.0000043721419871,
+      "evaluations": 2934
+    },
+    {
+      "iteration": 136,
+      "weight_lb": 5061.022650342849,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 0.9999978582940257,
+      "displacement_ratio": 1.0000090632291483,
+      "evaluations": 2956
+    },
+    {
+      "iteration": 137,
+      "weight_lb": 5060.889691063533,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.0000022167472609,
+      "displacement_ratio": 1.00001158489658,
+      "evaluations": 2978
+    },
+    {
+      "iteration": 138,
+      "weight_lb": 5060.869465325234,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.00001021867062,
+      "displacement_ratio": 1.0000057761565762,
+      "evaluations": 3000
+    },
+    {
+      "iteration": 139,
+      "weight_lb": 5060.886991541787,
+      "feasible": false,
+      "best_feasible_lb": 5061.317084376017,
+      "stress_ratio": 1.0000019249141692,
+      "displacement_ratio": 1.0000009909009477,
+      "evaluations": 3022
+    },
+    {
+      "iteration": 140,
+      "weight_lb": 5060.891424950129,
+      "feasible": true,
+      "best_feasible_lb": 5060.891424950129,
+      "stress_ratio": 1.0000000195122907,
+      "displacement_ratio": 1.000000053950261,
+      "evaluations": 3044
+    },
+    {
+      "iteration": 141,
+      "weight_lb": 5060.891596369069,
+      "feasible": true,
+      "best_feasible_lb": 5060.891424950129,
+      "stress_ratio": 0.9999999994331077,
+      "displacement_ratio": 1.0000000024252227,
+      "evaluations": 3066
+    },
+    {
+      "iteration": 142,
+      "weight_lb": 5060.891124688437,
+      "feasible": true,
+      "best_feasible_lb": 5060.891124688437,
+      "stress_ratio": 0.9999999942578577,
+      "displacement_ratio": 1.0000000214969722,
+      "evaluations": 3088
+    },
+    {
+      "iteration": 143,
+      "weight_lb": 5060.890241541847,
+      "feasible": true,
+      "best_feasible_lb": 5060.890241541847,
+      "stress_ratio": 0.9999999874494031,
+      "displacement_ratio": 1.0000000381285887,
+      "evaluations": 3110
+    },
+    {
+      "iteration": 144,
+      "weight_lb": 5060.887766037181,
+      "feasible": true,
+      "best_feasible_lb": 5060.887766037181,
+      "stress_ratio": 0.9999999492516644,
+      "displacement_ratio": 1.0000001107531686,
+      "evaluations": 3132
+    },
+    {
+      "iteration": 145,
+      "weight_lb": 5060.882193358333,
+      "feasible": true,
+      "best_feasible_lb": 5060.882193358333,
+      "stress_ratio": 0.999999790343862,
+      "displacement_ratio": 1.0000002700735042,
+      "evaluations": 3154
+    },
+    {
+      "iteration": 146,
+      "weight_lb": 5060.871426644584,
+      "feasible": true,
+      "best_feasible_lb": 5060.871426644584,
+      "stress_ratio": 0.9999992274904256,
+      "displacement_ratio": 1.0000006082825377,
+      "evaluations": 3176
+    },
+    {
+      "iteration": 147,
+      "weight_lb": 5060.857830042696,
+      "feasible": false,
+      "best_feasible_lb": 5060.871426644584,
+      "stress_ratio": 0.9999984844141825,
+      "displacement_ratio": 1.0000010195143385,
+      "evaluations": 3198
+    },
+    {
+      "iteration": 148,
+      "weight_lb": 5060.851480614698,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.9999992346552675,
+      "displacement_ratio": 1.0000008296596823,
+      "evaluations": 3220
+    },
+    {
+      "iteration": 149,
+      "weight_lb": 5060.852631714858,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.999999936471624,
+      "displacement_ratio": 1.0000002374598271,
+      "evaluations": 3242
+    },
+    {
+      "iteration": 150,
+      "weight_lb": 5060.853563062436,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.9999999849095764,
+      "displacement_ratio": 1.000000020781127,
+      "evaluations": 3264
+    },
+    {
+      "iteration": 151,
+      "weight_lb": 5060.8536583606365,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.9999999993801312,
+      "displacement_ratio": 1.0000000004264675,
+      "evaluations": 3286
+    },
+    {
+      "iteration": 152,
+      "weight_lb": 5060.85366035333,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.9999999999001696,
+      "displacement_ratio": 1.0000000000078832,
+      "evaluations": 3308
+    },
+    {
+      "iteration": 153,
+      "weight_lb": 5060.85366035333,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.9999999999001696,
+      "displacement_ratio": 1.0000000000078832,
+      "evaluations": 3330
+    },
+    {
+      "iteration": 154,
+      "weight_lb": 5060.85366035333,
+      "feasible": true,
+      "best_feasible_lb": 5060.851480614698,
+      "stress_ratio": 0.9999999999001696,
+      "displacement_ratio": 1.0000000000078832,
+      "evaluations": 3330
+    }
+  ]
+}

@@ -123,7 +123,6 @@ QFrame#divider {background: #cbd9e8; border: none;}
 QLineEdit, QDoubleSpinBox, QSpinBox, QComboBox {background: #fcfdff; border: 1px solid #d0ddec; border-radius: 5px; padding: 5px 7px; selection-background-color: #d4e7ff;}
 QLineEdit:focus, QDoubleSpinBox:focus, QComboBox:focus {border-color: #5d9ff7;}
 QLineEdit:read-only {background: #eff3f8; color: #647b9a;}
-QDoubleSpinBox::up-button, QDoubleSpinBox::down-button {width: 0px;}
 QComboBox {padding-right: 15px;}
 QComboBox::drop-down {border: none; width: 18px;}
 QTreeWidget {background: transparent; border: none; outline: 0; show-decoration-selected: 1;}

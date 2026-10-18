@@ -128,16 +128,18 @@ def run_campaign(model,config,output_root,*,control=None,progress=None,batch_fac
                             result['optimization']={'method':method,'seed':seed,'initial_weight_lb':model.weight(),
                                 'global_optimum_proven':False,**info,**ev.metrics()}
                             record.update(variables_in2=x.tolist(),areas_in2=[m.area for m in winner.members],result=result,
-                                max_abs_stress_ksi=max(abs(m['stress']) for m in result['members']),
-                                max_displacement_components_in=np.max(np.abs(list(result['displacements'].values())),axis=0).tolist())
+                                max_abs_stress_ksi=max(abs(m['stress']) for case_result in (result.get('case_results') or {'active':result}).values() for m in case_result['members']),
+                                max_displacement_components_in=np.max(np.abs([u for case_result in (result.get('case_results') or {'active':result}).values() for u in case_result['displacements'].values()]),axis=0).tolist())
                             active=[]
-                            for b,v in zip(winner.members,result['members']):
-                                if v['ratio']>=1-1e-4:active.append(f'Esfuerzo B{b.id}')
+                            for b in winner.members:
                                 if abs(b.area-winner.area_min)/winner.area_min<=1e-4:active.append(f'Área mínima B{b.id}')
                                 if abs(b.area-winner.area_max)/winner.area_max<=1e-4:active.append(f'Área máxima B{b.id}')
-                            for n in winner.nodes:
-                                for d,axis in enumerate('XYZ'):
-                                    if not n.fixed[d] and abs(result['displacements'][str(n.id)][d])/winner.displacement_limit>=1-1e-4:active.append(f'Desplazamiento N{n.id} {axis}')
+                            for case,case_result in (result.get('case_results') or {result.get('analysis_case',winner.active_case):result}).items():
+                                for v in case_result['members']:
+                                    if v['ratio']>=1-1e-4:active.append(f'Esfuerzo B{v["id"]} · {case}')
+                                for n in winner.nodes:
+                                    for d,axis in enumerate('XYZ'):
+                                        if not winner.restraints(n)[d] and abs(case_result['displacements'][str(n.id)][d])/winner.displacement_limit>=1-1e-4:active.append(f'Desplazamiento N{n.id} {axis} · {case}')
                             record['active_constraints']=active;record['active_constraint_relative_tolerance']=1e-4
                             save_project(folder/'best.trusslab.json',winner,result)
                             record['best_project']=(folder/'best.trusslab.json').relative_to(root).as_posix()
@@ -179,7 +181,7 @@ def validate_campaign(campaign,directory,mode='best_per_method',*,control=None,p
                 control.checkpoint()
                 if progress:progress({'type':'sap_validation','message':'SAP2000: '+record['id']})
                 model=winner_model(campaign,record);result=batch.evaluate(model)
-                if not result.get('engine','').startswith('SAP2000') or result.get('model_fingerprint')!=model.fingerprint() or result.get('analysis_case_status',{}).get('CASE_I')!=4:
+                if not result.get('engine','').startswith('SAP2000') or result.get('model_fingerprint')!=model.fingerprint() or result.get('analysis_case_status',{}).get(result.get('sap_analysis_case',next(iter(result.get('analysis_case_status',{})),'')))!=4:
                     raise RuntimeError('El validador no devolvió un análisis SAP terminado para el candidato seleccionado.')
                 campaign['validation_cost']['sap_analyses']+=1;campaign['validation_cost']['independent_fem_audits']+=1
                 target=directory/'validated'/record['id'];target.mkdir(parents=True,exist_ok=True)

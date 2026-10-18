@@ -1,5 +1,7 @@
 """Size variables, optional groups and fixed members; independent of geometry."""
 import numpy as np
+from .engineering_types import OptimizationProblem
+from .analysis import design_cases
 
 
 class DesignSpace:
@@ -9,6 +11,11 @@ class DesignSpace:
         ids={m.id for m in model.members};active=ids if active_ids is None else set(active_ids)
         if not active or not active<=ids:raise ValueError('La selección de barras optimizables no es válida.')
         self.groups=[];seen=set()
+        if groups is None:
+            named={}
+            for member in model.members:
+                if member.group and member.id in active:named.setdefault(member.group,[]).append(member.id)
+            groups=list(named.values())
         for group in groups or []:
             group=list(group)
             if not group or not set(group)<=active or seen.intersection(group) or len(set(group))!=len(group):
@@ -17,6 +24,7 @@ class DesignSpace:
         self.groups.extend([[m.id] for m in model.members if m.id in active-seen])
         by_id={m.id:m for m in model.members}
         self.initial=np.array([np.mean([by_id[i].area for i in group]) for group in self.groups])
+        self.initial=np.clip(self.initial,model.area_min,model.area_max)
         self.lower=np.full(len(self.groups),model.area_min);self.upper=np.full(len(self.groups),model.area_max)
         self.fixed_ids=sorted(ids-active)
 
@@ -31,5 +39,7 @@ class DesignSpace:
         return m
 
     def descriptor(self):
+        problem=OptimizationProblem('minimize_weight_lb',self.groups,self.lower.tolist(),self.upper.tolist(),
+            self.model.stress_limit,self.model.displacement_limit,design_cases(self.model))
         return {'type':'size','groups':self.groups,'fixed_member_ids':self.fixed_ids,
-                'lower':self.lower.tolist(),'upper':self.upper.tolist()}
+                'lower':self.lower.tolist(),'upper':self.upper.tolist(),'problem':problem.to_dict()}

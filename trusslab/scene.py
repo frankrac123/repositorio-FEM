@@ -7,6 +7,7 @@ from PySide6.QtCore import Qt, QPointF, QRectF, QTimer, QEvent, Signal
 from PySide6.QtGui import QPainter, QColor, QPen, QFont, QPolygonF
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from .result_styles import signed_color,section_radius
+from .editor_commands import Tool
 
 
 class Overlay(QWidget):
@@ -23,7 +24,7 @@ class Overlay(QWidget):
         p = QPainter(self)
         p.setRenderHint(QPainter.Antialiasing)
         p.setFont(QFont('Segoe UI', 9))
-        if s.labels:
+        if s.labels and s.show_members:
             for m in s.model.members:
                 a = np.array(s.model.node(m.start).xyz)
                 b = np.array(s.model.node(m.end).xyz)
@@ -40,6 +41,7 @@ class Overlay(QWidget):
                 p.drawRoundedRect(rect, 3, 3)
                 p.setPen(QColor('white'))
                 p.drawText(rect, Qt.AlignCenter, str(m.id))
+        if s.labels and s.show_nodes:
             for n in s.model.nodes:
                 pos = s.project(n.xyz)
                 rect = QRectF(pos.x()+5, pos.y()-35 if n.xyz[2] > s.center[2] else pos.y()+10, 25, 25)
@@ -51,14 +53,16 @@ class Overlay(QWidget):
                 p.drawText(rect, Qt.AlignCenter, str(n.id))
                 p.setFont(QFont('Segoe UI', 9))
         # Loads display their real magnitude and direction from the model.
+        load_vectors=s.display_loads()
+        maxload=max((np.linalg.norm(v) for v in load_vectors.values()),default=1.) or 1.
         for n in s.model.nodes:
             if not s.loads:break
-            load = np.array(n.load)
+            load = np.array(load_vectors[str(n.id)])
             norm = np.linalg.norm(load)
             if norm < 1e-12:
                 continue
             head = s.project(n.xyz)
-            end = s.project(np.array(n.xyz) - load/norm*s.span*.105)
+            end = s.project(np.array(n.xyz) - load/norm*s.span*.14*(.25+.75*norm/maxload))
             delta = head-end
             length = math.hypot(delta.x(),delta.y()) or 1
             ux,uy = delta.x()/length, delta.y()/length
@@ -95,7 +99,7 @@ class Overlay(QWidget):
                 if r['ratio']>=.95:
                     mid=s.project((np.array(s.model.node(m.start).xyz)+np.array(s.model.node(m.end).xyz))*.5)
                     p.drawText(mid+QPointF(8,16),f'! {r["ratio"]:.3f}')
-        if s.dimensions and s.view in ('Frontal','IsomÃ©trica'):
+        if s.model.nodes and s.dimensions and s.view in ('Frontal','Isométrica'):
             self.draw_dimensions(p)
         # Triad uses the same XZ convention as the numerical model.
         base = QPointF(43,self.height()-46)
@@ -116,12 +120,12 @@ class Overlay(QWidget):
         p.setPen(QPen(QColor('#547c9f'),2))
         p.drawLine(bx,by,bx+30,by)
         p.setPen(QColor('#62758e'))
-        p.drawText(bx+40,by+4,'GeometrÃ­a original')
+        p.drawText(bx+40,by+4,'Geometría original')
         if s.deformed:
             p.setPen(QPen(QColor('#ef7186'),1.8,Qt.DashLine))
             p.drawLine(bx,by+19,bx+30,by+19)
             p.setPen(QColor('#62758e'))
-            p.drawText(bx+40,by+23,f'Deformada Ã—{s.deform_scale:g}')
+            p.drawText(bx+40,by+23,f'Deformada ×{s.deform_scale:g}')
         p.end()
 
     def draw_dimensions(self,p):
@@ -147,12 +151,21 @@ class Overlay(QWidget):
 
 class ModelScene(QWidget):
     selected_entity = Signal(str,int)
+    point_clicked = Signal(object)
+    message = Signal(str)
 
     def __init__(self):
         super().__init__()
         self.model=None
         self.result=None
         self.selected=('member',5)
+        self.selection=set()
+        self.tool=Tool.SELECT
+        self.snap=True
+        self.show_nodes=True
+        self.show_members=True
+        self.load_pattern=None
+        self.node_positions={};self.member_connectivity={}
         self.labels=True
         self.dimensions=True
         self.deformed=True
@@ -164,7 +177,7 @@ class ModelScene(QWidget):
         self.critical=False
         self.section_scale=1.5
         self.deform_scale=12.
-        self.view='IsomÃ©trica'
+        self.view='Isométrica'
         self.center=np.array([360.,0.,180.])
         self.span=720.
         layout=QVBoxLayout(self)
@@ -196,21 +209,74 @@ class ModelScene(QWidget):
         return QPointF(x*self.width()/max(rw,1),(rh-y)*self.height()/max(rh,1))
 
     def eventFilter(self,obj,event):
-        if event.type()==QEvent.MouseButtonPress:
+        if event.type()==QEvent.MouseButtonPress and event.button()==Qt.LeftButton:
             self.press_pos=event.position()
+            if self.tool!=Tool.SELECT:return True
         elif event.type()==QEvent.MouseButtonRelease and self.press_pos is not None:
             pos=event.position()
             if (pos-self.press_pos).manhattanLength()<5 and event.button()==Qt.LeftButton:
-                self.pick(pos)
+                if self.tool in (Tool.NODE,Tool.MEASURE):
+                    existing=self.pick_node(pos)
+                    if existing and self.tool==Tool.NODE:self.selected_entity.emit('node',existing)
+                    else:
+                        xyz=self.world_on_plane(pos)
+                        if xyz is not None:self.point_clicked.emit(xyz)
+                elif self.tool==Tool.MOVE and self.pick_node(pos) is None:
+                    xyz=self.world_on_plane(pos)
+                    if xyz is not None:self.point_clicked.emit(xyz)
+                else:self.pick(pos)
             self.press_pos=None
+            if self.tool!=Tool.SELECT:return True
         return False
+
+    def pick_node(self,pos):
+        if self.model is None or not self.show_nodes:return None
+        nearby=[(self.project(n.xyz)-pos).manhattanLength() for n in self.model.nodes]
+        if nearby and min(nearby)<20:return self.model.nodes[int(np.argmin(nearby))].id
+        return None
+
+    def world_on_plane(self,pos):
+        """Unproject near/far clip points; intersect actual camera ray with plane."""
+        if self.model is None:return None
+        if self.snap:
+            id=self.pick_node(pos)
+            if id is not None:return list(self.model.node(id).xyz)
+        renderer=self.plotter.renderer;rw,rh=renderer.GetSize()
+        x=pos.x()*rw/max(self.width(),1);y=rh-pos.y()*rh/max(self.height(),1)
+        points=[]
+        for depth in (0.,1.):
+            renderer.SetDisplayPoint(x,y,depth);renderer.DisplayToWorld();v=renderer.GetWorldPoint()
+            points.append(np.array(v[:3])/v[3])
+        a,b=points;direction=b-a;axis=self.model.normal_axis
+        if abs(direction[axis])<1e-12:
+            self.message.emit('La vista es paralela al plano de dibujo. Cambia la vista o el plano.');return None
+        result=a+direction*((self.model.work_elevation-a[axis])/direction[axis])
+        if self.snap:result=np.round(result/self.model.grid_step)*self.model.grid_step
+        result[axis]=self.model.work_elevation
+        return result.tolist()
+
+    def display_loads(self):
+        if self.model is None:return {}
+        if self.load_pattern and self.model.load_patterns:
+            clone=self.model.clone();clone.analysis_cases=[]
+            return clone.nodal_loads(self.load_pattern)
+        return self.model.nodal_loads(self.result.get('analysis_case') if self.result else None)
+
+    def load_arrows(self):
+        vectors=self.display_loads();maximum=max((np.linalg.norm(v) for v in vectors.values()),default=1.) or 1.
+        arrows={}
+        for n in self.model.nodes:
+            v=np.array(vectors[str(n.id)]);norm=np.linalg.norm(v)
+            if norm>1e-12:
+                head=np.array(n.xyz);tail=head-v/norm*self.span*.14*(.25+.75*norm/maximum)
+                arrows[n.id]=(tail.tolist(),head.tolist())
+        return arrows
 
     def pick(self,pos):
         if self.model is None: return
-        for n in self.model.nodes:
-            if (self.project(n.xyz)-pos).manhattanLength()<20:
-                self.selected_entity.emit('node',n.id)
-                return
+        node=self.pick_node(pos)
+        if node is not None:self.selected_entity.emit('node',node);return
+        if not self.show_members:return
         best=(14,None)
         point=np.array([pos.x(),pos.y()])
         for m in self.model.members:
@@ -224,9 +290,11 @@ class ModelScene(QWidget):
     def set_model(self,model,result=None,reset=False):
         self.model=model
         self.result=result
-        xyz=np.array([n.xyz for n in model.nodes])
+        xyz=np.array([n.xyz for n in model.nodes] or [[0.,0.,0.]])
+        self.node_positions={n.id:list(n.xyz) for n in model.nodes}
+        self.member_connectivity={m.id:(m.start,m.end) for m in model.members}
         self.center=(xyz.min(axis=0)+xyz.max(axis=0))*.5
-        self.span=max(float(np.ptp(xyz,axis=0).max()),1.)
+        self.span=max(float(np.ptp(xyz,axis=0).max()),100.)
         camera=self.plotter.camera_position if not reset else None
         self.plotter.clear()
         self.plotter.set_background('#e8f0f7',top='#f8fbff')
@@ -235,16 +303,22 @@ class ModelScene(QWidget):
         quantity=self.result_quantity
         maxvalue=max((abs(r.get(quantity,r['stress'])) for r in forces.values()),default=0.)
         for m in model.members:
+            if not self.show_members:break
             a,b=model.node(m.start).xyz,model.node(m.end).xyz
             color='#5f92bc'
             if self.stress_colors and m.id in forces:
                 color=signed_color(forces[m.id].get(quantity,forces[m.id]['stress']),maxvalue)
-            if self.selected==('member',m.id) and not self.stress_colors:color='#2385ec'
+            if (self.selected==('member',m.id) or ('member',m.id) in self.selection) and not self.stress_colors:color='#2385ec'
             tube=pv.Line(a,b).tube(radius=section_radius(m.area,self.section_scale),n_sides=20)
             self.plotter.add_mesh(tube,color=color,smooth_shading=True,specular=.8,specular_power=45,ambient=.22,render=False)
         for n in model.nodes:
+            if not self.show_nodes:break
             self.plotter.add_mesh(pv.Sphere(radius=radius*2.7,center=n.xyz,theta_resolution=24,phi_resolution=24),
-                                  color='#3786c1' if self.selected!=('node',n.id) else '#ffb13f',smooth_shading=True,specular=.9,specular_power=35,ambient=.18,render=False)
+                                  color='#ffb13f' if self.selected==('node',n.id) or ('node',n.id) in self.selection else '#3786c1',smooth_shading=True,specular=.9,specular_power=35,ambient=.18,render=False)
+            for axis,fixed in enumerate(n.fixed):
+                if fixed:
+                    end=np.array(n.xyz,float);end[axis]-=self.span*.045
+                    self.plotter.add_mesh(pv.Line(n.xyz,end),color=['#db5464','#48a26b','#397bcd'][axis],line_width=4,render=False)
             if n.fixed[0] and n.fixed[2]:
                 x,y,z=n.xyz
                 d=self.span*.046
@@ -253,14 +327,16 @@ class ModelScene(QWidget):
                 for i in range(6):
                     z0=z-d*.7+i*d*.28
                     self.plotter.add_mesh(pv.Line([x-d*1.3,y,z0-d*.2],[x-d,y,z0+d*.1]),color='#687e95',line_width=1,render=False)
-        # A reference grid on the XY plane below the structure.
-        floor=float(xyz[:,2].min())-self.span*.045
-        step=self.span/12
-        cx,cy,_=self.center
-        for i in range(-12,13):
+        # Exact active work plane, shared by numerical and graphical input.
+        step=model.grid_step;axis=model.normal_axis;axes=[d for d in range(3) if d!=axis]
+        origin=self.center.copy();origin[axis]=model.work_elevation
+        extent=max(self.span,step*8);count=min(40,max(8,int(extent/step)))
+        for i in range(-count,count+1):
             c='#dae4ee' if i%3 else '#cddbe8'
-            self.plotter.add_mesh(pv.Line([cx-2*self.span,cy+i*step,floor],[cx+2*self.span,cy+i*step,floor]),color=c,line_width=.6,opacity=.6,render=False)
-            self.plotter.add_mesh(pv.Line([cx+i*step,cy-2*self.span,floor],[cx+i*step,cy+2*self.span,floor]),color=c,line_width=.6,opacity=.6,render=False)
+            for a,b in (axes,axes[::-1]):
+                start=origin.copy();end=origin.copy();start[a]-=count*step;end[a]+=count*step
+                start[b]=end[b]=round(origin[b]/step)*step+i*step
+                self.plotter.add_mesh(pv.Line(start,end),color=c,line_width=.6,opacity=.6,render=False)
         if result and self.deformed:
             for m in model.members:
                 a=np.array(model.node(m.start).xyz)+self.deform_scale*np.array(result['displacements'][str(m.start)])
@@ -284,9 +360,14 @@ class ModelScene(QWidget):
         self.fit()
 
     def fit(self):
+        eye,focal,up=self.plotter.camera_position
+        direction=np.array(eye)-np.array(focal);length=np.linalg.norm(direction)
+        if length>1e-12:
+            self.plotter.camera_position=[(self.center+direction/length*3*self.span).tolist(),self.center.tolist(),up]
         aspect=max(self.width(),1)/max(self.height(),1)
-        height=max(np.ptp(np.array([n.xyz for n in self.model.nodes]),axis=0)[2],self.span*.3) if self.model else self.span*.5
+        height=max(np.ptp(np.array([n.xyz for n in self.model.nodes]),axis=0)[2],self.span*.3) if self.model and self.model.nodes else self.span*.5
         self.plotter.camera.parallel_scale=max(height*.71,self.span/(max(aspect,.1)*1.55))
+        self.plotter.renderer.ResetCameraClippingRange()
         self.plotter.render()
         self.overlay.update()
 

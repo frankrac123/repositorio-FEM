@@ -10,7 +10,9 @@ from PySide6.QtWidgets import (QApplication,QMainWindow,QWidget,QFrame,QLabel,QP
     QTreeWidget,QTreeWidgetItem,QTableWidget,QTableWidgetItem,QHeaderView,QSplitter,QComboBox,QDoubleSpinBox,
     QFormLayout,QScrollArea,QCheckBox,QLineEdit,QFileDialog,QMessageBox,QDialog,QDialogButtonBox,QSpinBox,QMenu,
     QInputDialog,QPlainTextEdit,QProgressBar,QAbstractItemView,QTabWidget)
-from .core import benchmark,Node,Member,save_project,load_project
+from .core import Model,benchmark,Node,Member,Material,Section,LoadPattern,AnalysisCase,save_project,load_project
+from .editor_commands import Tool,UndoHistory,create_node,create_member,delete_entities,copy_entities
+from .editor_properties import NumberEdit,PropertiesEditor
 from .fem import solve
 from .scene import ModelScene
 from .widgets import Panel,Metric,Convergence,label,button,STYLE
@@ -40,21 +42,23 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(icon('cube','#247df2',48))
         self.resize(1660,960)
         self.setMinimumSize(1160,720)
-        self.model=benchmark()
-        self.result=solve(self.model)
+        self.model=Model.empty()
+        self.result=None
+        self.checked_fingerprint=None
+        self.validation_issue=None
         self.history=[]
         self.project_path=None
         self.dirty=False
-        self.selected=('member',5)
+        self.selected=('project',0)
+        self.selection=set()
+        self.undo_history=UndoHistory()
+        self.tool=Tool.SELECT;self.pending_node=None
+        self.display_pattern='LC1'
         self.job=None
         from .sap import VisibleSapSessions
         self.sap_sessions=VisibleSapSessions()
         self.sap_session_id=None
         self.last_sap_result=None
-        sample=ROOT/'examples'/'Caso_I_calculado.trusslab.json'
-        if sample.exists():
-            try:self.model,self.result,self.history=load_project(sample)
-            except Exception:pass
         root=QWidget();root.setObjectName('root');self.setCentralWidget(root)
         main=QVBoxLayout(root);main.setContentsMargins(0,0,0,0);main.setSpacing(0)
         main.addWidget(self.make_toolbar())
@@ -65,7 +69,8 @@ class MainWindow(QMainWindow):
         self.explorer.setMinimumWidth(225);self.explorer.setMaximumWidth(290)
         self.properties=self.make_properties();self.properties.setMinimumWidth(277);self.properties.setMaximumWidth(345)
         self.summary=self.make_summary()
-        self.scene=ModelScene();self.scene.selected_entity.connect(self.select)
+        self.scene=ModelScene();self.scene.selected_entity.connect(self.scene_entity)
+        self.scene.point_clicked.connect(self.scene_point)
         self.model_panel=self.make_model_panel()
         self.chart=Convergence()
         self.chart_panel=Panel('Convergencia de optimización')
@@ -132,6 +137,7 @@ class MainWindow(QMainWindow):
         p=Panel('Explorador del modelo')
         search=button('','search');search.setFixedSize(27,27);search.setToolTip('Buscar nodo o barra');search.clicked.connect(self.search_entity);p.header.addWidget(search)
         self.tree=QTreeWidget();self.tree.setHeaderHidden(True);self.tree.setIndentation(15);self.tree.setUniformRowHeights(True)
+        self.tree.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.tree.itemClicked.connect(self.tree_selected)
         self.tree.itemDoubleClicked.connect(self.tree_edit)
         p.layout.addWidget(self.tree,1)
@@ -143,38 +149,20 @@ class MainWindow(QMainWindow):
         return p
 
     def populate_tree(self):
-        self.tree.clear()
-        def item(parent,text,glyph=None,data=None):
-            q=QTreeWidgetItem(parent,[text])
-            if glyph:q.setIcon(0,icon(glyph,'#5c7da6',15))
-            if data:q.setData(0,Qt.UserRole,data)
-            return q
-        project=item(self.tree,'Proyecto 1','cube')
-        nodes=item(project,f'Nodos ({len(self.model.nodes)})','folder')
-        for n in self.model.nodes:
-            x,y,z=n.xyz
-            q=item(nodes,f'●  {n.id}    ({x:g}, {y:g}, {z:g})',data=('node',n.id))
-            q.setForeground(0,QColor('#607997'))
-        bars=item(project,f'Barras ({len(self.model.members)})','folder')
-        for m in self.model.members:item(bars,f'{m.id}     ({m.start} – {m.end})','bar',('member',m.id))
-        material=item(project,'Material (1)','folder',('material',0))
-        item(material,'Material del benchmark','settings',('material',0))
-        item(material,f'E = {self.model.elastic_modulus:,.0f} ksi')
-        cases=item(project,'Casos de carga (1)','folder')
-        case=item(cases,'LC1 · Carga vertical','load',('loads',0))
-        item(case,'Sin peso propio · Caso I')
-        for n in self.model.nodes:
-            if any(n.load):item(case,f'Nodo {n.id}: Fz = {n.load[2]:g} kips',data=('node',n.id))
-        opt=item(project,'Configuración de optimización','settings',('settings',0))
-        item(opt,f'Variables: {len(self.model.members)} áreas','weight',('settings',0))
-        item(opt,'Objetivo: minimizar peso','chart',('settings',0))
-        lim=item(opt,'Restricciones','check',('settings',0))
-        item(lim,f'Esfuerzo ≤ ±{self.model.stress_limit:g} ksi')
-        item(lim,f'Desplazamiento ≤ ±{self.model.displacement_limit:g} in')
-        self.tree.expandAll()
-        iterator=self.tree.findItems('',Qt.MatchContains|Qt.MatchRecursive)
-        for q in iterator:
-            if q.data(0,Qt.UserRole)==self.selected:self.tree.setCurrentItem(q);break
+        self.tree.blockSignals(True);self.tree.clear()
+        project=QTreeWidgetItem(self.tree,[self.model.name])
+        for title,collection,kind in [('Nodos',self.model.nodes,'node'),('Barras',self.model.members,'member')]:
+            root=QTreeWidgetItem(project,[f'{title} ({len(collection)})'])
+            for entity in collection:
+                text=f'N{entity.id}  {tuple(entity.xyz)}' if kind=='node' else f'B{entity.id}  {entity.start} → {entity.end}  {entity.group}'
+                item=QTreeWidgetItem(root,[text]);item.setData(0,Qt.UserRole,(kind,entity.id));item.setSelected((kind,entity.id) in self.selection)
+        materials=QTreeWidgetItem(project,['Materiales y secciones'])
+        for material in self.model.materials:QTreeWidgetItem(materials,[material.name])
+        if not self.model.materials:QTreeWidgetItem(materials,[self.model.material_name])
+        for section in self.model.sections:QTreeWidgetItem(materials,[f'{section.name}: {section.area:g} in²'])
+        loads=QTreeWidgetItem(project,['Patrones y casos de carga'])
+        for pattern in self.model.load_patterns:QTreeWidgetItem(loads,[f'{pattern.id}: {pattern.name}'])
+        self.tree.expandAll();self.tree.blockSignals(False)
 
     def make_model_panel(self):
         p=Panel('Vista del modelo 3D')
@@ -189,11 +177,25 @@ class MainWindow(QMainWindow):
         for glyph,tooltip,action in [('cursor','Selecciona nodos y barras en la escena',lambda:self.statusBar().showMessage('Haz clic sobre un nodo o una barra. Arrastra para orbitar.')),
                 ('fit','Ajustar modelo a la vista',self.scene.fit),('image','Guardar imagen de la vista',self.export_image)]:
             b=button('',glyph,'#267eff' if glyph=='cursor' else '#526783');b.setToolTip(tooltip);b.setFixedSize(30,29);b.clicked.connect(action);p.header.addWidget(b)
+        tools=QHBoxLayout();tools.setSpacing(4)
+        self.tool_combo=QComboBox();self.tool_combo.setObjectName('drawing_tool')
+        for tool in Tool:self.tool_combo.addItem(tool.value,tool)
+        self.tool_combo.currentIndexChanged.connect(lambda:self.set_tool(self.tool_combo.currentData()))
+        tools.addWidget(self.tool_combo)
+        for text,action in [('Validar',self.validate_document),('XYZ…',self.add_node),('Barra…',self.add_member),('Cargas',self.loads_dialog),('Bibliotecas',self.material_dialog),('Copiar',self.copy_selected),('Grupo',self.select_group)]:
+            b=button(text);b.clicked.connect(action);tools.addWidget(b)
+        p.layout.addLayout(tools)
+        plane=QHBoxLayout();plane.addWidget(label('Plano'))
+        self.plane_combo=QComboBox();self.plane_combo.addItems(['XZ','XY','YZ']);self.plane_combo.currentTextChanged.connect(self.change_work_plane);plane.addWidget(self.plane_combo)
+        plane.addWidget(label('Elevación (in)'));self.elevation=NumberEdit(0);self.elevation.setObjectName('work_elevation');self.elevation.editingFinished.connect(self.change_work_plane);plane.addWidget(self.elevation)
+        plane.addWidget(label('Malla (in)'));self.grid_edit=NumberEdit(25,.001,1e6);self.grid_edit.editingFinished.connect(self.change_work_plane);plane.addWidget(self.grid_edit)
+        self.snap_check=QCheckBox('Captura');self.snap_check.setChecked(True);self.snap_check.toggled.connect(lambda v:setattr(self.scene,'snap',v));plane.addWidget(self.snap_check)
+        p.layout.addLayout(plane)
         self.scene.setMinimumHeight(290)
         p.layout.addWidget(self.scene,1)
         options=QHBoxLayout();options.setContentsMargins(12,0,10,3);options.setSpacing(16)
         self.checks={}
-        for text,key,value in [('Numeración','labels',True),('Deformada','deformed',True),('Tracción / compresión','stress_colors',False),('Cotas','dimensions',True)]:
+        for text,key,value in [('Nodos','show_nodes',True),('Barras','show_members',True),('ID','labels',True),('Deformada','deformed',True),('σ','stress_colors',False),('Cotas','dimensions',True)]:
             c=QCheckBox(text);c.setChecked(value);c.toggled.connect(lambda v,k=key:self.scene_option(k,v));options.addWidget(c);self.checks[key]=c
         options.addStretch()
         options.addWidget(label('Orbitar: arrastrar  ·  Zoom: rueda','muted'))
@@ -206,7 +208,7 @@ class MainWindow(QMainWindow):
         p=Panel('Propiedades',self.entity_combo)
         self.prop_heading=label('Barra 5 (Nodo 3 – Nodo 4)','panelTitle');self.prop_heading.setStyleSheet('font-size:12px; background:#eef4fc; padding:7px; border:1px solid #d6e2ef; border-radius:5px;')
         p.layout.addWidget(self.prop_heading)
-        scroll=QScrollArea();scroll.setWidgetResizable(True);scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll=QScrollArea();self.property_scroll=scroll;scroll.setWidgetResizable(True);scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.property_body=QWidget();self.property_layout=QVBoxLayout(self.property_body);self.property_layout.setContentsMargins(2,2,2,0);self.property_layout.setSpacing(8)
         scroll.setWidget(self.property_body);p.layout.addWidget(scroll,1)
         return p
@@ -214,63 +216,17 @@ class MainWindow(QMainWindow):
     def clear_properties(self):
         while self.property_layout.count():
             item=self.property_layout.takeAt(0)
-            if item.widget():item.widget().deleteLater()
+            if item.widget():
+                widget=item.widget();widget.hide();widget.setParent(None);widget.deleteLater()
 
     def show_properties(self):
         if not hasattr(self,'property_layout'):return
         self.clear_properties()
         kind,id=self.selected
-        self.entity_combo.blockSignals(True);self.entity_combo.setCurrentIndex(0 if kind=='member' else 1);self.entity_combo.blockSignals(False)
-        form=QFormLayout();form.setContentsMargins(0,0,0,0);form.setHorizontalSpacing(9);form.setVerticalSpacing(8)
-        form.setLabelAlignment(Qt.AlignLeft|Qt.AlignVCenter)
-        container=QWidget();container.setLayout(form);self.property_layout.addWidget(container)
-        def row(name,value,unit='',editable=False,callback=None,minimum=-1e8,maximum=1e8,decimals=3):
-            wrap=QWidget();h=QHBoxLayout(wrap);h.setContentsMargins(0,0,0,0);h.setSpacing(6)
-            if editable:
-                field=QDoubleSpinBox();field.setRange(minimum,maximum);field.setDecimals(decimals);field.setValue(float(value));field.setKeyboardTracking(False);field.setButtonSymbols(QDoubleSpinBox.NoButtons)
-                if callback:field.editingFinished.connect(lambda:callback(field.value()))
-            else:
-                field=QLineEdit(str(value));field.setReadOnly(True)
-            field.setMinimumWidth(50);field.setMaximumWidth(160);h.addWidget(field,1)
-            if unit:
-                u=label(unit,'muted');u.setFixedWidth(24);h.addWidget(u)
-            caption=label(name);caption.setWordWrap(True);caption.setFixedWidth(112)
-            form.addRow(caption,wrap)
-            return field
-        if kind=='member':
-            m=next((m for m in self.model.members if m.id==id),self.model.members[0])
-            self.prop_heading.setText(f'Barra {m.id} (Nodo {m.start} – Nodo {m.end})')
-            row('ID de barra',m.id)
-            row('Nodo inicial',m.start);row('Nodo final',m.end)
-            row('Longitud',f'{self.model.length(m):.2f}','in')
-            row('Área (A)',m.area,'in²',True,lambda v:self.change_area(m.id,v),self.model.area_min,self.model.area_max,4)
-            mat=button('Benchmark  ⌄');mat.clicked.connect(self.material_dialog);mat.setMaximumWidth(160);form.addRow('Material',mat)
-            row('Módulo elástico (E)',f'{self.model.elastic_modulus:g}','ksi')
-            if self.result:
-                r=next(r for r in self.result['members'] if r['id']==m.id)
-                row('Fuerza axial (P)',f'{r["force"]:+.3f}','kips')
-                row('Esfuerzo (σ)',f'{r["stress"]:+.3f}','ksi')
-                self.ratio_row(form,'Relación de esfuerzo',r['ratio'])
-                row('Límite de despl.',f'{self.model.displacement_limit:.2f}','in')
-                # Report end displacement magnitude and component-based constraint separately.
-                u=max(sum(x*x for x in self.result['displacements'][str(n)])**.5 for n in (m.start,m.end))
-                row('Máx. |u| extremos',f'{u:.3f}','in')
-                rr=max(abs(x)/self.model.displacement_limit for n in (m.start,m.end) for x in self.result['displacements'][str(n)])
-                self.ratio_row(form,'Relación por componente',rr)
-        else:
-            n=self.model.node(id)
-            self.prop_heading.setText(f'Nodo {n.id} · Coordenadas y cargas')
-            row('ID de nodo',n.id)
-            for d,axis in enumerate('XYZ'):
-                row(f'Coordenada {axis}',n.xyz[d],'in',True,lambda v,d=d:self.change_node(n.id,'xyz',d,v))
-            for d,axis in enumerate('XYZ'):
-                row(f'Fuerza {axis}',n.load[d],'kips',True,lambda v,d=d:self.change_node(n.id,'load',d,v))
-            for d,axis in enumerate('XYZ'):
-                check=QCheckBox(f'Restringir {axis}');check.setChecked(n.fixed[d]);check.toggled.connect(lambda v,d=d:self.change_node(n.id,'fixed',d,v));form.addRow('',check)
-            if self.result:
-                for d,axis in enumerate('XYZ'):row(f'Desplazamiento {axis}',f'{self.result["displacements"][str(n.id)][d]:+.5f}','in')
+        self.entity_combo.blockSignals(True);self.entity_combo.setCurrentIndex(1 if kind=='node' else 0);self.entity_combo.blockSignals(False)
+        self.prop_heading.setText(f'{"Nodo" if kind=="node" else "Barra"} {id}' if kind in ('node','member') else 'Documento / modelado')
+        self.property_editor=PropertiesEditor(self);self.property_layout.addWidget(self.property_editor)
         self.property_layout.addStretch()
-        note=label('Tracción (+)  ·  Compresión (−)\nUnidades del modelo: kip, in, ksi','muted');note.setWordWrap(True);self.property_layout.addWidget(note)
 
     def ratio_row(self,form,title,ratio):
         w=QWidget();l=QVBoxLayout(w);l.setContentsMargins(0,0,0,0);l.setSpacing(4)
@@ -309,8 +265,16 @@ class MainWindow(QMainWindow):
         p.layout.addWidget(self.table,1)
         return p
 
-    def refresh(self,reset=False):
-        self.populate_tree();self.show_properties()
+    def refresh(self,reset=False,rebuild_properties=True):
+        existing={('node',n.id) for n in self.model.nodes}|{('member',m.id) for m in self.model.members}
+        self.selection.intersection_update(existing)
+        if self.selected not in existing:self.selected=next(iter(self.selection),('project',0))
+        self.populate_tree()
+        if rebuild_properties:self.show_properties()
+        self.plane_combo.blockSignals(True);self.plane_combo.setCurrentText(self.model.work_plane);self.plane_combo.blockSignals(False)
+        self.elevation.blockSignals(True);self.elevation.setValue(self.model.work_elevation);self.elevation.blockSignals(False)
+        self.grid_edit.blockSignals(True);self.grid_edit.setValue(self.model.grid_step);self.grid_edit.blockSignals(False)
+        self.scene.selection=set(self.selection)
         self.scene.selected=self.selected;self.scene.set_model(self.model,self.result,reset)
         self.chart.history=self.history;self.chart.update()
         self.table.setRowCount(len(self.model.members))
@@ -327,11 +291,12 @@ class MainWindow(QMainWindow):
         self.status_units.setText(f'kip · in · ksi   |   {len(self.model.nodes)} nodos · {len(self.model.members)} barras')
         if self.result:
             r=self.result;feasible=r['feasible'];opt=r.get('optimization')
-            self.summary_title.setText('Diseño factible' if feasible else 'Restricciones excedidas')
+            self.summary_title.setText('ANALIZADO · factible' if feasible else 'ANALIZADO · infactible')
             self.summary_title.setStyleSheet('color:'+('#0ba875' if feasible else '#df5168'))
             self.summary_symbol.setText('✓' if feasible else '!')
             self.summary_symbol.setStyleSheet(f'color:white; background:{"#25b982" if feasible else "#e76b80"};border-radius:15px;font-size:22px;')
-            sub=f'{opt["method"]} · {opt["iterations"]} iteraciones' if opt else 'Análisis lineal completado'
+            sub=(f'{opt["method"]} · {opt["iterations"]} iteraciones' if opt else 'Análisis lineal completado')+' · vista '+r.get('analysis_case',self.model.active_case)
+            if r.get('case_results'):sub+=' · '+str(len(r['case_results']))+' casos verificados'
             if opt and not opt['converged']:sub+=' · '+str(opt.get('message','límite alcanzado'))
             if r.get('external_validation')=='pending':sub+=' · pendiente de SAP2000'
             self.summary_subtitle.setText(sub)
@@ -343,15 +308,25 @@ class MainWindow(QMainWindow):
             self.metric_displ.value.setText(f'{r["displacement_ratio"]:.3f}');self.metric_displ.note.setText(f'±{self.model.displacement_limit:g} in');self.metric_displ.bar.setValue(min(1000,int(r['displacement_ratio']*1000)))
             self.engine_label.setText('Motor: '+r['engine']+('  ·  FEM coincide ✓' if r.get('comparison',{}).get('passed') else ''))
         else:
-            self.summary_title.setText('Modelo sin analizar');self.summary_subtitle.setText('Revisa geometría y apoyos')
+            from .analysis import project_state
+            self.summary_title.setText(project_state(self.model,self.result,self.checked_fingerprint));self.summary_subtitle.setText('Edición guardable. Analizar comprueba estabilidad y apoyos.')
+            if self.validation_issue and self.validation_issue[0]==self.model.fingerprint():
+                self.summary_title.setText('ESTRUCTURA INESTABLE' if 'inestable' in self.validation_issue[1].lower() else 'MODELO INCOMPLETO')
+                self.summary_subtitle.setText(self.validation_issue[1]);self.summary_subtitle.setWordWrap(True)
+            self.summary_symbol.setText('✎')
             self.engine_label.setText('Sin resultados válidos para este modelo')
             for m in [self.metric_weight,self.metric_stress,self.metric_displ]:m.value.setText('—');m.bar.setValue(0)
         self.setWindowTitle(('● ' if self.dirty else '')+'TrussLab 3D — '+self.model.name)
 
-    def select(self,kind,id):
+    def select(self,kind,id,additive=False):
         if self.job:return
-        self.selected=(kind,id);self.scene.selected=self.selected;self.show_properties()
-        self.scene.set_model(self.model,self.result)
+        entity=(kind,id)
+        if additive:
+            if entity in self.selection:self.selection.remove(entity)
+            else:self.selection.add(entity)
+        else:self.selection={entity}
+        self.selected=entity;self.scene.selected=entity;self.scene.selection=set(self.selection)
+        self.show_properties();self.scene.set_model(self.model,self.result)
         if kind=='member':
             for i,m in enumerate(self.model.members):
                 if m.id==id:self.table.selectRow(i);break
@@ -359,11 +334,46 @@ class MainWindow(QMainWindow):
     def tree_selected(self,item,column):
         data=item.data(0,Qt.UserRole)
         if not data:return
-        kind,id=data
-        if kind in ('node','member'):self.select(kind,id)
-        elif kind=='material':self.material_dialog()
-        elif kind=='settings':self.optimize_dialog()
-        elif kind=='loads':self.select('node',next((n.id for n in self.model.nodes if any(n.load)),self.model.nodes[0].id))
+        self.select(*data,additive=bool(QApplication.keyboardModifiers()&Qt.ControlModifier))
+
+    def scene_entity(self,kind,id):
+        if self.tool==Tool.MEMBER:
+            if kind!='node':return
+            if self.pending_node is None:
+                self.pending_node=id;self.select(kind,id);self.statusBar().showMessage(f'Inicio N{id}. Selecciona el nodo final.');return
+            start=self.pending_node;self.pending_node=None
+            self.create_member_command(start,id);return
+        if self.tool==Tool.MOVE:
+            if kind=='node':self.pending_node=id;self.select(kind,id);self.statusBar().showMessage('Haz clic en el plano de trabajo para mover el nodo; XYZ permite precisión numérica.')
+            return
+        if self.tool in (Tool.LOAD,Tool.SUPPORT) and kind!='node':
+            self.statusBar().showMessage('Selecciona un nodo para asignar cargas o apoyos.');return
+        self.select(kind,id,additive=bool(QApplication.keyboardModifiers()&Qt.ControlModifier))
+        if self.tool==Tool.DELETE:self.delete_selected()
+        elif self.tool in (Tool.LOAD,Tool.SUPPORT):self.statusBar().showMessage('Edita y confirma las asignaciones en Propiedades.')
+
+    def scene_point(self,xyz):
+        if self.tool==Tool.NODE:self.create_node_command(xyz)
+        elif self.tool==Tool.MOVE and self.pending_node is not None:
+            id=self.pending_node;self.pending_node=None
+            self.edit(lambda:setattr(self.model.node(id),'xyz',list(xyz)))
+        elif self.tool==Tool.MEASURE:
+            if self.pending_node is None:self.pending_node=xyz;self.statusBar().showMessage('Selecciona el segundo punto de medida.')
+            else:
+                import math
+                self.statusBar().showMessage(f'Distancia: {math.dist(self.pending_node,xyz):.6g} in');self.pending_node=None
+
+    def set_tool(self,tool):
+        self.tool=Tool(tool);self.pending_node=None;self.scene.tool=self.tool
+        self.tool_combo.blockSignals(True);self.tool_combo.setCurrentIndex(list(Tool).index(self.tool));self.tool_combo.blockSignals(False)
+        self.statusBar().showMessage(self.tool.value+' · Ctrl + clic para selección múltiple. Botón central/derecho para navegar.')
+
+    def change_work_plane(self,*_):
+        if not hasattr(self,'scene') or not hasattr(self,'grid_edit'):return
+        self.elevation.interpretText();self.grid_edit.interpretText()
+        def change():
+            self.model.work_plane=self.plane_combo.currentText();self.model.work_elevation=self.elevation.value();self.model.grid_step=self.grid_edit.value()
+        self.edit(change)
 
     def tree_edit(self,item,column):
         data=item.data(0,Qt.UserRole)
@@ -371,7 +381,8 @@ class MainWindow(QMainWindow):
 
     def entity_type_changed(self,index):
         if not hasattr(self,'scene'):return
-        self.select('member' if index==0 else 'node',self.model.members[0].id if index==0 else self.model.nodes[0].id)
+        collection=self.model.members if index==0 else self.model.nodes
+        if collection:self.select('member' if index==0 else 'node',collection[0].id)
 
     def set_view(self,name):
         for n,b in self.view_buttons.items():b.setChecked(n==name)
@@ -380,17 +391,27 @@ class MainWindow(QMainWindow):
     def scene_option(self,key,value):
         setattr(self.scene,key,value);self.scene.set_model(self.model,self.result)
 
-    def edit(self,mutation):
-        if self.job:return
-        old=self.model.clone()
+    def snapshot(self):return (self.model.clone(),self.result,list(self.history),self.selected,set(self.selection))
+
+    def edit(self,mutation,rebuild_properties=True):
+        if self.job:return False
+        old=self.snapshot()
         try:
-            mutation();self.model.validate()
+            mutation();self.model.validate_integrity()
         except Exception as e:
-            self.model=old;self.error(str(e));self.show_properties();return
-        self.dirty=True;self.history=[]
-        try:self.result=solve(self.model);self.statusBar().showMessage('Modelo actualizado · resultados FEM recalculados',6000)
-        except Exception as e:self.result=None;self.statusBar().showMessage(str(e))
-        self.refresh()
+            self.model,self.result,self.history,self.selected,self.selection=old
+            self.error(str(e));self.refresh(rebuild_properties=False);return False
+        if old[0].to_dict()==self.model.to_dict():return True
+        self.undo_history.record(old)
+        self.dirty=True;self.history=[];self.result=None;self.validation_issue=None
+        self.statusBar().showMessage('BORRADOR · cambio confirmado. Ejecuta Analizar cuando termines.',6000)
+        self.refresh(rebuild_properties=rebuild_properties);return True
+
+    def undo(self):self.restore_edit(self.undo_history.undo(self.snapshot()))
+    def redo(self):self.restore_edit(self.undo_history.redo(self.snapshot()))
+    def restore_edit(self,snapshot):
+        if snapshot and not self.job:
+            self.model,self.result,self.history,self.selected,self.selection=snapshot;self.dirty=True;self.refresh()
 
     def change_area(self,id,value):
         m=next(m for m in self.model.members if m.id==id)
@@ -405,59 +426,70 @@ class MainWindow(QMainWindow):
         value,ok=QInputDialog.getDouble(self,'Área de barra',f'Barra {id} · Área (in²)',m.area,self.model.area_min,self.model.area_max,4)
         if ok:self.change_area(id,value)
 
-    def dialog(self,title,fields):
+    def dialog(self,title,fields,locked=()):
         d=QDialog(self);d.setWindowTitle(title);d.setMinimumWidth(350)
         l=QVBoxLayout(d);form=QFormLayout();l.addLayout(form);widgets={}
         for key,caption,value,low,high,dec in fields:
-            w=QDoubleSpinBox();w.setRange(low,high);w.setDecimals(dec);w.setValue(value);form.addRow(caption,w);widgets[key]=w
+            w=NumberEdit(value,low,high,dec);w.setObjectName(key);w.setEnabled(key not in locked);form.addRow(caption,w);widgets[key]=w
         boxes=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);boxes.accepted.connect(d.accept);boxes.rejected.connect(d.reject);l.addWidget(boxes)
         return {k:w.value() for k,w in widgets.items()} if d.exec() else None
 
     def material_dialog(self):
-        v=self.dialog('Material y límites del modelo',[
-            ('E','Módulo E (ksi)',self.model.elastic_modulus,1,1e8,1),('rho','Peso específico (lb/in³)',self.model.density,.000001,10,6),
-            ('stress','Esfuerzo admisible ± (ksi)',self.model.stress_limit,.01,1e5,2),('displ','Desplazamiento ± (in)',self.model.displacement_limit,.0001,1e5,4)])
-        if v:
-            def change():
-                self.model.elastic_modulus=v['E'];self.model.density=v['rho'];self.model.stress_limit=v['stress'];self.model.displacement_limit=v['displ']
-            self.edit(change)
+        from .editor_libraries import LibraryDialog
+        d=LibraryDialog(self)
+        d.exec()
+
+    def loads_dialog(self):
+        from .editor_libraries import LoadsDialog
+        d=LoadsDialog(self);d.exec()
+
+    def create_node_command(self,xyz):
+        def change():
+            id=create_node(self.model,xyz);self.selected=('node',id);self.selection={self.selected}
+        changed=self.edit(change)
+        if changed and self.selected[0]=='node':
+            point=self.scene.project(self.model.node(self.selected[1]).xyz)
+            if not self.scene.rect().contains(point.toPoint()):self.scene.fit()
+        return changed
+
+    def create_member_command(self,start,end,area=None):
+        def change():
+            id=create_member(self.model,int(start),int(end),area);self.selected=('member',id);self.selection={self.selected}
+        return self.edit(change)
 
     def add_node(self):
         if self.job:return
-        v=self.dialog('Crear nodo y conectarlo',[
-            ('x','Coordenada X (in)',900,-1e6,1e6,3),('y','Coordenada Y (in)',0,-1e6,1e6,3),('z','Coordenada Z (in)',180,-1e6,1e6,3),
-            ('to','Conectar a nodo ID',self.model.nodes[0].id,1,1e8,0),('area','Área de la barra (in²)',10,self.model.area_min,self.model.area_max,4)])
-        if not v:return
-        def change():
-            self.model.node(int(v['to']))
-            id=max(n.id for n in self.model.nodes)+1
-            self.model.nodes.append(Node(id,[v['x'],v['y'],v['z']],[False,abs(v['y'])<1e-10,False]))
-            self.model.members.append(Member(max(m.id for m in self.model.members)+1,int(v['to']),id,v['area']))
-            self.selected=('node',id)
-        self.edit(change)
+        v=self.dialog('Crear nodo · coordenadas exactas',[(a,a.upper()+' (in)',self.model.work_elevation if d==self.model.normal_axis else 0,-1e9,1e9,6) for d,a in enumerate('xyz')],locked=('xyz'[self.model.normal_axis],) if self.model.structure_type=='2D' else ())
+        if v:self.create_node_command([v[a] for a in 'xyz'])
 
     def add_member(self):
         if self.job:return
-        v=self.dialog('Crear barra entre nodos existentes',[
-            ('start','Nodo inicial ID',self.model.nodes[0].id,1,1e8,0),('end','Nodo final ID',self.model.nodes[1].id,1,1e8,0),
-            ('area','Área (in²)',10,self.model.area_min,self.model.area_max,4)])
-        if v:
-            def change():
-                id=max(m.id for m in self.model.members)+1
-                self.model.members.append(Member(id,int(v['start']),int(v['end']),v['area']));self.selected=('member',id)
-            self.edit(change)
+        ids=[n.id for n in self.model.nodes]
+        if len(ids)<2:self.error('Crea al menos dos nodos antes de conectar una barra.');return
+        v=self.dialog('Conectar nodos',[
+            ('start','Nodo inicial ID',ids[0],1,1e8,0),('end','Nodo final ID',ids[1],1,1e8,0),
+            ('area','Área (in²)',self.model.sections[0].area if self.model.sections else 1.,1e-8,1e8,6)])
+        if v:self.create_member_command(v['start'],v['end'],v['area'])
 
     def delete_selected(self):
-        if self.job:return
-        kind,id=self.selected
-        if QMessageBox.question(self,'Eliminar elemento',f'¿Eliminar {"la barra" if kind=="member" else "el nodo"} {id}?\nAl eliminar un nodo también se eliminan sus barras.')!=QMessageBox.Yes:return
-        def change():
-            if kind=='member':self.model.members=[m for m in self.model.members if m.id!=id]
-            else:
-                self.model.nodes=[n for n in self.model.nodes if n.id!=id]
-                self.model.members=[m for m in self.model.members if id not in (m.start,m.end)]
-            if self.model.members:self.selected=('member',self.model.members[0].id)
+        if self.job or not self.selection:return
+        if QMessageBox.question(self,'Eliminar',f'¿Eliminar {len(self.selection)} entidades seleccionadas? Las barras incidentes también se eliminan.')!=QMessageBox.Yes:return
+        def change():delete_entities(self.model,self.selection);self.selection=set();self.selected=('project',0)
         self.edit(change)
+
+    def copy_selected(self):
+        if not self.selection:return
+        v=self.dialog('Copiar geometría · desplazamiento',[(a,'Δ'+a.upper()+' (in)',100. if a=='x' else 0.,-1e9,1e9,6) for a in 'xyz'])
+        if v:
+            def change():
+                self.selection=set(copy_entities(self.model,self.selection,[v[a] for a in 'xyz']));self.selected=next(iter(self.selection),('project',0))
+            self.edit(change)
+
+    def select_group(self):
+        group,ok=QInputDialog.getText(self,'Seleccionar grupo','Nombre del grupo de diseño:')
+        if ok:
+            self.selection={('member',b.id) for b in self.model.members if b.group==group.strip()}
+            self.selected=next(iter(self.selection),('project',0));self.refresh()
 
     def search_entity(self):
         value,ok=QInputDialog.getText(self,'Buscar','Escribe N3 para nodo 3, o B5 para barra 5:')
@@ -507,11 +539,23 @@ class MainWindow(QMainWindow):
         menu.addAction(icon('link','#287ff5'),'Analizar con SAP2000 y comparar',self.run_sap)
         menu.exec(self.analyze_button.mapToGlobal(self.analyze_button.rect().bottomLeft()))
 
+    def validate_document(self):
+        if self.job:return
+        try:
+            from .analysis import solve_design
+            solve_design(self.model)
+            self.checked_fingerprint=self.model.fingerprint();self.refresh(rebuild_properties=False)
+            self.statusBar().showMessage('LISTO PARA ANÁLISIS · geometría, propiedades y rigidez verificadas. Sin resultados guardados.',8000)
+        except Exception as exc:self.analysis_error(exc)
+
+    def analysis_error(self,exc):
+        self.result=None;self.validation_issue=(self.model.fingerprint(),str(exc));self.refresh(rebuild_properties=False);self.error(str(exc))
+
     def run_fem(self):
         if self.job:return
         try:
-            self.result=solve(self.model);self.dirty=True;self.refresh();self.statusBar().showMessage('Análisis FEM completado · equilibrio verificado',7000)
-        except Exception as e:self.error(str(e))
+            self.result=solve(self.model);self.validation_issue=None;self.scene.load_pattern=None;self.dirty=True;self.refresh();self.statusBar().showMessage('Análisis FEM completado · equilibrio verificado',7000)
+        except Exception as e:self.analysis_error(e)
 
     def run_sap(self):
         if self.job:return
@@ -541,7 +585,7 @@ class MainWindow(QMainWindow):
             self.error('El modelo cambió durante la transferencia. El informe pertenece a la instantánea enviada.');return
         if self.result and 'optimization' in self.result:
             result['optimization']=self.result['optimization']
-        self.result=result;self.last_sap_result=result;self.dirty=True
+        self.result=result;self.last_sap_result=result;self.scene.load_pattern=None;self.dirty=True
         if result.get('session'):self.sap_session_id=result['session']['id']
         self.refresh()
         valid=result.get('validation',{}).get('passed',result['comparison']['passed'])
@@ -623,6 +667,8 @@ class MainWindow(QMainWindow):
 
     def optimize_dialog(self):
         if self.job:return
+        try:self.model.validate();solve(self.model)
+        except Exception as exc:self.error(str(exc));return
         from .optimization_ui import OptimizationDialog,OptimizationProgress
         from .optimization import optimize,RunControl
         d=OptimizationDialog(self.model,self)
@@ -651,29 +697,35 @@ class MainWindow(QMainWindow):
         if r==QMessageBox.Save:return self.save_project()
         return True
 
+    def set_document(self,model,result=None,history=None,path=None):
+        self.model=model;self.result=result;self.history=history or [];self.project_path=path
+        self.selected=('project',0);self.selection=set();self.undo_history.clear();self.dirty=False
+        self.display_pattern=model.load_patterns[0].id if model.load_patterns else 'LC1'
+        self.scene.load_pattern=None if result else self.display_pattern;self.set_tool(Tool.SELECT);self.checked_fingerprint=None;self.validation_issue=None;self.refresh(True)
+
     def new_project(self):
         if self.job or not self.confirm_unsaved():return
-        self.model=benchmark();self.result=solve(self.model);self.history=[];self.selected=('member',5);self.project_path=None;self.dirty=False;self.refresh(True)
+        d=QDialog(self);d.setWindowTitle('Nuevo proyecto');l=QVBoxLayout(d)
+        name=QLineEdit('Mi cercha');name.setObjectName('project_name');l.addWidget(name)
+        choice=QComboBox();choice.setObjectName('project_type');choice.addItems(['Cercha plana 2D','Cercha espacial 3D','Ejemplo · Caso I','Ejemplo · Triángulo 2D','Ejemplo · Trípode 3D']);l.addWidget(choice)
+        plane=QComboBox();plane.addItems(['XZ','XY','YZ']);l.addWidget(plane)
+        boxes=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);boxes.accepted.connect(d.accept);boxes.rejected.connect(d.reject);l.addWidget(boxes)
+        if d.exec():
+            model=benchmark() if choice.currentIndex()==2 else Model.empty('2D' if choice.currentIndex()==0 else '3D',plane.currentText(),name.text().strip() or 'Mi cercha')
+            if choice.currentIndex() in (3,4):
+                from .examples import triangle,spatial
+                model=triangle() if choice.currentIndex()==3 else spatial()
+            self.set_document(model)
+
+    def load_document(self,path):
+        model,result,history=load_project(path)
+        self.set_document(model,result,history,str(path))
 
     def open_project(self):
         if self.job or not self.confirm_unsaved():return
         path,_=QFileDialog.getOpenFileName(self,'Abrir proyecto',str(ROOT/'examples'),'TrussLab (*.json)')
         if path:
-            try:
-                m,r,h=load_project(path)
-                # Recompute rather than trust cached values for a changed or external project.
-                fresh=solve(m)
-                if r and r.get('engine','').startswith('SAP2000'):
-                    from .fem import compare
-                    if not compare(m,fresh,r)['passed']:raise ValueError('Los resultados guardados no corresponden al modelo.')
-                    from .validation import validation_report
-                    r['validation']=validation_report(m,fresh,r)
-                    r['comparison']=r['validation']['comparison']
-                    r['model_fingerprint']=m.fingerprint()
-                else:
-                    if r and 'optimization' in r:fresh['optimization']=r['optimization']
-                    r=fresh
-                self.model,self.result,self.history=m,r,h;self.project_path=path;self.selected=('member',m.members[0].id);self.dirty=False;self.refresh(True)
+            try:self.load_document(path)
             except Exception as e:self.error(str(e))
 
     def save_project(self):
@@ -682,7 +734,7 @@ class MainWindow(QMainWindow):
         if not path:return False
         try:
             save_project(path,self.model,self.result,self.history);self.project_path=path;self.dirty=False;self.setWindowTitle('TrussLab 3D — '+self.model.name);self.statusBar().showMessage('Proyecto guardado',5000);return True
-        except Exception as e:self.error(str(e));return False
+        except Exception as e:self.error(str(e));self.refresh(rebuild_properties=False);return False
 
     def export_menu(self):
         menu=QMenu(self);menu.addAction('Resultados por barra (CSV)',self.export_csv);menu.addAction('Vista del modelo (PNG)',self.export_image);menu.addAction('Informe numérico (JSON)',self.export_report);menu.addAction('Modelo como script Python',self.export_script)
@@ -714,7 +766,7 @@ class MainWindow(QMainWindow):
         d=QDialog(self);d.setWindowTitle(title);d.resize(680,440);l=QVBoxLayout(d);body=QPlainTextEdit();body.setReadOnly(True);body.setPlainText(text);l.addWidget(body);b=QDialogButtonBox(QDialogButtonBox.Close);b.rejected.connect(d.reject);l.addWidget(b);d.exec()
 
     def setup_shortcuts(self):
-        for shortcut,action in [('Ctrl+N',self.new_project),('Ctrl+O',self.open_project),('Ctrl+S',self.save_project),('F5',self.run_fem),('F6',self.run_sap),('Delete',self.delete_selected)]:
+        for shortcut,action in [('Ctrl+N',self.new_project),('Ctrl+O',self.open_project),('Ctrl+S',self.save_project),('F5',self.run_fem),('F6',self.run_sap),('Delete',self.delete_selected),('Ctrl+Z',self.undo),('Ctrl+Y',self.redo)]:
             a=QAction(self);a.setShortcut(QKeySequence(shortcut));a.triggered.connect(action);self.addAction(a)
 
     def error(self,message):

@@ -1,0 +1,133 @@
+{
+  "passed": true,
+  "date_local": "2026-10-18",
+  "timezone": "America/Bogota",
+  "checkpoint": "3923227 / pre-modeler-checkpoint-20261018",
+  "pytest": {
+    "tests": 58,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 57,
+    "qt_tests_executed": 3,
+    "real_hidden_sap_batch_test_executed": true,
+    "skipped_reason": "Historical visible multi-instance SAP test not requested in this pytest command; actual new Qt visible workflow executed separately."
+  },
+  "sap_tests": {
+    "initial_models": [
+      "triangle 2D",
+      "noncoplanar spatial tripod",
+      "benchmark initial areas"
+    ],
+    "optimized_models": [
+      "triangle 2D",
+      "noncoplanar spatial tripod"
+    ],
+    "cases_per_optimized_model": [
+      "C1",
+      "C2",
+      "ULS"
+    ],
+    "visible_button_verified": true,
+    "historical_optimized_reference_lb": 5060.855730007684
+  },
+  "source_sha256_lf": "e5b864a5fc30fc6ca4a5846e997dab0cfbe45b2760b7bb686b665b26f8dcb001",
+  "files": {
+    "benchmark_reference.json": {
+      "bytes": 21571,
+      "sha256": "bf23d552069756908f67301e7086fb37c326e8bb93901b9d944e9c875ffc46b9",
+      "hash_mode": "text_lf"
+    },
+    "benchmark_reference.sdb": {
+      "bytes": 10518,
+      "sha256": "f9ca7c314c8870e1457805c389641b060e3f0b788e4d6ab2160da98fcc78a749",
+      "hash_mode": "binary"
+    },
+    "benchmark_reference.trusslab.json": {
+      "bytes": 100277,
+      "sha256": "c437dac6c49371040965ffcce61a23d08bffe1810359279a79ed2938df7c4a08",
+      "hash_mode": "text_lf"
+    },
+    "final_tests.xml": {
+      "bytes": 7355,
+      "sha256": "d4f68cdd41371e420d9acf46b946045b69cf8ecacab180b5a2ff76db9311ef4e",
+      "hash_mode": "text_lf"
+    },
+    "laboratory_winner.png": {
+      "bytes": 444199,
+      "sha256": "c56971aebf74084885b2452e1331c602923678a8c8d07915790e308cc8d8bdda",
+      "hash_mode": "binary"
+    },
+    "optimization_verification.json": {
+      "bytes": 114558,
+      "sha256": "6da4a049ff8e145cffec19d8085a68550e717dd096011f49af6ced34032baa52",
+      "hash_mode": "text_lf"
+    },
+    "qt_editor.png": {
+      "bytes": 420838,
+      "sha256": "c2a2716faf79a8548fc5b69861d075de86169868e8ce0b07494d0a21287a29d9",
+      "hash_mode": "binary"
+    },
+    "qt_laboratory.json": {
+      "bytes": 239,
+      "sha256": "fda7e285cb332198b05e065427bb6755e83de32ba1bda70660fd86a149eba9b1",
+      "hash_mode": "text_lf"
+    },
+    "qt_laboratory_sap.json": {
+      "bytes": 46665,
+      "sha256": "47ebf58f6d67bcc85d644b10f62ea7a3afe048c3f6fd69055a066b4ca47e9161",
+      "hash_mode": "text_lf"
+    },
+    "report/campaign.json": {
+      "bytes": 45887,
+      "sha256": "63d74ba6cacc45c50525806468e5e7b18139a5408d17a56bf2eae1a1596e476d",
+      "hash_mode": "text_lf"
+    },
+    "report/informe.md": {
+      "bytes": 5205,
+      "sha256": "f36890384813eec0bb214fd9b8c189316e3ecacf01b528c08faeb0eb271ee07a",
+      "hash_mode": "text_lf"
+    },
+    "report/informe.pdf": {
+      "bytes": 561113,
+      "sha256": "e424c06ac29d2f6c5366f2f3443035e8986bfc2f2a24f516704d68d0c66d506a",
+      "hash_mode": "binary"
+    },
+    "report/resultados.xlsx": {
+      "bytes": 13636,
+      "sha256": "8de2ae143458edc350806e77b79086febe5483ec86bc2cc3d1438d9b4dc1042f",
+      "hash_mode": "binary"
+    },
+    "sap_verification.json": {
+      "bytes": 52364,
+      "sha256": "43cd00a816ff51868a13a291cae3f42574ceba6117b34001fee27a180f828937",
+      "hash_mode": "text_lf"
+    },
+    "spatial_optimized.sdb": {
+      "bytes": 9975,
+      "sha256": "681f4c452a821bbc1ddb6be2d7a4b18bd447332eb3f0db77235d156ac70605d6",
+      "hash_mode": "binary"
+    },
+    "spatial_optimized.trusslab.json": {
+      "bytes": 218272,
+      "sha256": "3e8fbd2abf8c0a2b8d2963187471fe9060bd646bd0e700230f31d09890b4a04d",
+      "hash_mode": "text_lf"
+    },
+    "triangle_optimized.sdb": {
+      "bytes": 9595,
+      "sha256": "540f25a47ecf6c9cfea4ce069be6335c940d212ea8683145f6049d722624b79d",
+      "hash_mode": "binary"
+    },
+    "triangle_optimized.trusslab.json": {
+      "bytes": 164351,
+      "sha256": "fc284a8899ee1b6c7069a7d4acfb85bfa80825bd6b3cc766bfa97794efa94641",
+      "hash_mode": "text_lf"
+    }
+  },
+  "pdf_export": {
+    "pages_visually_reviewed": 10,
+    "status": "passed",
+    "source": "Qt campaign on new 2D model, three cases",
+    "excel_export": "all cases recorded separately"
+  }
+}

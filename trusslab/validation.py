@@ -54,7 +54,8 @@ def detailed_compare(model, reference, candidate):
 
 
 def equilibrium(model,result):
-    forces=np.array([result['reactions'][str(n.id)] for n in model.nodes],dtype=float)+np.array([n.load for n in model.nodes],dtype=float)
+    loads=model.nodal_loads(result.get('analysis_case'))
+    forces=np.array([result['reactions'][str(n.id)] for n in model.nodes],dtype=float)+np.array([loads[str(n.id)] for n in model.nodes],dtype=float)
     net=forces.sum(axis=0)
     # Center coordinates to avoid excessive cancellation for offset models.
     xyz=np.array([n.xyz for n in model.nodes],dtype=float)
@@ -69,7 +70,7 @@ def equilibrium(model,result):
 def limits(model,result):
     stress=max(abs(r['stress'])/model.stress_limit for r in result['members'])
     displacement=max(abs(result['displacements'][str(n.id)][d])/model.displacement_limit
-                     for n in model.nodes for d in range(3) if not n.fixed[d])
+                     for n in model.nodes for d in range(3) if not model.restraints(n)[d])
     return {'stress_ratio':stress,'displacement_ratio':displacement,
             'stress_passed':bool(math.isfinite(stress) and stress<=1+1e-6),
             'displacement_passed':bool(math.isfinite(displacement) and displacement<=1+1e-6)}

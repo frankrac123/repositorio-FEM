@@ -5,17 +5,21 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from .lab_plots import PLOT_TYPES,draw_plot
 from .laboratory import winner_model
+from .core import Model
+from .analysis import design_cases
 
 
 def report_text(campaign):
-    model=campaign['model'];config=campaign['configuration'];lines=[
+    model=campaign['model'];document=Model.from_dict(model);config=campaign['configuration'];lines=[
         '# Informe de comparación estructural','',f'Modelo: {model["name"]}',
         f'Huella: {campaign["model_fingerprint"]}',f'Estado: {campaign["status"]}',
         f'Configuración: {len(config["seeds"])} corridas por método; presupuesto {config["budget"]} por corrida; motor {config["engine"]}.','',
         '## Problema y formulación',
-        f'E = {model["elastic_modulus"]} ksi; peso específico = {model["density"]} lb/in³. Áreas {model["area_min"]} a {model["area_max"]} in².',
+        f'Áreas {model["area_min"]} a {model["area_max"]} in². Propiedades por barra: '+ '; '.join(f'B{b.id}: E={document.member_material(b).elastic_modulus:g} ksi, gamma={document.member_material(b).density:g} lb/in³' for b in document.members),
         f'Esfuerzos admisibles ±{model["stress_limit"]} ksi; desplazamientos ±{model["displacement_limit"]} in por componente libre.',
-        'Minimizar W = suma(gamma A L), en lb. Rigidez axial EA/L; solución Kff uf = Ff y reacciones Ku - F. Peso propio desactivado.',
+        'Minimizar W = suma(gamma A L), en lb. Rigidez axial EA/L; solución Kff uf = Ff y reacciones Ku - F. El peso propio solicitado se concentra por mitades en los nodos extremos para conservar la formulación axial.',
+        'Patrones: '+json.dumps(model.get('load_patterns',[]) or [{'id':'LC1','self_weight':0,'nodal_loads':{str(n['id']):n['load'] for n in model['nodes']}}],ensure_ascii=False),
+        'Casos verificados en cada candidato: '+', '.join(design_cases(document)),
         'Tolerancia de factibilidad: 1e-6 en las relaciones normalizadas. Estabilidad: condición <= 1e13. Equilibrio: 1e-6 kip y 1e-3 kip in.','',
         '## Métodos y configuración experimental',
         'ASAM usa exploración uniforme, radio geométrico y aceptación logística. Las direcciones simétricas, reflexión de límites, normalización y tratamiento de restricciones son decisiones del proyecto.',
@@ -101,8 +105,10 @@ def export_pdf(campaign,text,figures,path):
         elif line:story.append(para(line));story.append(Spacer(1,5))
     story.append(PageBreak());story.append(para('Geometría, cargas y apoyos','Heading1'))
     rows=[['Nodo','X (in)','Y (in)','Z (in)','Restricciones','Fx/Fy/Fz (kip)']]
+    document=Model.from_dict(campaign['model']);forces=document.nodal_loads()
+    story.append(para('Cargas mostradas: caso '+document.active_case+'. Los patrones y factores completos constan en la definición del problema.'))
     for n in campaign['model']['nodes']:
-        rows.append([n['id'],*n['xyz'],''.join(axis for axis,fixed in zip('XYZ',n['fixed']) if fixed),'/'.join(f'{v:g}' for v in n['load'])])
+        rows.append([n['id'],*n['xyz'],''.join(axis for axis,fixed in zip('XYZ',document.restraints(document.node(n['id']))) if fixed),'/'.join(f'{v:g}' for v in forces[str(n['id'])])])
     def table(rows,widths):
         t=Table([[para(v) for v in row] for row in rows],colWidths=widths,repeatRows=1,hAlign='LEFT')
         t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#dceafa')),('VALIGN',(0,0),(-1,-1),'TOP'),
@@ -117,7 +123,7 @@ def export_pdf(campaign,text,figures,path):
     for method in campaign['configuration']['algorithms']:
         valid=[r for r in campaign['runs'] if r['algorithm']==method and r['status']=='feasible']
         if valid:
-            r=min(valid,key=lambda r:r['result']['weight_lb']);story.append(para(f'{method}, semilla {r["seed"]}, SAP {r["sap_validation"]["status"]}'))
+            r=min(valid,key=lambda r:r['result']['weight_lb']);story.append(para(f'{method}, semilla {r["seed"]}, caso mostrado {r["result"].get("analysis_case","LC1")}, SAP {r["sap_validation"]["status"]}'))
             table([['Barra','Inicio','Final','A (in²)','Axial (kip)','Esfuerzo (ksi)']]+[
                 [b['id'],b['start'],b['end'],f'{a:.6f}',f'{v["force"]:.6f}',f'{v["stress"]:.6f}']
                 for b,a,v in zip(campaign['model']['members'],r['areas_in2'],r['result']['members'])],[45,45,45,85,100,100])
@@ -151,8 +157,8 @@ def export_excel(campaign,path):
     headers=['Método','Semilla','Estado','Peso (lb)','Análisis nuevos','Caché','Tiempo (s)','SAP']
     sheet('Corridas',headers,[[r['algorithm'],r['seed'],r['status'],r.get('result',{}).get('weight_lb'),r['metrics']['evaluations'],r['metrics']['cache_hits'],r['metrics']['elapsed_seconds'],r['sap_validation']['status']] for r in campaign['runs']])
     sheet('Áreas', ['Método','Semilla','Barra','Área (in²)'],[[r['algorithm'],r['seed'],b['id'],a] for r in campaign['runs'] if r.get('areas_in2') for b,a in zip(campaign['model']['members'],r['areas_in2'])])
-    sheet('Esfuerzos',['Método','Semilla','Barra','Axial (kip)','Esfuerzo (ksi)','Utilización'],[[r['algorithm'],r['seed'],v['id'],v['force'],v['stress'],v['ratio']] for r in campaign['runs'] if r.get('result') for v in r['result']['members']])
-    sheet('Desplazamientos',['Método','Semilla','Nodo','ux (in)','uy (in)','uz (in)'],[[r['algorithm'],r['seed'],node,*u] for r in campaign['runs'] if r.get('result') for node,u in r['result']['displacements'].items()])
+    sheet('Esfuerzos',['Método','Semilla','Caso','Barra','Axial (kip)','Esfuerzo (ksi)','Utilización'],[[r['algorithm'],r['seed'],case,v['id'],v['force'],v['stress'],v['ratio']] for r in campaign['runs'] if r.get('result') for case,result in (r['result'].get('case_results') or {r['result'].get('analysis_case','LC1'):r['result']}).items() for v in result['members']])
+    sheet('Desplazamientos',['Método','Semilla','Caso','Nodo','ux (in)','uy (in)','uz (in)'],[[r['algorithm'],r['seed'],case,node,*u] for r in campaign['runs'] if r.get('result') for case,result in (r['result'].get('case_results') or {r['result'].get('analysis_case','LC1'):r['result']}).items() for node,u in result['displacements'].items()])
     sheet('Restricciones',['Método','Semilla','Restricción próxima al límite','Tolerancia relativa'],[[r['algorithm'],r['seed'],v,1e-4] for r in campaign['runs'] for v in r.get('active_constraints',[])])
     sheet('Configuración',['Campo','Valor'],[['Huella',campaign['model_fingerprint']],['Configuración',json.dumps(campaign['configuration'],ensure_ascii=False)],['Versiones',json.dumps(campaign['software'],ensure_ascii=False)],['Definición tasa','Factibles completas / completas; canceladas excluidas'],['Desviación','Muestral, n-1; n<2 no definida'],['Limitación','Menos de 20 corridas no demuestra superioridad estadística']])
     workbook.save(path)

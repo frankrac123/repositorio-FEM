@@ -1,0 +1,3307 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "model": "triangle",
+      "initial_weight_lb": 127.53999999999999,
+      "optimized_weight_lb": 34.83443940790592,
+      "fingerprint": "b042bd3ff20cd8c1bb00c8bc7366c784016382069eb536fe97f6f6793e469920",
+      "evaluations": 34,
+      "cases": [
+        "C1",
+        "C2",
+        "ULS"
+      ],
+      "sap_validation": {
+        "passed": true,
+        "comparison": {
+          "max_displacement_error_in": 2.0816681711721685e-17,
+          "max_force_error_kip": 1.7763568394002505e-15,
+          "max_stress_error_ksi": 3.552713678800501e-15,
+          "max_reaction_error_kip": 1.7763568394002505e-15,
+          "weight_error_lb": 0.0,
+          "passed": true,
+          "issues": [],
+          "rows": [
+            {
+              "quantity": "displacement",
+              "entity": "N1",
+              "component": "X",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N1",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N1",
+              "component": "Z",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N1",
+              "component": "X",
+              "unit": "kip",
+              "fem": 5.842072737749035e-16,
+              "sap": 4.440892098500626e-16,
+              "absolute_error": 1.4011806392484091e-16,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N1",
+              "component": "Y",
+              "unit": "kip",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N1",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 5.0147011592991895,
+              "sap": 5.01470115929919,
+              "absolute_error": 8.881784197001252e-16,
+              "relative_error": 1.7711492499470283e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N2",
+              "component": "X",
+              "unit": "in",
+              "fem": 0.043612240943699865,
+              "sap": 0.04361224094369988,
+              "absolute_error": 1.3877787807814457e-17,
+              "relative_error": 3.1820854667224373e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N2",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N2",
+              "component": "Z",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N2",
+              "component": "X",
+              "unit": "kip",
+              "fem": 1.2604912097336887e-16,
+              "sap": 0.0,
+              "absolute_error": 1.2604912097336887e-16,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N2",
+              "component": "Y",
+              "unit": "kip",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N2",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 5.020133280108715,
+              "sap": 5.020133280108715,
+              "absolute_error": 0.0,
+              "relative_error": 0.0,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N3",
+              "component": "X",
+              "unit": "in",
+              "fem": -0.035737808531702824,
+              "sap": -0.0357378085317028,
+              "absolute_error": 2.0816681711721685e-17,
+              "relative_error": 5.824834416820863e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N3",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N3",
+              "component": "Z",
+              "unit": "in",
+              "fem": -0.10494195474093578,
+              "sap": -0.10494195474093578,
+              "absolute_error": 0.0,
+              "relative_error": 0.0,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N3",
+              "component": "X",
+              "unit": "kip",
+              "fem": -3.3742767666008684e-16,
+              "sap": 0.0,
+              "absolute_error": 3.3742767666008684e-16,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N3",
+              "component": "Y",
+              "unit": "kip",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N3",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 1.7763568394002505e-15,
+              "sap": 0.0,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "force",
+              "entity": "B1",
+              "component": "axial",
+              "unit": "kip",
+              "fem": 3.754263324323866,
+              "sap": 3.754263324323867,
+              "absolute_error": 8.881784197001252e-16,
+              "relative_error": 2.36578615555712e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "stress",
+              "entity": "B1",
+              "component": "axial",
+              "unit": "ksi",
+              "fem": 10.539624894727467,
+              "sap": 10.539624894727469,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": 1.685408026512298e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "force",
+              "entity": "B2",
+              "component": "axial",
+              "unit": "kip",
+              "fem": -6.2571055405397775,
+              "sap": -6.257105540539779,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": 2.838943386668544e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "stress",
+              "entity": "B2",
+              "component": "axial",
+              "unit": "ksi",
+              "fem": -10.539624891177032,
+              "sap": -10.539624891177034,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": 1.6854080270800534e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "force",
+              "entity": "B3",
+              "component": "axial",
+              "unit": "kip",
+              "fem": -6.257105540539779,
+              "sap": -6.257105540539781,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": 2.838943386668543e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "stress",
+              "entity": "B3",
+              "component": "axial",
+              "unit": "ksi",
+              "fem": -10.539624891177034,
+              "sap": -10.539624891177038,
+              "absolute_error": 3.552713678800501e-15,
+              "relative_error": 3.3708160541601063e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "weight",
+              "entity": "Modelo",
+              "component": "W",
+              "unit": "lb",
+              "fem": 34.83443940790592,
+              "sap": 34.83443940790592,
+              "absolute_error": 0.0,
+              "relative_error": 0.0,
+              "tolerance": 1e-08,
+              "passed": true
+            }
+          ],
+          "tolerances": {
+            "displacement": 1e-05,
+            "force": 0.0001,
+            "stress": 1e-05,
+            "reaction": 0.0001,
+            "weight": 1e-08,
+            "equilibrium_force": 1e-06,
+            "equilibrium_moment": 0.001,
+            "relative_zero": 1e-12
+          }
+        },
+        "equilibrium": {
+          "fem": {
+            "net_force_kip": [
+              3.7282871808818556e-16,
+              0.0,
+              0.0
+            ],
+            "net_moment_kip_in": [
+              0.0,
+              -1.3168298047682067e-13,
+              0.0
+            ],
+            "force_tolerance_kip": 1e-06,
+            "moment_tolerance_kip_in": 0.001,
+            "passed": true
+          },
+          "sap": {
+            "net_force_kip": [
+              4.440892098500626e-16,
+              0.0,
+              0.0
+            ],
+            "net_moment_kip_in": [
+              0.0,
+              -5.684341886080802e-14,
+              0.0
+            ],
+            "force_tolerance_kip": 1e-06,
+            "moment_tolerance_kip_in": 0.001,
+            "passed": true
+          }
+        },
+        "constraints": {
+          "fem": {
+            "stress_ratio": 0.4215849957890987,
+            "displacement_ratio": 0.05247097737046789,
+            "stress_passed": true,
+            "displacement_passed": true
+          },
+          "sap": {
+            "stress_ratio": 0.42158499578909875,
+            "displacement_ratio": 0.05247097737046789,
+            "stress_passed": true,
+            "displacement_passed": true
+          }
+        },
+        "input_audit_passed": null,
+        "axial_only_passed": true,
+        "design_feasible": true,
+        "cases": {
+          "C1": {
+            "passed": true,
+            "comparison": {
+              "max_displacement_error_in": 2.0816681711721685e-17,
+              "max_force_error_kip": 1.7763568394002505e-15,
+              "max_stress_error_ksi": 3.552713678800501e-15,
+              "max_reaction_error_kip": 1.7763568394002505e-15,
+              "weight_error_lb": 0.0,
+              "passed": true,
+              "issues": [],
+              "rows": [
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 5.842072737749035e-16,
+                  "sap": 4.440892098500626e-16,
+                  "absolute_error": 1.4011806392484091e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 5.0147011592991895,
+                  "sap": 5.01470115929919,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 1.7711492499470283e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.043612240943699865,
+                  "sap": 0.04361224094369988,
+                  "absolute_error": 1.3877787807814457e-17,
+                  "relative_error": 3.1820854667224373e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 1.2604912097336887e-16,
+                  "sap": 0.0,
+                  "absolute_error": 1.2604912097336887e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 5.020133280108715,
+                  "sap": 5.020133280108715,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": -0.035737808531702824,
+                  "sap": -0.0357378085317028,
+                  "absolute_error": 2.0816681711721685e-17,
+                  "relative_error": 5.824834416820863e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": -0.10494195474093578,
+                  "sap": -0.10494195474093578,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -3.3742767666008684e-16,
+                  "sap": 0.0,
+                  "absolute_error": 3.3742767666008684e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 1.7763568394002505e-15,
+                  "sap": 0.0,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": 3.754263324323866,
+                  "sap": 3.754263324323867,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 2.36578615555712e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": 10.539624894727467,
+                  "sap": 10.539624894727469,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 1.685408026512298e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -6.2571055405397775,
+                  "sap": -6.257105540539779,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 2.838943386668544e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -10.539624891177032,
+                  "sap": -10.539624891177034,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 1.6854080270800534e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -6.257105540539779,
+                  "sap": -6.257105540539781,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 2.838943386668543e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -10.539624891177034,
+                  "sap": -10.539624891177038,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 3.3708160541601063e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "weight",
+                  "entity": "Modelo",
+                  "component": "W",
+                  "unit": "lb",
+                  "fem": 34.83443940790592,
+                  "sap": 34.83443940790592,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-08,
+                  "passed": true
+                }
+              ],
+              "tolerances": {
+                "displacement": 1e-05,
+                "force": 0.0001,
+                "stress": 1e-05,
+                "reaction": 0.0001,
+                "weight": 1e-08,
+                "equilibrium_force": 1e-06,
+                "equilibrium_moment": 0.001,
+                "relative_zero": 1e-12
+              }
+            },
+            "equilibrium": {
+              "fem": {
+                "net_force_kip": [
+                  3.7282871808818556e-16,
+                  0.0,
+                  0.0
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  -1.3168298047682067e-13,
+                  0.0
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              },
+              "sap": {
+                "net_force_kip": [
+                  4.440892098500626e-16,
+                  0.0,
+                  0.0
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  -5.684341886080802e-14,
+                  0.0
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              }
+            },
+            "constraints": {
+              "fem": {
+                "stress_ratio": 0.4215849957890987,
+                "displacement_ratio": 0.05247097737046789,
+                "stress_passed": true,
+                "displacement_passed": true
+              },
+              "sap": {
+                "stress_ratio": 0.42158499578909875,
+                "displacement_ratio": 0.05247097737046789,
+                "stress_passed": true,
+                "displacement_passed": true
+              }
+            },
+            "input_audit_passed": null,
+            "axial_only_passed": true,
+            "design_feasible": true
+          },
+          "C2": {
+            "passed": true,
+            "comparison": {
+              "max_displacement_error_in": 2.7755575615628914e-17,
+              "max_force_error_kip": 1.7763568394002505e-15,
+              "max_stress_error_ksi": 3.552713678800501e-15,
+              "max_reaction_error_kip": 1.3322676295501878e-15,
+              "weight_error_lb": 0.0,
+              "passed": true,
+              "issues": [],
+              "rows": [
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -3.9999999999999996,
+                  "sap": -4.0,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 1.1102230246251568e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": -1.6666666666666672,
+                  "sap": -1.6666666666666663,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 5.32907051820075e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.03194599105985044,
+                  "sap": 0.031945991059850444,
+                  "absolute_error": 6.938893903907228e-18,
+                  "relative_error": 2.1720703204690983e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -6.378972122979326e-17,
+                  "sap": 0.0,
+                  "absolute_error": 6.378972122979326e-17,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 3.6666666666666665,
+                  "sap": 3.666666666666668,
+                  "absolute_error": 1.3322676295501878e-15,
+                  "relative_error": 3.6334571715005125e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.06740120081728432,
+                  "sap": 0.06740120081728429,
+                  "absolute_error": 2.7755575615628914e-17,
+                  "relative_error": 4.11796455835714e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": -0.0066856666913922376,
+                  "sap": -0.0066856666913922514,
+                  "absolute_error": 1.3877787807814457e-17,
+                  "relative_error": 2.075752269505454e-15,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 8.881784197001252e-16,
+                  "sap": 0.0,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 2.220446049250313e-16,
+                  "sap": 0.0,
+                  "absolute_error": 2.220446049250313e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": 2.7499999999999996,
+                  "sap": 2.75,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 1.614869854000228e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": 7.720281172797189,
+                  "sap": 7.720281172797191,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 2.300896560165886e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": 2.083333333333334,
+                  "sap": 2.083333333333333,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 4.2632564145606e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": 3.50921871372568,
+                  "sap": 3.5092187137256783,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 5.061972434070151e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -4.583333333333334,
+                  "sap": -4.583333333333332,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 3.875687649600546e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -7.720281170196495,
+                  "sap": -7.7202811701964915,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 4.601793121881956e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "weight",
+                  "entity": "Modelo",
+                  "component": "W",
+                  "unit": "lb",
+                  "fem": 34.83443940790592,
+                  "sap": 34.83443940790592,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-08,
+                  "passed": true
+                }
+              ],
+              "tolerances": {
+                "displacement": 1e-05,
+                "force": 0.0001,
+                "stress": 1e-05,
+                "reaction": 0.0001,
+                "weight": 1e-08,
+                "equilibrium_force": 1e-06,
+                "equilibrium_moment": 0.001,
+                "relative_zero": 1e-12
+              }
+            },
+            "equilibrium": {
+              "fem": {
+                "net_force_kip": [
+                  1.3322676295501878e-15,
+                  0.0,
+                  -4.440892098500626e-16
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              },
+              "sap": {
+                "net_force_kip": [
+                  0.0,
+                  0.0,
+                  1.7763568394002505e-15
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  -5.684341886080802e-14,
+                  0.0
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              }
+            },
+            "constraints": {
+              "fem": {
+                "stress_ratio": 0.30881124691188755,
+                "displacement_ratio": 0.03370060040864216,
+                "stress_passed": true,
+                "displacement_passed": true
+              },
+              "sap": {
+                "stress_ratio": 0.3088112469118876,
+                "displacement_ratio": 0.033700600408642145,
+                "stress_passed": true,
+                "displacement_passed": true
+              }
+            },
+            "input_audit_passed": null,
+            "axial_only_passed": true,
+            "design_feasible": true
+          },
+          "ULS": {
+            "passed": true,
+            "comparison": {
+              "max_displacement_error_in": 2.7755575615628914e-17,
+              "max_force_error_kip": 7.105427357601002e-15,
+              "max_stress_error_ksi": 1.0658141036401503e-14,
+              "max_reaction_error_kip": 3.552713678800501e-15,
+              "weight_error_lb": 0.0,
+              "passed": true,
+              "issues": [],
+              "rows": [
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -6.399999999999999,
+                  "sap": -6.4,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 2.775557561562892e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 3.350974724492361,
+                  "sap": 3.3509747244923624,
+                  "absolute_error": 1.3322676295501878e-15,
+                  "relative_error": 3.975761499520152e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.10344827482820056,
+                  "sap": 0.10344827482820058,
+                  "absolute_error": 2.7755575615628914e-17,
+                  "relative_error": 2.683039002991918e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 2.3628014854511426e-15,
+                  "sap": 0.0,
+                  "absolute_error": 2.3628014854511426e-15,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 11.890826602797125,
+                  "sap": 11.890826602797128,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 2.9877768783246594e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.06495655106961151,
+                  "sap": 0.0649565510696115,
+                  "absolute_error": 1.3877787807814457e-17,
+                  "relative_error": 2.1364723925908797e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": -0.13662741239535053,
+                  "sap": -0.13662741239535056,
+                  "absolute_error": 2.7755575615628914e-17,
+                  "relative_error": 2.0314792711812672e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -8.881784197001252e-16,
+                  "sap": 0.0,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 3.552713678800501e-15,
+                  "sap": 0.0,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": 8.90511598918864,
+                  "sap": 8.905115989188642,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 1.9947599127926656e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": 24.99999975014847,
+                  "sap": 24.999999750148476,
+                  "absolute_error": 7.105427357601002e-15,
+                  "relative_error": 2.8421709714452315e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -4.1751933153144005,
+                  "sap": -4.175193315314403,
+                  "absolute_error": 2.6645352591003757e-15,
+                  "relative_error": 6.381824882998815e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -7.032799927451353,
+                  "sap": -7.032799927451358,
+                  "absolute_error": 5.329070518200751e-15,
+                  "relative_error": 7.577452185721394e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -14.841859981981068,
+                  "sap": -14.841859981981075,
+                  "absolute_error": 7.105427357601002e-15,
+                  "relative_error": 4.787423790702397e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -24.999999741726832,
+                  "sap": -24.999999741726842,
+                  "absolute_error": 1.0658141036401503e-14,
+                  "relative_error": 4.263256458603991e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "weight",
+                  "entity": "Modelo",
+                  "component": "W",
+                  "unit": "lb",
+                  "fem": 34.83443940790592,
+                  "sap": 34.83443940790592,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-08,
+                  "passed": true
+                }
+              ],
+              "tolerances": {
+                "displacement": 1e-05,
+                "force": 0.0001,
+                "stress": 1e-05,
+                "reaction": 0.0001,
+                "weight": 1e-08,
+                "equilibrium_force": 1e-06,
+                "equilibrium_moment": 0.001,
+                "relative_zero": 1e-12
+              }
+            },
+            "equilibrium": {
+              "fem": {
+                "net_force_kip": [
+                  3.552713678800501e-15,
+                  0.0,
+                  0.0
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  -2.8421709430404007e-13,
+                  0.0
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              },
+              "sap": {
+                "net_force_kip": [
+                  0.0,
+                  0.0,
+                  1.7763568394002505e-15
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  -1.7053025658242404e-13,
+                  0.0
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              }
+            },
+            "constraints": {
+              "fem": {
+                "stress_ratio": 0.9999999900059388,
+                "displacement_ratio": 0.06831370619767527,
+                "stress_passed": true,
+                "displacement_passed": true
+              },
+              "sap": {
+                "stress_ratio": 0.999999990005939,
+                "displacement_ratio": 0.06831370619767528,
+                "stress_passed": true,
+                "displacement_passed": true
+              }
+            },
+            "input_audit_passed": null,
+            "axial_only_passed": true,
+            "design_feasible": true
+          }
+        }
+      },
+      "sdb": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\modeler\\optimization\\triangle_sap\\sap_20261018_010219_da40ec\\Triangulo_2D_materiales_y_cargas_b7497d90.sdb"
+    },
+    {
+      "model": "spatial",
+      "initial_weight_lb": 272.9711686156412,
+      "optimized_weight_lb": 32.423980627119256,
+      "fingerprint": "250bf84ef77493712149780e349d14af683c7b53b23f1a9b82a1650389b4a5a0",
+      "evaluations": 77,
+      "cases": [
+        "C1",
+        "C2",
+        "ULS"
+      ],
+      "sap_validation": {
+        "passed": true,
+        "comparison": {
+          "max_displacement_error_in": 6.938893903907228e-17,
+          "max_force_error_kip": 2.220446049250313e-15,
+          "max_stress_error_ksi": 4.440892098500626e-15,
+          "max_reaction_error_kip": 2.6645352591003757e-15,
+          "weight_error_lb": 0.0,
+          "passed": true,
+          "issues": [],
+          "rows": [
+            {
+              "quantity": "displacement",
+              "entity": "N1",
+              "component": "X",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N1",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N1",
+              "component": "Z",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N1",
+              "component": "X",
+              "unit": "kip",
+              "fem": 1.3750000000000004,
+              "sap": 1.375,
+              "absolute_error": 4.440892098500626e-16,
+              "relative_error": 3.2297397080004545e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N1",
+              "component": "Y",
+              "unit": "kip",
+              "fem": 1.833333333333333,
+              "sap": 1.8333333333333328,
+              "absolute_error": 2.220446049250313e-16,
+              "relative_error": 1.211152390500171e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N1",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 4.583333333333333,
+              "sap": 4.583333333333333,
+              "absolute_error": 0.0,
+              "relative_error": 0.0,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N2",
+              "component": "X",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N2",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N2",
+              "component": "Z",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N2",
+              "component": "X",
+              "unit": "kip",
+              "fem": -7.125,
+              "sap": -7.125,
+              "absolute_error": 0.0,
+              "relative_error": 0.0,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N2",
+              "component": "Y",
+              "unit": "kip",
+              "fem": 3.166666666666667,
+              "sap": 3.166666666666666,
+              "absolute_error": 8.881784197001252e-16,
+              "relative_error": 2.8047739569477637e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N2",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 7.916666666666668,
+              "sap": 7.916666666666665,
+              "absolute_error": 2.6645352591003757e-15,
+              "relative_error": 3.3657287483373163e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N3",
+              "component": "X",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N3",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N3",
+              "component": "Z",
+              "unit": "in",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N3",
+              "component": "X",
+              "unit": "kip",
+              "fem": 0.7500000000000003,
+              "sap": 0.7499999999999999,
+              "absolute_error": 4.440892098500626e-16,
+              "relative_error": 5.921189464667499e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N3",
+              "component": "Y",
+              "unit": "kip",
+              "fem": -2.000000000000001,
+              "sap": -1.9999999999999993,
+              "absolute_error": 1.5543122344752192e-15,
+              "relative_error": 7.771561172376093e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N3",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 2.5000000000000018,
+              "sap": 2.4999999999999996,
+              "absolute_error": 2.220446049250313e-15,
+              "relative_error": 8.881784197001246e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N4",
+              "component": "X",
+              "unit": "in",
+              "fem": 0.16188423969163152,
+              "sap": 0.16188423969163146,
+              "absolute_error": 5.551115123125783e-17,
+              "relative_error": 3.4290645795414903e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N4",
+              "component": "Y",
+              "unit": "in",
+              "fem": 0.052531511865596056,
+              "sap": 0.05253151186559599,
+              "absolute_error": 6.938893903907228e-17,
+              "relative_error": 1.3209012376534415e-15,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "displacement",
+              "entity": "N4",
+              "component": "Z",
+              "unit": "in",
+              "fem": -0.12156665700942758,
+              "sap": -0.12156665700942754,
+              "absolute_error": 4.163336342344337e-17,
+              "relative_error": 3.4247354042329776e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N4",
+              "component": "X",
+              "unit": "kip",
+              "fem": 0.0,
+              "sap": 0.0,
+              "absolute_error": 0.0,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N4",
+              "component": "Y",
+              "unit": "kip",
+              "fem": 8.881784197001252e-16,
+              "sap": 0.0,
+              "absolute_error": 8.881784197001252e-16,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "reaction",
+              "entity": "N4",
+              "component": "Z",
+              "unit": "kip",
+              "fem": 1.7763568394002505e-15,
+              "sap": 0.0,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": null,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "force",
+              "entity": "B1",
+              "component": "axial",
+              "unit": "kip",
+              "fem": -5.1243224484370185,
+              "sap": -5.124322448437019,
+              "absolute_error": 8.881784197001252e-16,
+              "relative_error": 1.7332602088126413e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "stress",
+              "entity": "B1",
+              "component": "axial",
+              "unit": "ksi",
+              "fem": -12.06139704252233,
+              "sap": -12.061397042522332,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": 1.4727620964119852e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "force",
+              "entity": "B2",
+              "component": "axial",
+              "unit": "kip",
+              "fem": -11.111571171031073,
+              "sap": -11.111571171031075,
+              "absolute_error": 1.7763568394002505e-15,
+              "relative_error": 1.5986549625235558e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "stress",
+              "entity": "B2",
+              "component": "axial",
+              "unit": "ksi",
+              "fem": -24.999986597528675,
+              "sap": -24.99998659752868,
+              "absolute_error": 3.552713678800501e-15,
+              "relative_error": 1.4210862333629002e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "force",
+              "entity": "B3",
+              "component": "axial",
+              "unit": "kip",
+              "fem": -3.288236609491478,
+              "sap": -3.288236609491476,
+              "absolute_error": 2.220446049250313e-15,
+              "relative_error": 6.752695480735805e-16,
+              "tolerance": 0.0001,
+              "passed": true
+            },
+            {
+              "quantity": "stress",
+              "entity": "B3",
+              "component": "axial",
+              "unit": "ksi",
+              "fem": -6.6489361037234085,
+              "sap": -6.648936103723404,
+              "absolute_error": 4.440892098500626e-15,
+              "relative_error": 6.679101782935956e-16,
+              "tolerance": 1e-05,
+              "passed": true
+            },
+            {
+              "quantity": "weight",
+              "entity": "Modelo",
+              "component": "W",
+              "unit": "lb",
+              "fem": 32.423980627119256,
+              "sap": 32.423980627119256,
+              "absolute_error": 0.0,
+              "relative_error": 0.0,
+              "tolerance": 1e-08,
+              "passed": true
+            }
+          ],
+          "tolerances": {
+            "displacement": 1e-05,
+            "force": 0.0001,
+            "stress": 1e-05,
+            "reaction": 0.0001,
+            "weight": 1e-08,
+            "equilibrium_force": 1e-06,
+            "equilibrium_moment": 0.001,
+            "relative_zero": 1e-12
+          }
+        },
+        "equilibrium": {
+          "fem": {
+            "net_force_kip": [
+              0.0,
+              0.0,
+              3.552713678800501e-15
+            ],
+            "net_moment_kip_in": [
+              0.0,
+              -5.684341886080802e-14,
+              2.1316282072803006e-14
+            ],
+            "force_tolerance_kip": 1e-06,
+            "moment_tolerance_kip_in": 0.001,
+            "passed": true
+          },
+          "sap": {
+            "net_force_kip": [
+              0.0,
+              0.0,
+              -1.7763568394002505e-15
+            ],
+            "net_moment_kip_in": [
+              0.0,
+              1.1368683772161603e-13,
+              -6.394884621840902e-14
+            ],
+            "force_tolerance_kip": 1e-06,
+            "moment_tolerance_kip_in": 0.001,
+            "passed": true
+          }
+        },
+        "constraints": {
+          "fem": {
+            "stress_ratio": 0.999999463901147,
+            "displacement_ratio": 0.08094211984581576,
+            "stress_passed": true,
+            "displacement_passed": true
+          },
+          "sap": {
+            "stress_ratio": 0.9999994639011471,
+            "displacement_ratio": 0.08094211984581573,
+            "stress_passed": true,
+            "displacement_passed": true
+          }
+        },
+        "input_audit_passed": null,
+        "axial_only_passed": true,
+        "design_feasible": true,
+        "cases": {
+          "C1": {
+            "passed": true,
+            "comparison": {
+              "max_displacement_error_in": 6.938893903907228e-17,
+              "max_force_error_kip": 2.220446049250313e-15,
+              "max_stress_error_ksi": 4.440892098500626e-15,
+              "max_reaction_error_kip": 2.6645352591003757e-15,
+              "weight_error_lb": 0.0,
+              "passed": true,
+              "issues": [],
+              "rows": [
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 1.3750000000000004,
+                  "sap": 1.375,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 3.2297397080004545e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 1.833333333333333,
+                  "sap": 1.8333333333333328,
+                  "absolute_error": 2.220446049250313e-16,
+                  "relative_error": 1.211152390500171e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 4.583333333333333,
+                  "sap": 4.583333333333333,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -7.125,
+                  "sap": -7.125,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 3.166666666666667,
+                  "sap": 3.166666666666666,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 2.8047739569477637e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 7.916666666666668,
+                  "sap": 7.916666666666665,
+                  "absolute_error": 2.6645352591003757e-15,
+                  "relative_error": 3.3657287483373163e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 0.7500000000000003,
+                  "sap": 0.7499999999999999,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 5.921189464667499e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": -2.000000000000001,
+                  "sap": -1.9999999999999993,
+                  "absolute_error": 1.5543122344752192e-15,
+                  "relative_error": 7.771561172376093e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 2.5000000000000018,
+                  "sap": 2.4999999999999996,
+                  "absolute_error": 2.220446049250313e-15,
+                  "relative_error": 8.881784197001246e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.16188423969163152,
+                  "sap": 0.16188423969163146,
+                  "absolute_error": 5.551115123125783e-17,
+                  "relative_error": 3.4290645795414903e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.052531511865596056,
+                  "sap": 0.05253151186559599,
+                  "absolute_error": 6.938893903907228e-17,
+                  "relative_error": 1.3209012376534415e-15,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": -0.12156665700942758,
+                  "sap": -0.12156665700942754,
+                  "absolute_error": 4.163336342344337e-17,
+                  "relative_error": 3.4247354042329776e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 8.881784197001252e-16,
+                  "sap": 0.0,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 1.7763568394002505e-15,
+                  "sap": 0.0,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -5.1243224484370185,
+                  "sap": -5.124322448437019,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 1.7332602088126413e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -12.06139704252233,
+                  "sap": -12.061397042522332,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 1.4727620964119852e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -11.111571171031073,
+                  "sap": -11.111571171031075,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 1.5986549625235558e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -24.999986597528675,
+                  "sap": -24.99998659752868,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 1.4210862333629002e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -3.288236609491478,
+                  "sap": -3.288236609491476,
+                  "absolute_error": 2.220446049250313e-15,
+                  "relative_error": 6.752695480735805e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -6.6489361037234085,
+                  "sap": -6.648936103723404,
+                  "absolute_error": 4.440892098500626e-15,
+                  "relative_error": 6.679101782935956e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "weight",
+                  "entity": "Modelo",
+                  "component": "W",
+                  "unit": "lb",
+                  "fem": 32.423980627119256,
+                  "sap": 32.423980627119256,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-08,
+                  "passed": true
+                }
+              ],
+              "tolerances": {
+                "displacement": 1e-05,
+                "force": 0.0001,
+                "stress": 1e-05,
+                "reaction": 0.0001,
+                "weight": 1e-08,
+                "equilibrium_force": 1e-06,
+                "equilibrium_moment": 0.001,
+                "relative_zero": 1e-12
+              }
+            },
+            "equilibrium": {
+              "fem": {
+                "net_force_kip": [
+                  0.0,
+                  0.0,
+                  3.552713678800501e-15
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  -5.684341886080802e-14,
+                  2.1316282072803006e-14
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              },
+              "sap": {
+                "net_force_kip": [
+                  0.0,
+                  0.0,
+                  -1.7763568394002505e-15
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  1.1368683772161603e-13,
+                  -6.394884621840902e-14
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              }
+            },
+            "constraints": {
+              "fem": {
+                "stress_ratio": 0.999999463901147,
+                "displacement_ratio": 0.08094211984581576,
+                "stress_passed": true,
+                "displacement_passed": true
+              },
+              "sap": {
+                "stress_ratio": 0.9999994639011471,
+                "displacement_ratio": 0.08094211984581573,
+                "stress_passed": true,
+                "displacement_passed": true
+              }
+            },
+            "input_audit_passed": null,
+            "axial_only_passed": true,
+            "design_feasible": true
+          },
+          "C2": {
+            "passed": true,
+            "comparison": {
+              "max_displacement_error_in": 2.7755575615628914e-17,
+              "max_force_error_kip": 2.220446049250313e-15,
+              "max_stress_error_ksi": 5.329070518200751e-15,
+              "max_reaction_error_kip": 1.7763568394002505e-15,
+              "weight_error_lb": 0.0,
+              "passed": true,
+              "issues": [],
+              "rows": [
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 0.7499999999999991,
+                  "sap": 0.75,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 1.1842378929335016e-15,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.9999999999999993,
+                  "sap": 1.0000000000000002,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 8.881784197001258e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 2.4999999999999982,
+                  "sap": 2.5,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 7.105427357601007e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 4.05,
+                  "sap": 4.05,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": -1.7999999999999994,
+                  "sap": -1.7999999999999998,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 2.4671622769447934e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": -4.499999999999999,
+                  "sap": -4.5,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 1.9737298215558342e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 1.2000000000000002,
+                  "sap": 1.2,
+                  "absolute_error": 2.220446049250313e-16,
+                  "relative_error": 1.850371707708594e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": -3.2,
+                  "sap": -3.2,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 4.0,
+                  "sap": 4.0,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": -0.14027593810704095,
+                  "sap": -0.14027593810704095,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.12973752899450794,
+                  "sap": 0.1297375289945079,
+                  "absolute_error": 2.7755575615628914e-17,
+                  "relative_error": 2.139363669921898e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": -0.03816974672334525,
+                  "sap": -0.038169746723345256,
+                  "absolute_error": 6.938893903907228e-18,
+                  "relative_error": 1.8179040993382558e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -2.7950849718747355,
+                  "sap": -2.7950849718747377,
+                  "absolute_error": 2.220446049250313e-15,
+                  "relative_error": 7.944109290391278e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -6.578943841375812,
+                  "sap": -6.578943841375818,
+                  "absolute_error": 5.329070518200751e-15,
+                  "relative_error": 8.100191530265923e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": 6.316050981428188,
+                  "sap": 6.31605098142819,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 2.8124485451803303e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": 14.210518697542613,
+                  "sap": 14.210518697542618,
+                  "absolute_error": 5.329070518200751e-15,
+                  "relative_error": 3.7500886713743204e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -5.261178575186364,
+                  "sap": -5.261178575186363,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 1.6881738701839517e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -10.63829776595745,
+                  "sap": -10.638297765957448,
+                  "absolute_error": 1.7763568394002505e-15,
+                  "relative_error": 1.6697754457339894e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "weight",
+                  "entity": "Modelo",
+                  "component": "W",
+                  "unit": "lb",
+                  "fem": 32.423980627119256,
+                  "sap": 32.423980627119256,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-08,
+                  "passed": true
+                }
+              ],
+              "tolerances": {
+                "displacement": 1e-05,
+                "force": 0.0001,
+                "stress": 1e-05,
+                "reaction": 0.0001,
+                "weight": 1e-08,
+                "equilibrium_force": 1e-06,
+                "equilibrium_moment": 0.001,
+                "relative_zero": 1e-12
+              }
+            },
+            "equilibrium": {
+              "fem": {
+                "net_force_kip": [
+                  -8.881784197001252e-16,
+                  0.0,
+                  -8.881784197001252e-16
+                ],
+                "net_moment_kip_in": [
+                  5.684341886080802e-14,
+                  -1.1368683772161603e-13,
+                  3.552713678800501e-14
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              },
+              "sap": {
+                "net_force_kip": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "net_moment_kip_in": [
+                  0.0,
+                  0.0,
+                  2.1316282072803006e-14
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              }
+            },
+            "constraints": {
+              "fem": {
+                "stress_ratio": 0.5684207479017045,
+                "displacement_ratio": 0.07013796905352047,
+                "stress_passed": true,
+                "displacement_passed": true
+              },
+              "sap": {
+                "stress_ratio": 0.5684207479017047,
+                "displacement_ratio": 0.07013796905352047,
+                "stress_passed": true,
+                "displacement_passed": true
+              }
+            },
+            "input_audit_passed": null,
+            "axial_only_passed": true,
+            "design_feasible": true
+          },
+          "ULS": {
+            "passed": true,
+            "comparison": {
+              "max_displacement_error_in": 1.1102230246251565e-16,
+              "max_force_error_kip": 5.329070518200751e-15,
+              "max_stress_error_ksi": 1.4210854715202004e-14,
+              "max_reaction_error_kip": 3.552713678800501e-15,
+              "weight_error_lb": 0.0,
+              "passed": true,
+              "issues": [],
+              "rows": [
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 2.8499999999999996,
+                  "sap": 2.85,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 1.558207753859869e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 3.799999999999999,
+                  "sap": 3.8,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 2.337311630789804e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N1",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 9.499999999999998,
+                  "sap": 9.500000000000002,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 3.739698609263686e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": -2.0699999999999994,
+                  "sap": -2.07,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 2.1453585016911244e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 0.9200000000000002,
+                  "sap": 0.92,
+                  "absolute_error": 1.1102230246251565e-16,
+                  "relative_error": 1.2067641572012568e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N2",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 2.3000000000000003,
+                  "sap": 2.2999999999999994,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 3.861645303044022e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 2.8200000000000007,
+                  "sap": 2.8200000000000003,
+                  "absolute_error": 4.440892098500626e-16,
+                  "relative_error": 1.5747844320924202e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": -7.520000000000001,
+                  "sap": -7.5200000000000005,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": 1.1810883240693152e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N3",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": 9.400000000000004,
+                  "sap": 9.4,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 3.779482637021808e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "X",
+                  "unit": "in",
+                  "fem": -0.03018041334130775,
+                  "sap": -0.030180413341307784,
+                  "absolute_error": 3.469446951953614e-17,
+                  "relative_error": 1.1495690641204716e-15,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "Y",
+                  "unit": "in",
+                  "fem": 0.270617860629928,
+                  "sap": 0.2706178606299279,
+                  "absolute_error": 1.1102230246251565e-16,
+                  "relative_error": 4.1025489671703343e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "displacement",
+                  "entity": "N4",
+                  "component": "Z",
+                  "unit": "in",
+                  "fem": -0.2069515831686655,
+                  "sap": -0.20695158316866546,
+                  "absolute_error": 2.7755575615628914e-17,
+                  "relative_error": 1.3411627584896572e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "X",
+                  "unit": "kip",
+                  "fem": 0.0,
+                  "sap": 0.0,
+                  "absolute_error": 0.0,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "Y",
+                  "unit": "kip",
+                  "fem": 8.881784197001252e-16,
+                  "sap": 0.0,
+                  "absolute_error": 8.881784197001252e-16,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "reaction",
+                  "entity": "N4",
+                  "component": "Z",
+                  "unit": "kip",
+                  "fem": -3.552713678800501e-15,
+                  "sap": 0.0,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": null,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -10.621322893123997,
+                  "sap": -10.621322893124002,
+                  "absolute_error": 5.329070518200751e-15,
+                  "relative_error": 5.017332183405017e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B1",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -24.99998659722809,
+                  "sap": -24.999986597228105,
+                  "absolute_error": 1.4210854715202004e-14,
+                  "relative_error": 5.684344933519946e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -3.2282038349521858,
+                  "sap": -3.2282038349521858,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B2",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -7.263154000966226,
+                  "sap": -7.263154000966226,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "force",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "kip",
+                  "fem": -12.363769651687953,
+                  "sap": -12.36376965168795,
+                  "absolute_error": 3.552713678800501e-15,
+                  "relative_error": 2.873487438610982e-16,
+                  "tolerance": 0.0001,
+                  "passed": true
+                },
+                {
+                  "quantity": "stress",
+                  "entity": "B3",
+                  "component": "axial",
+                  "unit": "ksi",
+                  "fem": -24.999999750000008,
+                  "sap": -24.99999975,
+                  "absolute_error": 7.105427357601002e-15,
+                  "relative_error": 2.8421709714621096e-16,
+                  "tolerance": 1e-05,
+                  "passed": true
+                },
+                {
+                  "quantity": "weight",
+                  "entity": "Modelo",
+                  "component": "W",
+                  "unit": "lb",
+                  "fem": 32.423980627119256,
+                  "sap": 32.423980627119256,
+                  "absolute_error": 0.0,
+                  "relative_error": 0.0,
+                  "tolerance": 1e-08,
+                  "passed": true
+                }
+              ],
+              "tolerances": {
+                "displacement": 1e-05,
+                "force": 0.0001,
+                "stress": 1e-05,
+                "reaction": 0.0001,
+                "weight": 1e-08,
+                "equilibrium_force": 1e-06,
+                "equilibrium_moment": 0.001,
+                "relative_zero": 1e-12
+              }
+            },
+            "equilibrium": {
+              "fem": {
+                "net_force_kip": [
+                  -4.440892098500626e-16,
+                  -8.881784197001252e-16,
+                  0.0
+                ],
+                "net_moment_kip_in": [
+                  2.2737367544323206e-13,
+                  -5.684341886080802e-14,
+                  3.197442310920451e-14
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              },
+              "sap": {
+                "net_force_kip": [
+                  -8.881784197001252e-16,
+                  0.0,
+                  3.552713678800501e-15
+                ],
+                "net_moment_kip_in": [
+                  -5.684341886080802e-14,
+                  0.0,
+                  -2.1316282072803006e-14
+                ],
+                "force_tolerance_kip": 1e-06,
+                "moment_tolerance_kip_in": 0.001,
+                "passed": true
+              }
+            },
+            "constraints": {
+              "fem": {
+                "stress_ratio": 0.9999999900000003,
+                "displacement_ratio": 0.135308930314964,
+                "stress_passed": true,
+                "displacement_passed": true
+              },
+              "sap": {
+                "stress_ratio": 0.9999999900000001,
+                "displacement_ratio": 0.13530893031496394,
+                "stress_passed": true,
+                "displacement_passed": true
+              }
+            },
+            "input_audit_passed": null,
+            "axial_only_passed": true,
+            "design_feasible": true
+          }
+        }
+      },
+      "sdb": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\modeler\\optimization\\spatial_sap\\sap_20261018_010253_871e1b\\Tripode_espacial_materiales_y_carga_61a4f4c0.sdb"
+    }
+  ]
+}

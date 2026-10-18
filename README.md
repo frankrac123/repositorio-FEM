@@ -4,9 +4,18 @@ Aplicación de escritorio en Python para modelar cerchas planas y espaciales, an
 
 ![Panel de resultados estructurales SAP2000](data/phase3_ui/resultados_sap.png)
 
+## Modelador desde cero
+
+**Nuevo** inicia una cercha 2D o 3D vacía. Crea nodos con **XYZ…** o con el ratón sobre el plano de trabajo, conecta sus extremos y confirma sus propiedades con Enter o **Aplicar cambios**. Los borradores se pueden guardar sin barras ni apoyos. **Cargas** administra patrones y casos; **Bibliotecas** administra materiales, secciones y límites. **Validar** comprueba estabilidad y **Analizar** calcula la respuesta.
+
+Consulta la [guía del modelador y arquitectura](docs/MODELADOR.md) y la [verificación ejecutada](docs/VALIDACION_MODELADOR.md). El Caso I sigue disponible como ejemplo y conserva el límite verificado de **25 ksi**.
+
 ## Funciones actuales
 
-- Modelador 3D con nodos, barras, cargas, apoyos, áreas y propiedades editables.
+- Modelador 2D/3D vacío, dibujo sobre plano, selección múltiple, edición numérica, copiar, mover, eliminar y deshacer/rehacer.
+- Materiales por barra, biblioteca de secciones y patrones/casos de carga con combinaciones lineales.
+- Restricciones verificadas en todos los casos seleccionados durante la optimización.
+- Laboratorio de campañas con ASAM, DE, SLSQP y sus refinamientos híbridos; trazas, estadísticas e informes.
 - FEM matricial con comprobación de estabilidad, equilibrio y restricciones.
 - Optimización de tamaño mediante **ASAM, DE y SLSQP**, con variables individuales o agrupadas.
 - Motores seleccionables: **FEM**, **SAP2000 por candidato** e **híbrido FEM + SAP**.

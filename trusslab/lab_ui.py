@@ -170,8 +170,11 @@ class LaboratoryTab(QWidget):
         r=self.selected_record()
         if not r or not r.get('result'):self.error('Selecciona una corrida con diseño factible.');return
         if self.owner.job or not self.owner.confirm_unsaved():return
-        self.owner.model=winner_model(self.campaign,r);self.owner.result=copy.deepcopy(r['result']);self.owner.history=[]
-        self.owner.selected=('member',self.owner.model.members[0].id);self.owner.dirty=True;self.owner.project_path=None;self.owner.refresh(True);self.owner.main_tabs.setCurrentIndex(0)
+        from .lab_plots import read_trace
+        history=read_trace(self.campaign['_directory'],r)
+        self.owner.set_document(winner_model(self.campaign,r),copy.deepcopy(r['result']),history)
+        self.owner.selected=('member',self.owner.model.members[0].id);self.owner.selection={self.owner.selected}
+        self.owner.dirty=True;self.owner.refresh(True);self.owner.main_tabs.setCurrentIndex(0)
     def open_campaign(self):
         if self.running:return
         path,_=QFileDialog.getOpenFileName(self,'Abrir campaña','', 'Campaña (campaign.json)')

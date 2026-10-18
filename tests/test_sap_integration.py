@@ -23,7 +23,7 @@ def test_real_batch_updates_sections_and_preserves_results(tmp_path):
             model=benchmark()
             for m in model.members:m.area=area
             result=session.evaluate(model);ids.append(result['batch_session_id'])
-            assert result['validation']['passed'] and result['analysis_case_status']['CASE_I']==4
+            assert result['validation']['passed'] and result['analysis_case_status'][result['sap_analysis_case']]==4
             assert session.last_fingerprint==model.fingerprint()
             assert all(m['area']==area for m in result['members'])
         assert len(set(ids))==1
@@ -40,7 +40,7 @@ def test_real_visible_update_and_automatic_are_independent(tmp_path):
         assert first['input_audit']['node_count']==6
         assert first['input_audit']['member_count']==10
         assert first['validation']['passed']
-        assert first['analysis_case_status']['CASE_I']==4
+        assert first['analysis_case_status'][first['sap_analysis_case']]==4
         path=Path(first['sap_model'])
         original=hashlib.sha256(path.read_bytes()).hexdigest()
         changed=model.clone()
@@ -50,12 +50,12 @@ def test_real_visible_update_and_automatic_are_independent(tmp_path):
         second=manager.open(changed,tmp_path,previous_id=first['session']['id']).result(timeout=240)
         assert second['validation']['passed']
         assert second['model_fingerprint']==changed.fingerprint()
-        assert second['analysis_case_status']['CASE_I']==4
+        assert second['analysis_case_status'][second['sap_analysis_case']]==4
         assert second['sap_model']!=first['sap_model']
         assert hashlib.sha256(path.read_bytes()).hexdigest()==original
         assert manager.inspect(first['session']['id']).result(timeout=30)['visible']
         automatic=analyze(changed,tmp_path)
-        assert automatic['mode']=='automatic' and automatic['analysis_case_status']['CASE_I']==4
+        assert automatic['mode']=='automatic' and automatic['analysis_case_status'][automatic['sap_analysis_case']]==4
         assert manager.inspect(second['session']['id']).result(timeout=30)['visible']
     finally:
         assert manager.shutdown(timeout=10)

@@ -45,8 +45,8 @@ class StructuralResultsDialog(QDialog):
         for n in model.nodes:
             u=result['displacements'][str(n.id)];r=result['reactions'][str(n.id)]
             nodes.append([n.id,*u,model.displacement_limit,max(abs(v)/model.displacement_limit for v in u)])
-            if any(n.fixed):reactions.append([n.id,*r])
-            loads.append([n.id,*n.load])
+            if any(self.model.restraints(n)):reactions.append([n.id,*r])
+            loads.append([n.id,*model.nodal_loads(result.get('analysis_case'))[str(n.id)]])
         self.add_table('Desplazamientos',['Nodo','ux (in)','uy (in)','uz (in)','Límite ± (in)','Utilización'],nodes)
         self.add_table('Reacciones',['Nodo','Rx (kip)','Ry (kip)','Rz (kip)'],reactions)
         self.add_table('Cargas',['Nodo','Fx (kip)','Fy (kip)','Fz (kip)'],loads)

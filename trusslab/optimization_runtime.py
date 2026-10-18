@@ -6,7 +6,7 @@ from pathlib import Path
 import csv,json,threading,time,uuid
 import numpy as np
 from scipy.optimize import minimize,differential_evolution,NonlinearConstraint
-from .fem import solve
+from .analysis import solve_design as solve,constraint_margins
 from .design_space import DesignSpace
 from .asam import ASAMOptions,run_asam
 
@@ -109,9 +109,7 @@ def optimize(model,method='SLSQP',iterations=200,seed=42,progress=None,cancelled
 
         def margins(x):
             r=evaluate(x)
-            return np.r_[[1-m['ratio'] for m in r['members']],
-                [1-abs(r['displacements'][str(n.id)][d])/model.displacement_limit
-                 for n in model.nodes for d in range(3) if not n.fixed[d]]]
+            return constraint_margins(model,r)
         def objective(x):return evaluate(x)['weight_lb']/initial_weight
         def callback(x,*args):
             nonlocal iteration
