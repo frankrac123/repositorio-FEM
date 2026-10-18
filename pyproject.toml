@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trusslab3d"
+version = "0.1.0"
+description = "Desktop truss analysis and optimization with independent FEM and SAP2000 OAPI"
+requires-python = ">=3.11,<3.14"
+dependencies = ["numpy>=2.0", "scipy>=1.15", "PySide6>=6.8", "pyvista>=0.46", "pyvistaqt>=0.11", "comtypes>=1.4; sys_platform == 'win32'"]
+
+[project.scripts]
+trusslab = "trusslab.ui:main"
+
+[tool.setuptools.packages.find]
+include = ["trusslab*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["integration: opt-in tests that open the real installed SAP2000"]
