@@ -13,7 +13,8 @@ import queue
 from concurrent.futures import Future
 from .fem import solve, compare
 from .core import save_project
-from .sap_mapping import transfer_definition,pattern_forces,active_dof
+from .sap_mapping import transfer_definition,pattern_forces,active_dof,material_key
+from .units import lb_to_kip
 from .analysis import design_cases,combine_cases
 from .validation import validation_report, write_comparison_csv
 
@@ -96,7 +97,7 @@ def audit_model(s,model,points,frames,call):
         mesh=call('FrameObj.GetAutoMesh',s.FrameObj.GetAutoMesh,frames[m.id],False,False,False,0,0.)
         require(list(ends[:2])==[points[m.start],points[m.end]],f'Conectividad B{m.id}.')
         require(abs(area-m.area)<1e-9*max(1,m.area),f'Área B{m.id}.')
-        require(rectangle[1]==mapping['materials'][model.member_material(m).id],f'Material B{m.id}.')
+        require(rectangle[1]==mapping['materials'][material_key(m)],f'Material B{m.id}.')
         require(list(releases[0])==[False,False,False,True,True,True] and list(releases[1])==[False,False,False,False,True,True],f'Articulaciones B{m.id}.')
         require(not mesh[0],f'Automallado B{m.id}.')
         members.append({'id':m.id,'sap_name':frames[m.id],'start':ends[0],'end':ends[1],'section':sec,'material':rectangle[1],'area_in2':float(area)})
@@ -104,7 +105,7 @@ def audit_model(s,model,points,frames,call):
         material=call('PropMaterial.GetMPIsotropic',s.PropMaterial.GetMPIsotropic,mapping['materials'][id],0.,0.,0.,0.)
         weight=call('PropMaterial.GetWeightAndMass',s.PropMaterial.GetWeightAndMass,mapping['materials'][id],0.,0.)
         require(abs(material[0]-mat.elastic_modulus)<1e-8,'Módulo de elasticidad '+id)
-        require(abs(weight[0]-mat.density/1000.)<1e-12,'Peso específico '+id)
+        require(abs(weight[0]-lb_to_kip(mat.density))<1e-12,'Peso específico '+id)
         material_rows.append({'id':id,'E_ksi':float(material[0]),'density_kip_in3':float(weight[0])})
     for pattern in patterns:
         sw=call('LoadPatterns.GetSelfWTMultiplier',s.LoadPatterns.GetSelfWTMultiplier,mapping['patterns'][pattern.id],0.)[0]
@@ -157,9 +158,11 @@ def recover_results(model,s,points,frames,call,metadata):
         result['members'].append({'id': m.id, 'force': p, 'stress': stress, 'area': m.area,
                                   'ratio': abs(stress)/model.stress_limit, 'length': model.length(m)})
     result['stress_ratio'] = max(m['ratio'] for m in result['members'])
-    result['displacement_ratio'] = max(abs(result['displacements'][str(n.id)][d])/model.displacement_limit
-                                        for n in model.nodes for d in range(3) if not model.restraints(n)[d])
+    result['displacement_ratio'] = max((abs(result['displacements'][str(n.id)][d])/model.displacement_limit
+                                        for n in model.nodes for d in range(3) if not model.restraints(n)[d]),default=0.)
     result['feasible'] = result['stress_ratio'] <= 1+1e-6 and result['displacement_ratio'] <= 1+1e-6
+    result['strict_feasible']=result['stress_ratio']<=1 and result['displacement_ratio']<=1
+    result['feasibility_tolerance']=1e-6
     result['max_nonaxial_component'] = max_bending
     return result
 
@@ -242,7 +245,7 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None, 
                 name=mapping['materials'][id]
                 call('PropMaterial.SetMaterial',s.PropMaterial.SetMaterial,name,1)
                 call('PropMaterial.SetMPIsotropic',s.PropMaterial.SetMPIsotropic,name,material.elastic_modulus,.3,0.)
-                call('PropMaterial.SetWeightAndMass',s.PropMaterial.SetWeightAndMass,name,1,material.density/1000.)
+                call('PropMaterial.SetWeightAndMass',s.PropMaterial.SetWeightAndMass,name,1,lb_to_kip(material.density))
             points, frames = {}, {}
             for n in model.nodes:
                 r = call('PointObj.AddCartesian', s.PointObj.AddCartesian, *n.xyz, '', f'N{n.id}')
@@ -253,7 +256,7 @@ def analyze(model, output_root, visible=False, progress=None, *, _session=None, 
                 side = m.area**.5
                 # Nonzero section inertia only defines valid section metadata. End
                 # releases plus inactive joint rotations remove flexural action.
-                call('PropFrame.SetRectangle', s.PropFrame.SetRectangle, sec, mapping['materials'][model.member_material(m).id], side, side)
+                call('PropFrame.SetRectangle', s.PropFrame.SetRectangle, sec, mapping['materials'][material_key(m)], side, side)
                 r = call('FrameObj.AddByPoint', s.FrameObj.AddByPoint, points[m.start], points[m.end], '', sec, f'B{m.id}')
                 frames[m.id] = r[0]
                 # R1 release at one end, R2/R3 at both; avoids double torsion release.
@@ -403,7 +406,7 @@ class SapBatchSession(_ManagedSession):
                     call('SetModelIsLocked(False)',s.SetModelIsLocked,False)
                     for member in model.members:
                         side=member.area**.5;section=self.mapping['sections'][member.id]
-                        call('PropFrame.SetRectangle',s.PropFrame.SetRectangle,section,self.mapping['materials'][model.member_material(member).id],side,side)
+                        call('PropFrame.SetRectangle',s.PropFrame.SetRectangle,section,self.mapping['materials'][material_key(member)],side,side)
                         area=call('PropFrame.GetSectProps',s.PropFrame.GetSectProps,section,*([0.]*12))[0]
                         if abs(area-member.area)>1e-9*max(1.,member.area):raise SapError('SAP no confirmó la nueva área.')
                     for pattern in transfer_definition(model)[2]:
@@ -457,6 +460,19 @@ class SapBatchSession(_ManagedSession):
                 comtypes.CoUninitialize();self.initialized=False
 
 
+def pump_sta_messages():
+    """Dispatch this STA's messages without a CoWait RPC modal wait.
+
+    A standard STA message loop services marshalled calls on the owner thread.
+    This does not suppress native diagnostics raised inside SAP RunAnalysis.
+    """
+    from ctypes import byref
+    from ctypes.wintypes import MSG
+    from comtypes.messageloop import PeekMessage,TranslateMessage,DispatchMessage,PM_REMOVE
+    message=MSG()
+    while PeekMessage(byref(message),0,0,0,PM_REMOVE):
+        TranslateMessage(byref(message));DispatchMessage(byref(message))
+
 class VisibleSapSessions:
     """Serial command queue on a long-lived STA thread, with message pumping.
 
@@ -508,7 +524,7 @@ class VisibleSapSessions:
             while True:
                 try:command=self._queue.get(timeout=.08)
                 except queue.Empty:
-                    comtypes.client.PumpEvents(.01)
+                    pump_sta_messages()
                     continue
                 if command is None:break
                 future,model,root,progress,previous_id=command

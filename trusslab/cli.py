@@ -10,7 +10,7 @@ def main():
     p.add_argument('command', choices=['diagnose','fem','sap','optimize'])
     p.add_argument('--project')
     p.add_argument('--output', default='data')
-    p.add_argument('--method', choices=['SLSQP','DE'], default='SLSQP')
+    p.add_argument('--method', choices=['SLSQP','DE','ASAM'], default='SLSQP')
     args = p.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -21,11 +21,11 @@ def main():
         (out/'diagnostic.json').write_text(json.dumps(r, indent=2), encoding='utf-8')
     elif args.command == 'fem':
         r = solve(m)
-        save_project(out/'case_i.trusslab.json', m, r)
+        save_project(out/('analysis.trusslab.json' if args.project else 'case_i.trusslab.json'), m, r)
     elif args.command == 'sap':
         from .sap import analyze
         r = analyze(m, out, progress=print)
-        save_project(out/'sap_case_i.trusslab.json', m, r)
+        save_project(out/('sap_analysis.trusslab.json' if args.project else 'sap_case_i.trusslab.json'), m, r)
     else:
         from .optimization import optimize
         m, r, h = optimize(m, method=args.method)

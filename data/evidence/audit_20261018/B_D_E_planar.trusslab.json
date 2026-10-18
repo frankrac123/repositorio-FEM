@@ -1,0 +1,561 @@
+{
+  "schema": "trusslab/3",
+  "model": {
+    "name": "Triángulo 2D · materiales y cargas",
+    "nodes": [
+      {
+        "id": 1,
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          true,
+          false,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "xyz": [
+          140.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          false,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 3,
+        "xyz": [
+          55.0,
+          0.0,
+          95.0
+        ],
+        "fixed": [
+          false,
+          false,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "members": [
+      {
+        "id": 1,
+        "start": 1,
+        "end": 2,
+        "area": 1.5,
+        "material_id": null,
+        "section_id": "S1",
+        "group": "base",
+        "element_type": "truss"
+      },
+      {
+        "id": 2,
+        "start": 1,
+        "end": 3,
+        "area": 2.0,
+        "material_id": "legacy",
+        "section_id": null,
+        "group": "diagonales",
+        "element_type": "truss"
+      },
+      {
+        "id": 3,
+        "start": 2,
+        "end": 3,
+        "area": 2.0,
+        "material_id": "M1",
+        "section_id": null,
+        "group": "diagonales",
+        "element_type": "truss"
+      }
+    ],
+    "elastic_modulus": 29000.0,
+    "density": 0.283,
+    "stress_limit": 25.0,
+    "displacement_limit": 2.0,
+    "area_min": 0.1,
+    "area_max": 35.0,
+    "material_name": "Acero · E = 29,000 ksi",
+    "project_id": "14171489c60f4cf392f07931b2667025",
+    "structure_type": "2D",
+    "units": "kip-in-ksi",
+    "work_plane": "XZ",
+    "work_elevation": 0.0,
+    "grid_step": 25.0,
+    "materials": [
+      {
+        "id": "M1",
+        "name": "Acero",
+        "elastic_modulus": 29000.0,
+        "density": 0.283
+      },
+      {
+        "id": "M2",
+        "name": "Material E 10,000 ksi",
+        "elastic_modulus": 10000.0,
+        "density": 0.1
+      },
+      {
+        "id": "legacy",
+        "name": "Explicit identifier collision regression",
+        "elastic_modulus": 18000.0,
+        "density": 0.18
+      }
+    ],
+    "sections": [
+      {
+        "id": "S1",
+        "name": "Área 1 in²",
+        "area": 1.0,
+        "section_type": "axial"
+      }
+    ],
+    "load_patterns": [
+      {
+        "id": "LC1",
+        "name": "Vertical y peso propio",
+        "load_type": "Dead",
+        "nodal_loads": {
+          "3": [
+            0.0,
+            0.0,
+            -10.0
+          ]
+        },
+        "self_weight": 1.0
+      },
+      {
+        "id": "LC2",
+        "name": "Horizontal",
+        "load_type": "Wind",
+        "nodal_loads": {
+          "3": [
+            4.0,
+            0.0,
+            -2.0
+          ]
+        },
+        "self_weight": 0.0
+      }
+    ],
+    "analysis_cases": [
+      {
+        "id": "C1",
+        "name": "Vertical",
+        "factors": {
+          "LC1": 1.0
+        }
+      },
+      {
+        "id": "C2",
+        "name": "Horizontal",
+        "factors": {
+          "LC2": 1.0
+        }
+      },
+      {
+        "id": "ULS",
+        "name": "Combinación 1.2D + 1.6W",
+        "factors": {
+          "LC1": 1.2,
+          "LC2": 1.6
+        }
+      }
+    ],
+    "active_case": "C1",
+    "optimization_config": {
+      "load_cases": [
+        "C1",
+        "C2",
+        "ULS"
+      ]
+    },
+    "load_storage": "patterns"
+  },
+  "results": {
+    "engine": "FEM · NumPy",
+    "timestamp": "2026-10-18T07:44:07.658894+00:00",
+    "model_id": "14171489c60f4cf392f07931b2667025",
+    "model_fingerprint": "5351f8c87763b7493c8247b02ac7eb6fa6b481189e0b328fc41f10da239908c8",
+    "analysis_status": "solved",
+    "analysis_case": "C1",
+    "weight_lb": 171.09922323751815,
+    "members": [
+      {
+        "id": 1,
+        "force": 3.534663669873512,
+        "stress": 2.3564424465823413,
+        "ratio": 0.09425769786329365,
+        "length": 140.0,
+        "area": 1.5
+      },
+      {
+        "id": 2,
+        "force": -7.054706171375466,
+        "stress": -3.527353085687733,
+        "ratio": 0.14109412342750932,
+        "length": 109.77249200050075,
+        "area": 2.0
+      },
+      {
+        "id": 3,
+        "force": -5.300976184315447,
+        "stress": -2.6504880921577234,
+        "ratio": 0.10601952368630893,
+        "length": 127.47548783981962,
+        "area": 2.0
+      }
+    ],
+    "displacements": {
+      "1": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "2": [
+        0.011375929052466476,
+        0.0,
+        0.0
+      ],
+      "3": [
+        0.0006483881119388798,
+        0.0,
+        -0.02523187655751852
+      ]
+    },
+    "reactions": {
+      "1": [
+        -9.437553656959199e-16,
+        0.0,
+        6.154802205614337
+      ],
+      "2": [
+        -1.070200452404234e-18,
+        0.0,
+        4.016297017623182
+      ],
+      "3": [
+        5.007363562982615e-16,
+        0.0,
+        0.0
+      ]
+    },
+    "stress_ratio": 0.27751031935051595,
+    "displacement_ratio": 0.019360142497491482,
+    "strict_feasible": true,
+    "feasibility_tolerance": 1e-06,
+    "feasible": true,
+    "residual_kip": 5.007363562982615e-16,
+    "condition_number": 5.11955263517947,
+    "equilibrium": {
+      "net_force_kip": [
+        -4.440892098500626e-16,
+        0.0,
+        1.7763568394002505e-15
+      ],
+      "net_moment_kip_in": [
+        0.0,
+        8.526512829121202e-14,
+        0.0
+      ],
+      "passed": true
+    },
+    "case_results": {
+      "C1": {
+        "engine": "FEM · NumPy",
+        "timestamp": "2026-10-18T07:44:07.658894+00:00",
+        "model_id": "14171489c60f4cf392f07931b2667025",
+        "model_fingerprint": "5351f8c87763b7493c8247b02ac7eb6fa6b481189e0b328fc41f10da239908c8",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 171.09922323751815,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.534663669873512,
+            "stress": 2.3564424465823413,
+            "ratio": 0.09425769786329365,
+            "length": 140.0,
+            "area": 1.5
+          },
+          {
+            "id": 2,
+            "force": -7.054706171375466,
+            "stress": -3.527353085687733,
+            "ratio": 0.14109412342750932,
+            "length": 109.77249200050075,
+            "area": 2.0
+          },
+          {
+            "id": 3,
+            "force": -5.300976184315447,
+            "stress": -2.6504880921577234,
+            "ratio": 0.10601952368630893,
+            "length": 127.47548783981962,
+            "area": 2.0
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.011375929052466476,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.0006483881119388798,
+            0.0,
+            -0.02523187655751852
+          ]
+        },
+        "reactions": {
+          "1": [
+            -9.437553656959199e-16,
+            0.0,
+            6.154802205614337
+          ],
+          "2": [
+            -1.070200452404234e-18,
+            0.0,
+            4.016297017623182
+          ],
+          "3": [
+            5.007363562982615e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 0.14109412342750932,
+        "displacement_ratio": 0.01261593827875926,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 5.007363562982615e-16,
+        "condition_number": 5.11955263517947,
+        "equilibrium": {
+          "net_force_kip": [
+            -4.440892098500626e-16,
+            0.0,
+            1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            8.526512829121202e-14,
+            0.0
+          ],
+          "passed": true
+        }
+      },
+      "C2": {
+        "engine": "FEM · NumPy",
+        "timestamp": "2026-10-18T07:44:07.660905+00:00",
+        "model_id": "14171489c60f4cf392f07931b2667025",
+        "model_fingerprint": "5351f8c87763b7493c8247b02ac7eb6fa6b481189e0b328fc41f10da239908c8",
+        "analysis_status": "solved",
+        "analysis_case": "C2",
+        "weight_lb": 171.09922323751815,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.131578947368422,
+            "stress": 2.0877192982456148,
+            "ratio": 0.08350877192982459,
+            "length": 140.0,
+            "area": 1.5
+          },
+          {
+            "id": 2,
+            "force": 1.733249873692117,
+            "stress": 0.8666249368460585,
+            "ratio": 0.034664997473842336,
+            "length": 109.77249200050075,
+            "area": 2.0
+          },
+          {
+            "id": 3,
+            "force": -4.696465341467038,
+            "stress": -2.348232670733519,
+            "ratio": 0.09392930682934075,
+            "length": 127.47548783981962,
+            "area": 2.0
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.010078644888082277,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.01966187211350055,
+            0.0,
+            -0.005276270703725462
+          ]
+        },
+        "reactions": {
+          "1": [
+            -4.000000000000001,
+            0.0,
+            -1.5
+          ],
+          "2": [
+            2.103751602627677e-16,
+            0.0,
+            3.500000000000001
+          ],
+          "3": [
+            -4.440892098500626e-16,
+            0.0,
+            -4.440892098500626e-16
+          ]
+        },
+        "stress_ratio": 0.09392930682934075,
+        "displacement_ratio": 0.009830936056750275,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 4.440892098500626e-16,
+        "condition_number": 5.11955263517947,
+        "equilibrium": {
+          "net_force_kip": [
+            -1.3322676295501878e-15,
+            0.0,
+            4.440892098500626e-16
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            -8.526512829121202e-14,
+            0.0
+          ],
+          "passed": true
+        }
+      },
+      "ULS": {
+        "engine": "FEM · NumPy",
+        "timestamp": "2026-10-18T07:44:07.663151+00:00",
+        "model_id": "14171489c60f4cf392f07931b2667025",
+        "model_fingerprint": "5351f8c87763b7493c8247b02ac7eb6fa6b481189e0b328fc41f10da239908c8",
+        "analysis_status": "solved",
+        "analysis_case": "ULS",
+        "weight_lb": 171.09922323751815,
+        "members": [
+          {
+            "id": 1,
+            "force": 9.25212271963769,
+            "stress": 6.168081813091793,
+            "ratio": 0.2467232725236717,
+            "length": 140.0,
+            "area": 1.5
+          },
+          {
+            "id": 2,
+            "force": -5.692447607743173,
+            "stress": -2.8462238038715864,
+            "ratio": 0.11384895215486346,
+            "length": 109.77249200050075,
+            "area": 2.0
+          },
+          {
+            "id": 3,
+            "force": -13.875515967525796,
+            "stress": -6.937757983762898,
+            "ratio": 0.27751031935051595,
+            "length": 127.47548783981962,
+            "area": 2.0
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.029776946683891414,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.032237061115927536,
+            0.0,
+            -0.038720284994982965
+          ]
+        },
+        "reactions": {
+          "1": [
+            -6.400000000000002,
+            0.0,
+            4.9857626467372045
+          ],
+          "2": [
+            -3.7522671988255694e-16,
+            0.0,
+            10.419556421147817
+          ],
+          "3": [
+            8.881784197001252e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 0.27751031935051595,
+        "displacement_ratio": 0.019360142497491482,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 8.881784197001252e-16,
+        "condition_number": 5.11955263517947,
+        "equilibrium": {
+          "net_force_kip": [
+            -8.881784197001252e-16,
+            0.0,
+            0.0
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            5.684341886080802e-14,
+            0.0
+          ],
+          "passed": true
+        }
+      }
+    },
+    "display_case": "C1",
+    "governing_cases": {
+      "stress_ratio": "ULS",
+      "displacement_ratio": "ULS"
+    },
+    "constraint_violation": 0.0
+  },
+  "history": []
+}

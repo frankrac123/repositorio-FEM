@@ -71,6 +71,7 @@ class MainWindow(QMainWindow):
         self.summary=self.make_summary()
         self.scene=ModelScene();self.scene.selected_entity.connect(self.scene_entity)
         self.scene.point_clicked.connect(self.scene_point)
+        self.scene.message.connect(lambda text:self.statusBar().showMessage(text,6000))
         self.model_panel=self.make_model_panel()
         self.chart=Convergence()
         self.chart_panel=Panel('Convergencia de optimización')
@@ -174,7 +175,7 @@ class MainWindow(QMainWindow):
             b=button(name);b.setCheckable(True);b.setChecked(name=='Isométrica');b.setMinimumWidth(68)
             b.clicked.connect(lambda _,n=name:self.set_view(n));vl.addWidget(b);self.view_buttons[name]=b
         p.header.addWidget(views)
-        for glyph,tooltip,action in [('cursor','Selecciona nodos y barras en la escena',lambda:self.statusBar().showMessage('Haz clic sobre un nodo o una barra. Arrastra para orbitar.')),
+        for glyph,tooltip,action in [('cursor','Selecciona nodos y barras en la escena',lambda:self.set_tool(Tool.SELECT)),
                 ('fit','Ajustar modelo a la vista',self.scene.fit),('image','Guardar imagen de la vista',self.export_image)]:
             b=button('',glyph,'#267eff' if glyph=='cursor' else '#526783');b.setToolTip(tooltip);b.setFixedSize(30,29);b.clicked.connect(action);p.header.addWidget(b)
         tools=QHBoxLayout();tools.setSpacing(4)
@@ -266,6 +267,8 @@ class MainWindow(QMainWindow):
         return p
 
     def refresh(self,reset=False,rebuild_properties=True):
+        if self.result and self.result.get('model_fingerprint')!=self.model.fingerprint():
+            self.result=None;self.history=[]
         existing={('node',n.id) for n in self.model.nodes}|{('member',m.id) for m in self.model.members}
         self.selection.intersection_update(existing)
         if self.selected not in existing:self.selected=next(iter(self.selection),('project',0))
@@ -291,7 +294,7 @@ class MainWindow(QMainWindow):
         self.status_units.setText(f'kip · in · ksi   |   {len(self.model.nodes)} nodos · {len(self.model.members)} barras')
         if self.result:
             r=self.result;feasible=r['feasible'];opt=r.get('optimization')
-            self.summary_title.setText('ANALIZADO · factible' if feasible else 'ANALIZADO · infactible')
+            self.summary_title.setText(('ANALIZADO · cumplimiento estricto' if r.get('strict_feasible',False) else 'ANALIZADO · cumple con tolerancia 1e−6') if feasible else 'ANALIZADO · infactible')
             self.summary_title.setStyleSheet('color:'+('#0ba875' if feasible else '#df5168'))
             self.summary_symbol.setText('✓' if feasible else '!')
             self.summary_symbol.setStyleSheet(f'color:white; background:{"#25b982" if feasible else "#e76b80"};border-radius:15px;font-size:22px;')
@@ -401,7 +404,9 @@ class MainWindow(QMainWindow):
         except Exception as e:
             self.model,self.result,self.history,self.selected,self.selection=old
             self.error(str(e));self.refresh(rebuild_properties=False);return False
-        if old[0].to_dict()==self.model.to_dict():return True
+        if old[0].to_dict()==self.model.to_dict():
+            self.model=old[0]
+            return True
         self.undo_history.record(old)
         self.dirty=True;self.history=[];self.result=None;self.validation_issue=None
         self.statusBar().showMessage('BORRADOR · cambio confirmado. Ejecuta Analizar cuando termines.',6000)

@@ -83,7 +83,10 @@ def load_campaign(path):
     c=json.loads(path.read_text(encoding='utf-8-sig'))
     if c.get('schema')!='trusslab.campaign/1':raise ValueError('Esquema de campaña desconocido.')
     model=Model.from_dict(c['model'])
-    if model.fingerprint()!=c['model_fingerprint']:raise ValueError('La huella del modelo no corresponde a la campaña.')
+    if model.fingerprint()!=c['model_fingerprint']:
+        original=hashlib.sha256(json.dumps(c['model'],sort_keys=True,allow_nan=False).encode('utf-8')).hexdigest()
+        if 'load_storage' in c['model'] or original!=c['model_fingerprint']:raise ValueError('La huella del modelo no corresponde a la campaña.')
+        c['migration_source_fingerprint']=original;c['model_fingerprint']=model.fingerprint();c['model']=model.to_dict()
     if c.get('configuration_sha256') and hashlib.sha256(json.dumps(c['configuration'],sort_keys=True,allow_nan=False).encode()).hexdigest()!=c['configuration_sha256']:
         raise ValueError('La configuración guardada fue modificada después de ejecutar la campaña.')
     CampaignConfig(**c['configuration']).validate();c['_directory']=str(path.parent.resolve())
@@ -144,7 +147,12 @@ def run_campaign(model,config,output_root,*,control=None,progress=None,batch_fac
                             save_project(folder/'best.trusslab.json',winner,result)
                             record['best_project']=(folder/'best.trusslab.json').relative_to(root).as_posix()
                     except Cancelled:record.update(status='cancelled',search={'message':'cancelled'})
-                    except Exception as exc:record.update(status='failed',error=str(exc),search={'message':'analysis_or_algorithm_error'})
+                    except Exception as exc:
+                        record.update(status='failed',error=str(exc),search={'message':'analysis_or_algorithm_error'})
+                        if ev.best:
+                            x,best=ev.best;winner=ev.space.expand(x)
+                            record['best_before_failure']={'variables_in2':x.tolist(),'areas_in2':[m.area for m in winner.members],'result':copy.deepcopy(best)}
+                            save_project(folder/'best_before_failure.trusslab.json',winner,{**best,'model_fingerprint':winner.fingerprint()})
                     finally:ev.close();record['metrics']=ev.metrics()
                     campaign['runs'].append(record);campaign['statistics']=statistics(campaign['runs'],config.algorithms)
                     save_campaign(campaign,root)

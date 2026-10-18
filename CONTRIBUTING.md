@@ -39,3 +39,5 @@ Los scripts de `scripts/verify_phase3_*.py` también documentan los ensayos real
 - No introduzcas credenciales, licencias de SAP ni copias del software comercial.
 
 Las corridas grandes se conservan en formato comprimido cuando se necesitan para revisión. Un resultado debe incluir su procedencia, parámetros y restricciones; una simulación de API de una prueba unitaria nunca debe presentarse como un análisis real de SAP.
+
+Para reproducir la auditoría numérica: `python scripts/verify_audit.py --algorithms`. Añade `--sap` únicamente para ejecutar SAP real. Para Qt, define `TRUSSLAB_RUN_QT=1`. El manifiesto de fuentes y dependencias se genera con `python scripts/audit_inventory.py`.

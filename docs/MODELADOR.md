@@ -1,6 +1,6 @@
 # Modelador estructural: guía y arquitectura
 
-La aplicación existente inicia con un documento vacío. El Caso I se conserva como ejemplo y sus proyectos antiguos se abren mediante migración en memoria de `trusslab/1` a `trusslab/2`.
+La aplicación existente inicia con un documento vacío. El Caso I se conserva como ejemplo y sus proyectos antiguos se abren mediante migración en memoria de `trusslab/1` y `trusslab/2` a `trusslab/3`.
 
 ## Construir una cercha
 
@@ -41,7 +41,7 @@ Las sesiones COM siguen en su hilo propietario. La optimización SAP actualiza �
 - `editor_properties.py`: controles numéricos y confirmación de propiedades sin reconstrucción durante la edición.
 - `editor_libraries.py`: materiales, secciones, patrones, casos y asignaciones.
 - `scene.py`: representación del documento, selección, intersección rayo/plano, malla, captura y señales de dibujo.
-- `analysis.py`, `fem.py`, `prepared_fem.py`, `validation.py`: estados, casos, restricciones, solución axial y comprobación independiente.
+- `analysis.py`, `truss_kernel.py`, `fem.py`, `prepared_fem.py`, `validation.py`: estados, casos, restricciones, solución axial y comprobación independiente.
 - `sap_mapping.py`, `sap.py`: nombres y adaptación OAPI, auditoría y sesiones COM.
 - `design_space.py`, módulos de optimización y laboratorio: variables, algoritmos y experimentos reproducibles.
 - `ui.py`: composición de ventanas y coordinación de acciones; delega operaciones de ingeniería a esos módulos.

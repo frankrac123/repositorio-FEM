@@ -23,6 +23,7 @@ class LibraryDialog(QDialog):
         super().__init__(owner);self.owner=owner;self.setWindowTitle('Materiales, secciones y límites');self.resize(780,570)
         layout=QVBoxLayout(self);tabs=QTabWidget();layout.addWidget(tabs)
         m=owner.model
+        self.edit_global=not m.materials
         materials=m.materials or [Material('legacy',m.material_name,m.elastic_modulus,m.density)]
         self.materials=table(['ID','Nombre','E (ksi)','Peso específico (lb/in³)'],[[x.id,x.name,x.elastic_modulus,x.density] for x in materials])
         self.sections=table(['ID','Nombre','Área (in²)'],[[x.id,x.name,x.area] for x in m.sections])
@@ -51,7 +52,7 @@ class LibraryDialog(QDialog):
                     for b in m.members:
                         if b.section_id==s.id:b.area=s.area
             for mat in mats:
-                if mat.id=='legacy':m.elastic_modulus=mat.elastic_modulus;m.density=mat.density;m.material_name=mat.name
+                if self.edit_global and mat.id=='legacy':m.elastic_modulus=mat.elastic_modulus;m.density=mat.density;m.material_name=mat.name
             for key,field in self.limits.items():setattr(m,key,field.value())
         self.owner.edit(change)
 
@@ -59,15 +60,16 @@ class LoadsDialog(QDialog):
     def __init__(self,owner):
         super().__init__(owner);self.owner=owner;self.setWindowTitle('CARGAS · patrones, fuerzas y casos');self.resize(800,650)
         layout=QVBoxLayout(self);m=owner.model
-        patterns=m.load_patterns or [LoadPattern('LC1','Carga histórica',nodal_loads={str(n.id):n.load for n in m.nodes if any(n.load)})]
+        patterns=m.load_patterns or ([] if m.load_storage!='legacy' else [LoadPattern('LC1','Carga histórica',nodal_loads={str(n.id):n.load for n in m.nodes if any(n.load)})])
         self.pattern_data={p.id:p for p in patterns}
         self.patterns=table(['ID','Nombre','Tipo (Dead/Live/Wind/Other)','Multiplicador peso propio'],[[p.id,p.name,p.load_type,p.self_weight] for p in patterns]);layout.addWidget(self.patterns)
+        for i,p in enumerate(patterns):self.patterns.item(i,0).setData(Qt.UserRole,p.id)
         h=QHBoxLayout();layout.addLayout(h)
         add=QPushButton('Crear patrón');add.clicked.connect(lambda:add_row(self.patterns,['LC'+str(self.patterns.rowCount()+1),'Nueva carga','Other',0.]));h.addWidget(add)
         remove=QPushButton('Eliminar patrón');remove.clicked.connect(lambda:self.patterns.removeRow(self.patterns.currentRow()) if self.patterns.currentRow()>=0 else None);h.addWidget(remove)
         apply=QPushButton('Guardar patrones y casos');apply.clicked.connect(self.apply_definitions);h.addWidget(apply)
         layout.addWidget(QLabel('Casos / combinaciones lineales. Factores: LC1=1; LC2=-1'))
-        cases=m.analysis_cases or [AnalysisCase('LC1','Caso 1',{'LC1':1.})]
+        cases=m.analysis_cases or ([AnalysisCase('LC1','Caso 1',{'LC1':1.})] if m.load_storage=='legacy' else [])
         self.cases=table(['ID','Nombre','Factores','Optimizar'],[[c.id,c.name,'; '.join(f'{k}={v:g}' for k,v in c.factors.items()),''] for c in cases]);layout.addWidget(self.cases)
         selected=m.optimization_config.get('load_cases') or [m.active_case]
         for i,c in enumerate(cases):self.cases.item(i,3).setCheckState(Qt.Checked if c.id in selected else Qt.Unchecked)
@@ -93,15 +95,22 @@ class LoadsDialog(QDialog):
         self.cases.item(self.cases.rowCount()-1,3).setCheckState(Qt.Unchecked)
     def apply_definitions(self):
         try:
-            patterns=[LoadPattern(id,name,kind,self.pattern_data[id].nodal_loads.copy() if id in self.pattern_data else {},float(weight.replace(',','.'))) for id,name,kind,weight in rows(self.patterns)]
+            source={p.id:p for p in self.owner.model.load_patterns} or (self.pattern_data if self.owner.model.load_storage=='legacy' else {})
+            patterns=[]
+            for i,(id,name,kind,weight) in enumerate(rows(self.patterns)):
+                original=self.patterns.item(i,0).data(Qt.UserRole) or id
+                loads=source[original].nodal_loads.copy() if original in source else {}
+                patterns.append(LoadPattern(id,name,kind,loads,float(weight.replace(',','.'))))
             cases=[AnalysisCase(id,name,{key.strip():float(value.replace(',','.')) for key,value in (item.split('=') for item in text.split(';'))}) for id,name,text,_ in rows(self.cases)]
         except (ValueError,TypeError):self.owner.error('Comprueba números, identificadores y factores de carga.');return
         def change():
-            m=self.owner.model;m.load_patterns=patterns;m.analysis_cases=cases
+            m=self.owner.model;m.load_storage='patterns';m.load_patterns=patterns;m.analysis_cases=cases
             m.optimization_config['load_cases']=[c.id for i,c in enumerate(cases) if self.cases.item(i,3).checkState()==Qt.Checked]
             if cases and m.active_case not in {c.id for c in cases}:m.active_case=cases[0].id
         if self.owner.edit(change):
-            self.pattern_data={p.id:p for p in patterns};self.pattern.clear();self.active.blockSignals(True);self.active.clear()
+            self.pattern_data={p.id:p for p in patterns}
+            for i,p in enumerate(patterns):self.patterns.item(i,0).setData(Qt.UserRole,p.id)
+            self.pattern.clear();self.active.blockSignals(True);self.active.clear()
             for p in patterns:self.pattern.addItem(p.name,p.id)
             for c in cases:self.active.addItem(c.name,c.id)
             self.active.setCurrentIndex(max(0,self.active.findData(self.owner.model.active_case)));self.active.blockSignals(False)

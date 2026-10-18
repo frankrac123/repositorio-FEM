@@ -55,5 +55,7 @@ def copy_entities(model,selection,offset):
         new=create_node(model,[a+b for a,b in zip(node.xyz,offset)]);mapping[node.id]=new;created.append(('node',new))
     for member in members:
         id=create_member(model,mapping[member.start],mapping[member.end],member.area,member.material_id,member.section_id,member.group)
+        copied=next(b for b in model.members if b.id==id)
+        copied.material_id=member.material_id;copied.section_id=member.section_id
         created.append(('member',id))
     return created

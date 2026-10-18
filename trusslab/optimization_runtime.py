@@ -79,8 +79,8 @@ def optimize(model,method='SLSQP',iterations=200,seed=42,progress=None,cancelled
             if key in cache and not force:return cache[key][1]
             if total()>=(max_evaluations-reserve-1 if limit is None else limit):raise EvaluationBudget()
             candidate=space.expand(x)
-            result=sap_evaluate(candidate) if backend=='SAP' else solve(candidate)
             counts[backend]+=1
+            result=sap_evaluate(candidate) if backend=='SAP' else solve(candidate)
             result['model_fingerprint']=candidate.fingerprint()
             result['external_validation']='verified' if backend=='SAP' else 'pending'
             cache[key]=(candidate,result,x.copy())
@@ -134,7 +134,12 @@ def optimize(model,method='SLSQP',iterations=200,seed=42,progress=None,cancelled
         except EvaluationBudget:info.update(message='max_evaluations',converged=False)
         except Cancelled:info.update(message='cancelled',converged=False)
         except Exception as error:
-            if run_dir:(run_dir/'error.txt').write_text(str(error),encoding='utf-8')
+            if run_dir:
+                (run_dir/'error.txt').write_text(str(error),encoding='utf-8')
+                (run_dir/'termination.json').write_text(json.dumps({'status':'failed','error':str(error),'evaluations':total(),'fem_evaluations':counts['FEM'],'sap_evaluations':counts['SAP'],'best_feasible_lb':None if best is None else best[1]['weight_lb']},indent=2),encoding='utf-8')
+                if best:
+                    from .core import save_project
+                    save_project(run_dir/'best_before_failure.trusslab.json',best[0],best[1],history)
             raise
         iteration=max(iteration,max((h['iteration'] for h in history),default=0))
         if info['iterations']==0:info['iterations']=iteration

@@ -19,6 +19,7 @@ def fake_com_runtime(monkeypatch):
     runtime.CoInitializeEx=lambda mode:None
     runtime.CoUninitialize=lambda:None
     client.PumpEvents=lambda timeout:None
+    monkeypatch.setattr(sap,'pump_sta_messages',lambda:None)
     runtime.client=client
     monkeypatch.setitem(sys.modules,'comtypes',runtime)
     monkeypatch.setitem(sys.modules,'comtypes.client',client)

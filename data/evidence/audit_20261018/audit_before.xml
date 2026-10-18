@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="6" time="0.541" timestamp="2026-10-18T02:39:56.926621-05:00" hostname="DESKTOP-92BJVG2"><testcase classname="tests.test_audit_regressions" name="test_prepared_rejects_unknown_case" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">def test_prepared_rejects_unknown_case():
+        m=triangle()
+&gt;       with pytest.raises(ValueError):PreparedTruss(m).solve_case([b.area for b in m.members],'missing')
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_audit_regressions.py:11: Failed</failure></testcase><testcase classname="tests.test_audit_regressions" name="test_fixed_member_outside_design_bounds_is_analyzable" time="0.005"><failure message="ValueError: Áreas fuera de los límites del modelo preparado.">def test_fixed_member_outside_design_bounds_is_analyzable():
+        m=triangle();m.members[0].area=50.
+&gt;       a=solve(m);b=PreparedTruss(m).solve_case([x.area for x in m.members],m.active_case)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_audit_regressions.py:15:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;trusslab.prepared_fem.PreparedTruss object at 0x000001DDC8121810&gt;
+areas = array([50.,  2.,  2.]), case = 'C1'
+
+    def solve_case(self,areas,case):
+        m=self.model;areas=np.asarray(areas,float)
+        if areas.shape!=(len(m.members),) or not np.isfinite(areas).all() or np.any(areas&lt;m.area_min) or np.any(areas&gt;m.area_max):
+&gt;           raise ValueError('Áreas fuera de los límites del modelo preparado.')
+E           ValueError: Áreas fuera de los límites del modelo preparado.
+
+trusslab\prepared_fem.py:33: ValueError</failure></testcase><testcase classname="tests.test_audit_regressions" name="test_explicit_case_independent_of_active_case" time="0.001"><failure message="ValueError: Modelo incompleto:&#10;Hay fuerzas fuera del plano de análisis 2D.">def test_explicit_case_independent_of_active_case():
+        m=triangle();m.load_patterns[0].nodal_loads['3'][1]=1.
+&gt;       solve(m,case='C2')
+
+tests\test_audit_regressions.py:20:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+trusslab\fem.py:13: in solve
+    model.validate()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Model(name='Triángulo 2D · materiales y cargas', nodes=[Node(id=1, xyz=[0.0, 0.0, 0.0], fixed=[True, False, True], loa...id='ULS', name='Combinación 1.2D + 1.6W', factors={'LC1': 1.2, 'LC2': 1.6})], active_case='C1', optimization_config={})
+
+    def validate(self):
+        issues=self.analysis_issues()
+&gt;       if issues:raise ValueError('Modelo incompleto:\n'+'\n'.join(issues))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Modelo incompleto:
+E       Hay fuerzas fuera del plano de análisis 2D.
+
+trusslab\core.py:208: ValueError</failure></testcase><testcase classname="tests.test_audit_regressions" name="test_deleted_patterns_do_not_resurrect_legacy_loads" time="0.001"><failure message="assert not True&#10; +  where True = any(&lt;generator object test_deleted_patterns_do_not_resurrect_legacy_loads.&lt;locals&gt;.&lt;genexpr&gt; at 0x000001DDC813C3C0&gt;)">def test_deleted_patterns_do_not_resurrect_legacy_loads():
+        m=triangle();m.set_nodal_load(3,'LC1',[0.,0.,-13.]);m.load_patterns=[];m.analysis_cases=[]
+&gt;       assert not any(any(v) for v in m.nodal_loads().values())
+E       assert not True
+E        +  where True = any(&lt;generator object test_deleted_patterns_do_not_resurrect_legacy_loads.&lt;locals&gt;.&lt;genexpr&gt; at 0x000001DDC813C3C0&gt;)
+
+tests\test_audit_regressions.py:24: AssertionError</failure></testcase><testcase classname="tests.test_audit_regressions" name="test_sap_global_material_and_explicit_legacy_are_distinct" time="0.002"><failure message="AssertionError: assert 2 == 3&#10; +  where 2 = len({'legacy': Material(id='legacy', name='Different', elastic_modulus=12345.0, density=0.12), 'M1': Material(id='M1', name='Acero', elastic_modulus=29000.0, density=0.283)})">def test_sap_global_material_and_explicit_legacy_are_distinct():
+        m=triangle();m.members[0].material_id=None
+        m.materials.append(Material('legacy','Different',12345.,.12));m.members[1].material_id='legacy'
+        mapping,materials,_,_=transfer_definition(m)
+&gt;       assert len(materials)==3
+E       AssertionError: assert 2 == 3
+E        +  where 2 = len({'legacy': Material(id='legacy', name='Different', elastic_modulus=12345.0, density=0.12), 'M1': Material(id='M1', name='Acero', elastic_modulus=29000.0, density=0.283)})
+
+tests\test_audit_regressions.py:30: AssertionError</failure></testcase><testcase classname="tests.test_audit_regressions" name="test_stale_save_discards_history" time="0.045"><failure message="AssertionError: assert (None is None and [{'old': True}] == []&#10;  &#10;  Left contains one more item: {'old': True}&#10;  Use -v to get more diff)">tmp_path = WindowsPath('C:/Users/ASUSBOOK/AppData/Local/Temp/pytest-of-ASUSBOOK/pytest-19/test_stale_save_discards_histo0')
+
+    def test_stale_save_discards_history(tmp_path):
+        m=triangle();r=solve(m);m.members[0].area*=2
+        p=tmp_path/'stale.json';save_project(p,m,r,[{'old':True}])
+        _,r,h=load_project(p)
+&gt;       assert r is None and h==[]
+E       AssertionError: assert (None is None and [{'old': True}] == []
+E
+E         Left contains one more item: {'old': True}
+E         Use -v to get more diff)
+
+tests\test_audit_regressions.py:37: AssertionError</failure></testcase></testsuite></testsuites>

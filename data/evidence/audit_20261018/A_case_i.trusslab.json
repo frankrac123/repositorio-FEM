@@ -1,0 +1,414 @@
+{
+  "schema": "trusslab/3",
+  "model": {
+    "name": "Cercha de 10 barras · Caso I",
+    "nodes": [
+      {
+        "id": 1,
+        "xyz": [
+          720.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "xyz": [
+          720.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          -100.0
+        ]
+      },
+      {
+        "id": 3,
+        "xyz": [
+          360.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 4,
+        "xyz": [
+          360.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          true,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          -100.0
+        ]
+      },
+      {
+        "id": 5,
+        "xyz": [
+          0.0,
+          0.0,
+          360.0
+        ],
+        "fixed": [
+          true,
+          true,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 6,
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          true,
+          true,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "members": [
+      {
+        "id": 1,
+        "start": 5,
+        "end": 3,
+        "area": 30.537697619624634,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 2,
+        "start": 3,
+        "end": 1,
+        "area": 0.10000008396715267,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 3,
+        "start": 6,
+        "end": 4,
+        "area": 23.205987415159306,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 4,
+        "start": 4,
+        "end": 2,
+        "area": 15.209920047901962,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 5,
+        "start": 3,
+        "end": 4,
+        "area": 0.10000008400781225,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 6,
+        "start": 1,
+        "end": 2,
+        "area": 0.5506657480820305,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 7,
+        "start": 5,
+        "end": 4,
+        "area": 7.458912169455386,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 8,
+        "start": 6,
+        "end": 3,
+        "area": 21.04705324626224,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 9,
+        "start": 3,
+        "end": 2,
+        "area": 21.510266390969687,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      },
+      {
+        "id": 10,
+        "start": 4,
+        "end": 1,
+        "area": 0.1000000839709165,
+        "material_id": null,
+        "section_id": null,
+        "group": "",
+        "element_type": "truss"
+      }
+    ],
+    "elastic_modulus": 10000.0,
+    "density": 0.1,
+    "stress_limit": 25.0,
+    "displacement_limit": 2.0,
+    "area_min": 0.1,
+    "area_max": 35.0,
+    "material_name": "Benchmark · E = 10,000 ksi",
+    "project_id": "b86a377358f25591b1e746225d99d542",
+    "structure_type": "3D",
+    "units": "kip-in-ksi",
+    "work_plane": "XZ",
+    "work_elevation": 0.0,
+    "grid_step": 25.0,
+    "materials": [],
+    "sections": [],
+    "load_patterns": [],
+    "analysis_cases": [],
+    "active_case": "LC1",
+    "optimization_config": {},
+    "load_storage": "legacy"
+  },
+  "results": {
+    "engine": "FEM · NumPy",
+    "timestamp": "2026-10-18T07:43:38.911646+00:00",
+    "model_id": "b86a377358f25591b1e746225d99d542",
+    "model_fingerprint": "8393227a1cdd79a4c66c4b9d1e74b50e316ba8c5e730172d52fa64ab7488aea6",
+    "analysis_status": "solved",
+    "analysis_case": "LC1",
+    "weight_lb": 5060.855730007684,
+    "members": [
+      {
+        "id": 1,
+        "force": 202.63092710941126,
+        "stress": 6.635435638710145,
+        "ratio": 0.2654174255484058,
+        "length": 360.0,
+        "area": 30.537697619624634
+      },
+      {
+        "id": 2,
+        "force": -0.13092902172706952,
+        "stress": -1.3092891178979027,
+        "ratio": 0.05237156471591611,
+        "length": 360.0,
+        "area": 0.10000008396715267
+      },
+      {
+        "id": 3,
+        "force": -197.36907289058863,
+        "stress": -8.5050926452566,
+        "ratio": 0.340203705810264,
+        "length": 360.0,
+        "area": 23.205987415159306
+      },
+      {
+        "id": 4,
+        "force": -100.13092902172706,
+        "stress": -6.583264652698749,
+        "ratio": 0.26333058610794996,
+        "length": 360.0,
+        "area": 15.209920047901962
+      },
+      {
+        "id": 5,
+        "force": 2.499998087684249,
+        "stress": 24.99995987492313,
+        "ratio": 0.9999983949969252,
+        "length": 360.0,
+        "area": 0.10000008400781225
+      },
+      {
+        "id": 6,
+        "force": -0.13092902172706647,
+        "stress": -0.23776496392429058,
+        "ratio": 0.009510598556971624,
+        "length": 360.0,
+        "area": 0.5506657480820305
+      },
+      {
+        "id": 7,
+        "force": 137.70066343756503,
+        "stress": 18.461226021866302,
+        "ratio": 0.7384490408746521,
+        "length": 509.11688245431424,
+        "area": 7.458912169455386
+      },
+      {
+        "id": 8,
+        "force": -145.14204903705402,
+        "stress": -6.896074587677963,
+        "ratio": 0.2758429835071185,
+        "length": 509.11688245431424,
+        "area": 21.04705324626224
+      },
+      {
+        "id": 9,
+        "force": 141.60651783554408,
+        "stress": 6.583206142672063,
+        "ratio": 0.2633282457068825,
+        "length": 509.11688245431424,
+        "area": 21.510266390969687
+      },
+      {
+        "id": 10,
+        "force": 0.18516159823466335,
+        "stress": 1.8516144275290287,
+        "ratio": 0.07406457710116116,
+        "length": 509.11688245431424,
+        "area": 0.1000000839709165
+      }
+    ],
+    "displacements": {
+      "1": [
+        0.19174127474924074,
+        0.0,
+        -1.9999999799999995
+      ],
+      "2": [
+        -0.5431808627263925,
+        0.0,
+        -1.991440441298725
+      ],
+      "3": [
+        0.23887568299356524,
+        0.0,
+        -0.7353930533063786
+      ],
+      "4": [
+        -0.3061833352292376,
+        0.0,
+        -1.6353916088036113
+      ],
+      "5": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "6": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "reactions": {
+      "1": [
+        2.220446049250313e-16,
+        0.0,
+        7.105427357601002e-15
+      ],
+      "2": [
+        -1.1368683772161603e-13,
+        0.0,
+        5.684341886080802e-14
+      ],
+      "3": [
+        5.684341886080802e-14,
+        0.0,
+        0.0
+      ],
+      "4": [
+        1.6653345369377348e-14,
+        0.0,
+        0.0
+      ],
+      "5": [
+        -299.99999999999994,
+        0.0,
+        97.36907289058868
+      ],
+      "6": [
+        299.9999999999999,
+        0.0,
+        102.63092710941129
+      ]
+    },
+    "stress_ratio": 0.9999983949969252,
+    "displacement_ratio": 0.9999999899999997,
+    "strict_feasible": true,
+    "feasibility_tolerance": 1e-06,
+    "feasible": true,
+    "residual_kip": 1.1368683772161603e-13,
+    "condition_number": 418.63733513832636,
+    "equilibrium": {
+      "net_force_kip": [
+        -1.1368683772161603e-13,
+        0.0,
+        2.842170943040401e-14
+      ],
+      "net_moment_kip_in": [
+        0.0,
+        2.9103830456733704e-11,
+        0.0
+      ],
+      "passed": true
+    }
+  },
+  "history": []
+}

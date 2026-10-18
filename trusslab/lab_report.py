@@ -44,7 +44,7 @@ def report_text(campaign):
     lines+=['','## Restricciones activas','Se consideran próximas al límite con tolerancia relativa 1e-4; esto no modifica la tolerancia de factibilidad 1e-6.']
     for r in campaign['runs']:
         if r.get('result'):lines.append(f'{r["algorithm"]}, semilla {r["seed"]}: '+', '.join(r.get('active_constraints',[])))
-    lines+=['Coste de validación externa: '+json.dumps(campaign['validation_cost']),
+    lines+=['Cumplimiento estricto exige relaciones <= 1. Los diseños aceptados con relaciones entre 1 y 1+1e-6 cumplen solo dentro de la tolerancia; cada resultado registra strict_feasible y feasibility_tolerance.', 'Coste de validación externa: '+json.dumps(campaign['validation_cost']),
         'Los SDB archivados son copias del modelo guardado del candidato verificado; los resultados numéricos y la comparación se conservan en JSON. Al abrir una copia aislada en SAP puede ser necesario volver a analizar para reconstruir sus archivos auxiliares.','',
         '## Discusión y conclusiones']
     candidates=[s for s in campaign['statistics'] if s['best_lb'] is not None]

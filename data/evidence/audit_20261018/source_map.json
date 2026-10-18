@@ -1,0 +1,1348 @@
+{
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "sources": [
+    {
+      "path": "run.py",
+      "lines": 13,
+      "sha256": "3979b1f6d77ef4f400160c84d5c97d4ee7d5e898f2d34b14bd6f85ae98dc63c1",
+      "imports": [
+        "os",
+        "pathlib",
+        "sys",
+        "traceback",
+        "trusslab.ui"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/audit_inventory.py",
+      "lines": 19,
+      "sha256": "547baa24bdfc3e5ea6982d46e1a8d4a4040f9f9743f459b8b8271ceab273a4c0",
+      "imports": [
+        "ast",
+        "hashlib",
+        "importlib.metadata",
+        "json",
+        "pathlib",
+        "platform",
+        "sys"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/repro_manifest.py",
+      "lines": 16,
+      "sha256": "554ec7d1a5700badbe5671c0559661d16aced1f4a506a71e5647dfe692bd9944",
+      "imports": [
+        "argparse",
+        "hashlib",
+        "importlib.metadata",
+        "json",
+        "pathlib",
+        "platform",
+        "subprocess",
+        "sys",
+        "xml.etree.ElementTree"
+      ],
+      "definitions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/reproduce_example.py",
+      "lines": 36,
+      "sha256": "5c792a511e5df01b8a2336f6df373d6ee8654f29951c065f671636509f64b9f6",
+      "imports": [
+        "pathlib",
+        "sys",
+        "trusslab.core",
+        "trusslab.optimization"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/summarize_phase3.py",
+      "lines": 86,
+      "sha256": "c46ecca923073ec06cd6aa76d8ccb40295aeed2b30a3d18a9ecb4dda38237d2f",
+      "imports": [
+        "csv",
+        "gzip",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "pathlib",
+        "xml.etree.ElementTree"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_audit.py",
+      "lines": 73,
+      "sha256": "721e994f749c78ef1ba33f3e0478db74d3282f22f4c12253e9634355256ad064",
+      "imports": [
+        "argparse",
+        "csv",
+        "dataclasses",
+        "hashlib",
+        "json",
+        "pathlib",
+        "platform",
+        "subprocess",
+        "sys",
+        "time",
+        "trusslab.analysis",
+        "trusslab.asam",
+        "trusslab.core",
+        "trusslab.examples",
+        "trusslab.fem",
+        "trusslab.laboratory",
+        "trusslab.sap",
+        "trusslab.validation"
+      ],
+      "definitions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/verify_modeler_optimization.py",
+      "lines": 30,
+      "sha256": "96eb92b044b1d30352fe508f40f6983e0e7d7fff48d8f4081a894c2fbe65a3f4",
+      "imports": [
+        "json",
+        "pathlib",
+        "sys",
+        "trusslab.analysis",
+        "trusslab.core",
+        "trusslab.examples",
+        "trusslab.optimization",
+        "trusslab.sap"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_modeler_sap.py",
+      "lines": 20,
+      "sha256": "1c01070daeec32178f3730def59cd2a6cad6eaa5c7242e72e7039c0e2bfe87c9",
+      "imports": [
+        "json",
+        "pathlib",
+        "sys",
+        "time",
+        "trusslab.core",
+        "trusslab.examples",
+        "trusslab.fem",
+        "trusslab.sap"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_modeler_ui_sap.py",
+      "lines": 55,
+      "sha256": "419030ac89426eb9faf0d76db29f218b7c4703f7ff4ca45d3cc12c11e2f16b64",
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtTest",
+        "PySide6.QtWidgets",
+        "hashlib",
+        "json",
+        "pathlib",
+        "sys",
+        "time",
+        "trusslab.examples",
+        "trusslab.ui",
+        "trusslab.widgets"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_phase3_asam.py",
+      "lines": 50,
+      "sha256": "7592213066acedfc6b9ee97ce2b31886884b25e7a33c794cb829472e0096803c",
+      "imports": [
+        "argparse",
+        "json",
+        "numpy",
+        "pathlib",
+        "trusslab.core",
+        "trusslab.fem",
+        "trusslab.optimization",
+        "trusslab.validation"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_phase3_sap.py",
+      "lines": 35,
+      "sha256": "bfb38cd0d73453ba151c87fdf855fa9d4b9f86ecc696c4d64302e123ba0e890f",
+      "imports": [
+        "json",
+        "pathlib",
+        "trusslab.core",
+        "trusslab.optimization",
+        "trusslab.sap"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_phase3_ui.py",
+      "lines": 55,
+      "sha256": "dd687fe604ee39520644a8ee2ca56bd97ebf33b2e7eb5de3d09b1cab6979b0f7",
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "copy",
+        "json",
+        "pathlib",
+        "trusslab.asam",
+        "trusslab.core",
+        "trusslab.optimization",
+        "trusslab.optimization_ui",
+        "trusslab.results_ui",
+        "trusslab.ui",
+        "trusslab.widgets"
+      ],
+      "definitions": [
+        "done",
+        "tick"
+      ]
+    },
+    {
+      "path": "scripts/verify_phase4_abc.py",
+      "lines": 47,
+      "sha256": "c1dc595f170c785d75653cd754b8d92d44bb15e67bd518a38ab90a3073bc02c8",
+      "imports": [
+        "copy",
+        "dataclasses",
+        "json",
+        "numpy",
+        "pathlib",
+        "time",
+        "trusslab.asam",
+        "trusslab.core",
+        "trusslab.fem",
+        "trusslab.laboratory",
+        "trusslab.prepared_fem"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "scripts/verify_phase4_final.py",
+      "lines": 29,
+      "sha256": "86704f787fd482e49f2366541ebf7246552d02fa18e208c399494e4727d0556d",
+      "imports": [
+        "json",
+        "pathlib",
+        "trusslab.core",
+        "trusslab.lab_report",
+        "trusslab.laboratory"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "tests/test_asam.py",
+      "lines": 145,
+      "sha256": "6d035350a6d9ed6b620fc5bb808940d671d4338a49fc8cb4a32e0a2a83b87567",
+      "imports": [
+        "numpy",
+        "pytest",
+        "threading",
+        "time",
+        "trusslab.asam",
+        "trusslab.core",
+        "trusslab.design_space",
+        "trusslab.fem",
+        "trusslab.optimization"
+      ],
+      "definitions": [
+        "test_logistic_rule_not_metropolis",
+        "test_uniform_preliminary_reflection_and_seed",
+        "test_asam_three_mechanisms_and_feasible_priority",
+        "test_groups_and_fixed_members",
+        "test_asam_budget_seed_and_best_is_genuinely_feasible",
+        "test_controlled_cancel_keeps_best_and_input",
+        "test_pause_can_be_cancelled_safely",
+        "test_hybrid_provenance_lifecycle_and_no_fallback",
+        "test_cancelled_hybrid_never_claims_external_validation",
+        "test_no_feasible_candidate_is_never_reported_as_optimum",
+        "test_sap_winner_restoration_is_counted_within_budget"
+      ]
+    },
+    {
+      "path": "tests/test_audit_regressions.py",
+      "lines": 126,
+      "sha256": "a867c7d340c1cf09172069a08b7d4de3eb1d3982c553fadbbba6592417791b7e",
+      "imports": [
+        "json",
+        "numpy",
+        "pytest",
+        "trusslab.analysis",
+        "trusslab.core",
+        "trusslab.editor_commands",
+        "trusslab.examples",
+        "trusslab.fem",
+        "trusslab.laboratory",
+        "trusslab.optimization_runtime",
+        "trusslab.prepared_fem",
+        "trusslab.sap_mapping",
+        "trusslab.units"
+      ],
+      "definitions": [
+        "test_prepared_rejects_unknown_case",
+        "test_fixed_member_outside_design_bounds_is_analyzable",
+        "test_explicit_case_independent_of_active_case",
+        "test_deleted_patterns_do_not_resurrect_legacy_loads",
+        "test_sap_global_material_and_explicit_legacy_are_distinct",
+        "test_stale_save_discards_history",
+        "test_units_self_weight_and_closed_form",
+        "test_cache_with_matching_fingerprint_but_corrupt_values_rejected",
+        "test_multiple_cases_include_governing_nonactive_case",
+        "test_fully_restrained_truss_has_zero_motion_and_balanced_reactions",
+        "test_campaign_retains_best_on_later_failure",
+        "test_runtime_counts_failure_and_retains_best",
+        "test_copy_retains_global_material_and_individual_section",
+        "test_corrupt_multicase_envelope_rejected",
+        "test_overflow_of_finite_load_factors_is_not_a_solution"
+      ]
+    },
+    {
+      "path": "tests/test_lab_extensions.py",
+      "lines": 59,
+      "sha256": "36b67d458fe00d47aa03d4057c72e13392c26c5f513342294121d7de1e78e31f",
+      "imports": [
+        "json",
+        "openpyxl",
+        "pathlib",
+        "pypdf",
+        "pytest",
+        "shutil",
+        "test_laboratory",
+        "trusslab.core",
+        "trusslab.fem",
+        "trusslab.lab_report",
+        "trusslab.laboratory",
+        "trusslab.validation"
+      ],
+      "definitions": [
+        "test_hybrids_keep_identity_and_refinement_inside_total_budget",
+        "test_validation_error_retains_fem_pending_without_fallback",
+        "test_validation_selects_one_best_per_method_with_one_owned_session",
+        "test_report_exports_real_campaign_values_and_all_graph_formats"
+      ]
+    },
+    {
+      "path": "tests/test_laboratory.py",
+      "lines": 93,
+      "sha256": "374947a2d20453a8a170e1fe80a8f28945b6ff4dadd44124cf644592799a492f",
+      "imports": [
+        "copy",
+        "dataclasses",
+        "gzip",
+        "json",
+        "numpy",
+        "pytest",
+        "trusslab.asam",
+        "trusslab.core",
+        "trusslab.fem",
+        "trusslab.lab_evaluation",
+        "trusslab.laboratory",
+        "trusslab.optimization",
+        "trusslab.prepared_fem"
+      ],
+      "definitions": [
+        "configuration",
+        "test_prepared_adapter_matches_public_kernel_for_varied_areas_and_space",
+        "test_real_evaluation_budget_and_cache_are_separate",
+        "test_failed_analysis_is_not_an_infeasible_physical_solution",
+        "test_campaign_equal_limits_common_pool_persistence_and_original_unchanged",
+        "test_same_seed_reproduces_all_algorithms",
+        "test_campaign_cancellation_is_saved_without_modifying_model",
+        "test_statistics_exclude_infeasible_and_cancelled_weights"
+      ]
+    },
+    {
+      "path": "tests/test_model_documents.py",
+      "lines": 77,
+      "sha256": "d26f7f203e073d63a00f6c1cb2ca99362276297c7279ef84c88c8e70d1a70af4",
+      "imports": [
+        "json",
+        "numpy",
+        "pytest",
+        "trusslab.analysis",
+        "trusslab.core",
+        "trusslab.design_space",
+        "trusslab.editor_commands",
+        "trusslab.examples",
+        "trusslab.fem",
+        "trusslab.prepared_fem",
+        "trusslab.validation"
+      ],
+      "definitions": [
+        "test_empty_and_isolated_documents_round_trip",
+        "test_connectivity_and_copy_delete_commands",
+        "test_explicit_plane_not_coordinate_based_support",
+        "test_materials_patterns_cases_and_prepared_solver",
+        "test_case_violation_cannot_be_hidden_by_active_case",
+        "test_group_variables_follow_document_and_legacy_migration"
+      ]
+    },
+    {
+      "path": "tests/test_modeler_ui.py",
+      "lines": 233,
+      "sha256": "f31575fe9110cc25cbb97edad065150515cf409d84631e73e3993eed93a6ebe6",
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtTest",
+        "PySide6.QtWidgets",
+        "csv",
+        "json",
+        "os",
+        "pathlib",
+        "pytest",
+        "time",
+        "trusslab.core",
+        "trusslab.editor_commands",
+        "trusslab.editor_libraries",
+        "trusslab.editor_properties",
+        "trusslab.examples",
+        "trusslab.fem",
+        "trusslab.ui",
+        "trusslab.widgets"
+      ],
+      "definitions": [
+        "window",
+        "type_number",
+        "test_windows_modeler_from_empty_document",
+        "test_mouse_node_creation_uses_camera_ray_and_work_plane",
+        "test_material_section_pattern_and_multiple_support_editors",
+        "test_property_apply_preserves_full_precision",
+        "test_equal_numeric_edit_and_external_mutation_guard",
+        "test_save_open_validate_and_exports_use_current_model",
+        "test_deleting_loads_and_renaming_pattern_preserves_assignments",
+        "test_optimize_action_runs_worker_and_updates_model"
+      ]
+    },
+    {
+      "path": "tests/test_physics.py",
+      "lines": 110,
+      "sha256": "f19b944ef756c41b54e28413dc07a71a541c56a8ff84b8eada6520ef44c26247",
+      "imports": [
+        "json",
+        "numpy",
+        "pathlib",
+        "pytest",
+        "trusslab.core",
+        "trusslab.fem",
+        "trusslab.optimization"
+      ],
+      "definitions": [
+        "test_axial_bar_matches_closed_form",
+        "test_spatial_bar_matches_axial_solution",
+        "test_case_i_loads_supports_connectivity",
+        "test_area_scaling_and_load_linearity",
+        "test_invalid_structures_rejected",
+        "test_project_round_trip_and_no_prefixed_results",
+        "test_optimizer_returns_recomputed_feasible_design",
+        "test_de_finite_candidate_and_feasibility",
+        "test_saved_sap_comparison_is_with_same_model"
+      ]
+    },
+    {
+      "path": "tests/test_result_styles.py",
+      "lines": 17,
+      "sha256": "0db4e304da5591741b3e23a5ec0c9e18eb4d936caf23923290de9a374ebc6deb",
+      "imports": [
+        "math",
+        "pytest",
+        "trusslab.result_styles"
+      ],
+      "definitions": [
+        "test_display_radius_preserves_area_proportions",
+        "test_signed_stress_colormap_is_consistent_and_monotone"
+      ]
+    },
+    {
+      "path": "tests/test_sap_integration.py",
+      "lines": 79,
+      "sha256": "6bbea520ef3210e932bb1a288e59bcc96bd45722d7b16314f45f4bf81a55cf37",
+      "imports": [
+        "PySide6.QtCore",
+        "hashlib",
+        "os",
+        "pathlib",
+        "pytest",
+        "time",
+        "trusslab.core",
+        "trusslab.sap"
+      ],
+      "definitions": [
+        "wait_com",
+        "test_real_batch_updates_sections_and_preserves_results",
+        "test_real_visible_update_and_automatic_are_independent"
+      ]
+    },
+    {
+      "path": "tests/test_sap_sessions.py",
+      "lines": 70,
+      "sha256": "52136411b78c3959a8b9f22092b236b8ddc05729ee4efaab7fadd1b9172ed8ff",
+      "imports": [
+        "pytest",
+        "sys",
+        "threading",
+        "trusslab",
+        "trusslab.core",
+        "types"
+      ],
+      "definitions": [
+        "fake_com_runtime",
+        "test_visible_queue_serializes_and_copies_snapshots",
+        "test_failed_visible_operation_keeps_references_until_shutdown",
+        "test_batch_closes_only_its_owned_reference"
+      ]
+    },
+    {
+      "path": "tests/test_validation.py",
+      "lines": 76,
+      "sha256": "5e87e19e4c93e50b992159d8804e66b6e6276826d8d3eb5a792991a708feb860",
+      "imports": [
+        "copy",
+        "math",
+        "pytest",
+        "threading",
+        "trusslab.core",
+        "trusslab.fem",
+        "trusslab.sap",
+        "trusslab.validation"
+      ],
+      "definitions": [
+        "test_comparison_aligns_ids_and_rejects_missing_results",
+        "test_comparison_rejects_nonfinite_missing_components_and_weight",
+        "test_relative_error_omitted_at_zero_and_mismatch_detected",
+        "test_equilibrium_and_feasibility_are_separate_from_agreement",
+        "test_input_audit_and_nonaxial_action_cannot_validate",
+        "test_fingerprint_changes_for_every_transferred_input",
+        "test_managed_com_references_are_confined_to_owner_thread"
+      ]
+    },
+    {
+      "path": "trusslab/__init__.py",
+      "lines": 2,
+      "sha256": "d57a66aafb52fcbc3c0c1ccdabfa6d4c3989a72402851be10575969142a4143a",
+      "imports": [],
+      "definitions": []
+    },
+    {
+      "path": "trusslab/analysis.py",
+      "lines": 39,
+      "sha256": "97eb5eebdb292bcea9f9c8cb2ed722887aacc9142498e2abf191d7a8a7414b1f",
+      "imports": [
+        ".fem",
+        "numpy"
+      ],
+      "definitions": [
+        "design_cases",
+        "combine_cases",
+        "solve_design",
+        "constraint_margins",
+        "project_state"
+      ]
+    },
+    {
+      "path": "trusslab/asam.py",
+      "lines": 100,
+      "sha256": "0c60d0f4591703534da3cc369f4da3df838bca084f05d41b7b0fa9f03f73dcef",
+      "imports": [
+        "dataclasses",
+        "math",
+        "numpy",
+        "scipy.special"
+      ],
+      "definitions": [
+        "ASAMOptions",
+        "acceptance_probability",
+        "preliminary_points",
+        "reflect_into_bounds",
+        "violation",
+        "quality",
+        "run_asam"
+      ]
+    },
+    {
+      "path": "trusslab/cli.py",
+      "lines": 37,
+      "sha256": "9fc3f0ef5402576e5ac7da7da5b5fb845dd3aa24308b5679e2502cc20e04ef7d",
+      "imports": [
+        ".core",
+        ".fem",
+        ".optimization",
+        ".sap",
+        "argparse",
+        "json",
+        "pathlib"
+      ],
+      "definitions": [
+        "main"
+      ]
+    },
+    {
+      "path": "trusslab/core.py",
+      "lines": 283,
+      "sha256": "4155ac173f48f6ba51da4935c07cace5e3b2e36453360fbb107b45dd5bf040c1",
+      "imports": [
+        ".analysis",
+        ".engineering_types",
+        ".fem",
+        ".units",
+        ".validation",
+        "__future__",
+        "copy",
+        "dataclasses",
+        "hashlib",
+        "json",
+        "math",
+        "pathlib",
+        "uuid",
+        "warnings"
+      ],
+      "definitions": [
+        "Node",
+        "Member",
+        "Material",
+        "Section",
+        "LoadPattern",
+        "AnalysisCase",
+        "Model",
+        "benchmark",
+        "save_project",
+        "load_project"
+      ]
+    },
+    {
+      "path": "trusslab/design_space.py",
+      "lines": 45,
+      "sha256": "efbcfabc3ce92bad976f91cff26f5b2f87f25c41990f8e5fe8799925811e0446",
+      "imports": [
+        ".analysis",
+        ".engineering_types",
+        "numpy"
+      ],
+      "definitions": [
+        "DesignSpace"
+      ]
+    },
+    {
+      "path": "trusslab/editor_commands.py",
+      "lines": 61,
+      "sha256": "83148c6d082aebf9fcabc79000a64a8886dc4a90f6df9ef7ba0aa49e317ad5f8",
+      "imports": [
+        ".core",
+        "copy",
+        "enum"
+      ],
+      "definitions": [
+        "Tool",
+        "UndoHistory",
+        "create_node",
+        "create_member",
+        "delete_entities",
+        "copy_entities"
+      ]
+    },
+    {
+      "path": "trusslab/editor_libraries.py",
+      "lines": 126,
+      "sha256": "067e5da3dd8ea1e7dcd86a963f317847088784bc4bb1564ebf1f07329c61e92d",
+      "imports": [
+        ".core",
+        ".editor_properties",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets"
+      ],
+      "definitions": [
+        "table",
+        "rows",
+        "add_row",
+        "LibraryDialog",
+        "LoadsDialog"
+      ]
+    },
+    {
+      "path": "trusslab/editor_properties.py",
+      "lines": 126,
+      "sha256": "f10a6991a393733386c6693dce60c4de3629b281970f637547e327260928f048",
+      "imports": [
+        ".engineering_types",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets"
+      ],
+      "definitions": [
+        "NumberEdit",
+        "PropertiesEditor"
+      ]
+    },
+    {
+      "path": "trusslab/engineering_types.py",
+      "lines": 36,
+      "sha256": "a2c911c090caf74933a03b7a660ed4bd79d96f95d0ac66659a7051009833a21d",
+      "imports": [
+        "dataclasses",
+        "typing"
+      ],
+      "definitions": [
+        "BoundaryCondition",
+        "AnalysisResult",
+        "OptimizationProblem"
+      ]
+    },
+    {
+      "path": "trusslab/examples.py",
+      "lines": 20,
+      "sha256": "023b1b745e9260694f53b18845f3e0ff6d9f1af488679e093ab7a37f507f0e22",
+      "imports": [
+        ".core"
+      ],
+      "definitions": [
+        "triangle",
+        "spatial"
+      ]
+    },
+    {
+      "path": "trusslab/fem.py",
+      "lines": 14,
+      "sha256": "dfcc8103a8c470c7192a507b7d1001253021b187487583fff909db13578ed4b5",
+      "imports": [
+        ".engineering_types",
+        ".truss_kernel",
+        ".validation"
+      ],
+      "definitions": [
+        "solve",
+        "compare"
+      ]
+    },
+    {
+      "path": "trusslab/icons.py",
+      "lines": 42,
+      "sha256": "a4ccfe02cf75b8c00b85e7e1fe57ca5dd0dca8075bd82c9ed7aa867cebcc57c1",
+      "imports": [
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtSvg"
+      ],
+      "definitions": [
+        "icon"
+      ]
+    },
+    {
+      "path": "trusslab/lab_evaluation.py",
+      "lines": 96,
+      "sha256": "2e378110243810eabb005dee37d395c6ebf8b74880b137854496cbfa9129f3b6",
+      "imports": [
+        ".analysis",
+        ".design_space",
+        ".optimization",
+        ".prepared_fem",
+        "collections",
+        "gzip",
+        "json",
+        "numpy",
+        "pathlib",
+        "time"
+      ],
+      "definitions": [
+        "BudgetReached",
+        "EvaluationSession"
+      ]
+    },
+    {
+      "path": "trusslab/lab_plots.py",
+      "lines": 68,
+      "sha256": "2b8bd1fee455112e9cefc738882a7c86477c9e7b3be7897e71bcedafc533925d",
+      "imports": [
+        "gzip",
+        "json",
+        "numpy",
+        "pathlib"
+      ],
+      "definitions": [
+        "read_trace",
+        "draw_plot"
+      ]
+    },
+    {
+      "path": "trusslab/lab_report.py",
+      "lines": 164,
+      "sha256": "e7c4573f73a3e80753cce4f059b7386fdf801c768bc6e4a3fbab7e528b402761",
+      "imports": [
+        ".analysis",
+        ".core",
+        ".lab_plots",
+        ".laboratory",
+        "csv",
+        "html",
+        "json",
+        "matplotlib",
+        "matplotlib.backends.backend_agg",
+        "matplotlib.figure",
+        "openpyxl",
+        "openpyxl.styles",
+        "openpyxl.utils",
+        "pathlib",
+        "reportlab.lib",
+        "reportlab.lib.enums",
+        "reportlab.lib.pagesizes",
+        "reportlab.lib.styles",
+        "reportlab.pdfbase",
+        "reportlab.pdfbase.ttfonts",
+        "reportlab.platypus"
+      ],
+      "definitions": [
+        "report_text",
+        "export_report",
+        "export_pdf",
+        "export_excel"
+      ]
+    },
+    {
+      "path": "trusslab/lab_search.py",
+      "lines": 89,
+      "sha256": "ded920576dd8a3888b19516e269a610a445cd186470f6355200e9addbd7d5c5c",
+      "imports": [
+        ".asam",
+        ".lab_evaluation",
+        ".optimization",
+        "dataclasses",
+        "hashlib",
+        "numpy",
+        "scipy.optimize"
+      ],
+      "definitions": [
+        "search"
+      ]
+    },
+    {
+      "path": "trusslab/lab_ui.py",
+      "lines": 205,
+      "sha256": "bf858063d81fd83d9d4ee1b104e8dbc5dd3ecb2b646f92e21aa348f05f49d041",
+      "imports": [
+        ".core",
+        ".design_space",
+        ".lab_plots",
+        ".lab_report",
+        ".lab_search",
+        ".laboratory",
+        ".optimization",
+        ".widgets",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "copy",
+        "json",
+        "matplotlib.backends.backend_qtagg",
+        "matplotlib.figure",
+        "pathlib"
+      ],
+      "definitions": [
+        "CampaignWorker",
+        "LaboratoryTab"
+      ]
+    },
+    {
+      "path": "trusslab/laboratory.py",
+      "lines": 210,
+      "sha256": "852439a3df15be22d542040576bce764d3a8c07ea56390b484241a4695279a3a",
+      "imports": [
+        ".",
+        ".asam",
+        ".core",
+        ".lab_evaluation",
+        ".lab_search",
+        ".optimization",
+        ".sap",
+        "contextlib",
+        "copy",
+        "csv",
+        "dataclasses",
+        "datetime",
+        "hashlib",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "platform",
+        "scipy",
+        "shutil",
+        "time",
+        "uuid"
+      ],
+      "definitions": [
+        "CampaignConfig",
+        "statistics",
+        "save_campaign",
+        "load_campaign",
+        "run_campaign",
+        "winner_model",
+        "validate_campaign"
+      ]
+    },
+    {
+      "path": "trusslab/optimization.py",
+      "lines": 4,
+      "sha256": "d1febefed59b852a5e6bb436a2c648d6fc410314b45a17740fe56b0cab508fca",
+      "imports": [
+        ".optimization_runtime"
+      ],
+      "definitions": []
+    },
+    {
+      "path": "trusslab/optimization_runtime.py",
+      "lines": 197,
+      "sha256": "05e097c359a05822197afeea30399731640c85c9458ee22bf2deeb20595bac9c",
+      "imports": [
+        ".analysis",
+        ".asam",
+        ".core",
+        ".design_space",
+        ".sap",
+        "collections",
+        "contextlib",
+        "csv",
+        "dataclasses",
+        "json",
+        "numpy",
+        "pathlib",
+        "scipy.optimize",
+        "threading",
+        "time",
+        "uuid"
+      ],
+      "definitions": [
+        "Cancelled",
+        "EvaluationBudget",
+        "RunControl",
+        "optimize"
+      ]
+    },
+    {
+      "path": "trusslab/optimization_ui.py",
+      "lines": 95,
+      "sha256": "d4d48783139bfb32c4230ad74f2acd65431adc1da080c30d89ae4192825116b5",
+      "imports": [
+        ".analysis",
+        ".asam",
+        ".design_space",
+        ".editor_properties",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "dataclasses"
+      ],
+      "definitions": [
+        "OptimizationDialog",
+        "OptimizationProgress"
+      ]
+    },
+    {
+      "path": "trusslab/prepared_fem.py",
+      "lines": 5,
+      "sha256": "f156b53e2f509b50cbf250cdb6f85d8df5dd9cb782eb7429dc326c2bc53a7fea",
+      "imports": [
+        ".truss_kernel"
+      ],
+      "definitions": [
+        "PreparedTruss"
+      ]
+    },
+    {
+      "path": "trusslab/result_styles.py",
+      "lines": 17,
+      "sha256": "cd5afabed9ddd9b6cda5111066d82fc474cba5e3e86bb972498d64231e9a038f",
+      "imports": [
+        "math"
+      ],
+      "definitions": [
+        "section_radius",
+        "signed_color"
+      ]
+    },
+    {
+      "path": "trusslab/results_ui.py",
+      "lines": 100,
+      "sha256": "0bc288ef3859cf6036e77649bb4ea4712cc9dc26e87b623a3f77d4da8384229a",
+      "imports": [
+        ".scene",
+        "PySide6.QtCore",
+        "PySide6.QtWidgets",
+        "csv",
+        "pathlib"
+      ],
+      "definitions": [
+        "StructuralResultsDialog"
+      ]
+    },
+    {
+      "path": "trusslab/sap.py",
+      "lines": 566,
+      "sha256": "c68bf98ad55b6e7c286d74b3920ac03ae4ec67ea4796700c26f3f61523a05e74",
+      "imports": [
+        ".analysis",
+        ".core",
+        ".fem",
+        ".sap_mapping",
+        ".units",
+        ".validation",
+        "comtypes",
+        "comtypes.client",
+        "comtypes.gen",
+        "comtypes.messageloop",
+        "concurrent.futures",
+        "ctypes",
+        "ctypes.wintypes",
+        "datetime",
+        "json",
+        "os",
+        "pathlib",
+        "queue",
+        "threading",
+        "uuid"
+      ],
+      "definitions": [
+        "SapError",
+        "find_installation",
+        "checked",
+        "diagnose",
+        "audit_model",
+        "recover_results",
+        "recover_cases",
+        "analyze",
+        "_ManagedSession",
+        "SapBatchSession",
+        "pump_sta_messages",
+        "VisibleSapSessions"
+      ]
+    },
+    {
+      "path": "trusslab/sap_mapping.py",
+      "lines": 34,
+      "sha256": "d4a27f662002cda27884300483fb1d8c3ea770f000476cd7ea27c5fa91c08348",
+      "imports": [
+        ".core",
+        "hashlib",
+        "re",
+        "unicodedata"
+      ],
+      "definitions": [
+        "slug",
+        "token",
+        "material_key",
+        "transfer_definition",
+        "pattern_forces",
+        "active_dof"
+      ]
+    },
+    {
+      "path": "trusslab/scene.py",
+      "lines": 377,
+      "sha256": "90333a867b6ab49fb2db68dc1f3781227d77b8e0dc156385d4f132226eb336d0",
+      "imports": [
+        ".editor_commands",
+        ".result_styles",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "__future__",
+        "math",
+        "numpy",
+        "pyvista",
+        "pyvistaqt"
+      ],
+      "definitions": [
+        "Overlay",
+        "ModelScene"
+      ]
+    },
+    {
+      "path": "trusslab/truss_kernel.py",
+      "lines": 62,
+      "sha256": "2208611e570de2f754f15d073a735b72419c48eb527e72d0904d625e6f2943cb",
+      "imports": [
+        ".analysis",
+        "datetime",
+        "numpy"
+      ],
+      "definitions": [
+        "TrussKernel"
+      ]
+    },
+    {
+      "path": "trusslab/ui.py",
+      "lines": 798,
+      "sha256": "6097849d254eab65da6620cea4504c6c03ae64d58c1f07873ffb10d9e77c42cd",
+      "imports": [
+        ".analysis",
+        ".core",
+        ".editor_commands",
+        ".editor_libraries",
+        ".editor_properties",
+        ".examples",
+        ".fem",
+        ".icons",
+        ".lab_ui",
+        ".optimization",
+        ".optimization_ui",
+        ".results_ui",
+        ".sap",
+        ".scene",
+        ".widgets",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "__future__",
+        "csv",
+        "json",
+        "math",
+        "pathlib",
+        "sys",
+        "traceback"
+      ],
+      "definitions": [
+        "Job",
+        "MainWindow",
+        "main"
+      ]
+    },
+    {
+      "path": "trusslab/units.py",
+      "lines": 11,
+      "sha256": "b6bc5b2fecf6960ab43bb065b7c08bb2e44a1dad1e527e50437e6e764e189d85",
+      "imports": [
+        "math"
+      ],
+      "definitions": [
+        "lb_to_kip",
+        "kip_to_lb"
+      ]
+    },
+    {
+      "path": "trusslab/validation.py",
+      "lines": 97,
+      "sha256": "fc7cdf22d9fc9396a94cdcfc196bcd9c3f78bf0c1997d856be610d21bfedca2d",
+      "imports": [
+        "csv",
+        "math",
+        "numpy",
+        "pathlib"
+      ],
+      "definitions": [
+        "detailed_compare",
+        "equilibrium",
+        "limits",
+        "validation_report",
+        "write_comparison_csv"
+      ]
+    },
+    {
+      "path": "trusslab/widgets.py",
+      "lines": 156,
+      "sha256": "c2d03f70108116f63c0621ca7c77173ea25c0b0c66d3dcb6a0f75280107da8d7",
+      "imports": [
+        ".icons",
+        "PySide6.QtCore",
+        "PySide6.QtGui",
+        "PySide6.QtWidgets",
+        "math"
+      ],
+      "definitions": [
+        "label",
+        "button",
+        "Panel",
+        "Convergence",
+        "Metric"
+      ]
+    }
+  ],
+  "benchmark_references": [
+    {
+      "file": "scripts/audit_inventory.py",
+      "line": 15,
+      "text": "if any(term in line.lower() for term in ('case_i','caso i','5060.','6 nodos','10 barras','range(10)','full(10')):"
+    },
+    {
+      "file": "scripts/summarize_phase3.py",
+      "line": 33,
+      "text": "ax.set(xlabel='Evaluaciones FEM completadas',ylabel='Peso (lb)',title='ASAM · semilla 42 · Caso I · 25 ksi');ax.grid(alpha=.2);ax.legend()"
+    },
+    {
+      "file": "scripts/summarize_phase3.py",
+      "line": 43,
+      "text": "Se probaron tres candidatos de áreas uniformes 35, 30 y 25 in² en **la misma sesión propia**: pesos 14687.636354, 12589.402589 y 10491.168825 lb. Todos aprobaron la comparación FEM, equilibrio y estado final CASE_I=4. La sesión se cerró al terminar. El ensayo se repitió durante la corrección de la restauración del ganador."
+    },
+    {
+      "file": "scripts/summarize_phase3.py",
+      "line": 53,
+      "text": "El panel utilizó resultados auténticos guardados del Caso I. Se probaron modos de geometría/esfuerzo/fuerza, amplificación, espesor visual, cargas, reacciones, desplazamientos y selección numérica. Se compararon copias profundas del resultado y la huella del modelo antes y después: no cambiaron. Se capturó el panel renderizado."
+    },
+    {
+      "file": "scripts/summarize_phase3.py",
+      "line": 69,
+      "text": "Estos ensayos no reproducen todavía el mejor peso ASAM publicado de 5060.877 lb y no prueban un óptimo global. Tampoco comparan eficiencia entre algoritmos: el laboratorio de campañas y estadísticas es la etapa 5, aún pendiente."
+    },
+    {
+      "file": "scripts/summarize_phase3.py",
+      "line": 73,
+      "text": "La solución anterior archivada se recalculó: {previous['weight_lb']:.9f} lb, relación de esfuerzo {previous['stress_ratio']:.12f} y desplazamiento {previous['displacement_ratio']:.12f}. La diferencia frente a 5060.877 lb es {previous['weight_lb']-5060.877:.9f} lb. Una diferencia de ese tamaño puede deberse a redondeo y tolerancias, pero no se atribuye una causa única sin los datos originales ni se afirma superioridad."
+    },
+    {
+      "file": "scripts/verify_audit.py",
+      "line": 26,
+      "text": "for label,m in [('A_case_i',a),('B_D_E_planar',b),('C_D_E_spatial',c)]:"
+    },
+    {
+      "file": "scripts/verify_phase3_asam.py",
+      "line": 40,
+      "text": "old_path=Path(__file__).resolve().parents[1]/'data'/'automatic_final'/'sap_case_i.trusslab.json'"
+    },
+    {
+      "file": "scripts/verify_phase3_sap.py",
+      "line": 17,
+      "text": "assert result['analysis_case_status']['CASE_I']==4"
+    },
+    {
+      "file": "scripts/verify_phase4_abc.py",
+      "line": 32,
+      "text": "# globally best setting and no reuse of the archived 5060.856 lb design."
+    },
+    {
+      "file": "tests/test_audit_regressions.py",
+      "line": 18,
+      "text": "def test_explicit_case_independent_of_active_case():"
+    },
+    {
+      "file": "tests/test_lab_extensions.py",
+      "line": 39,
+      "text": "self.calls+=1;r=solve(model);r.update(engine='SAP2000 TEST DOUBLE',sap_model=str(self.path),model_fingerprint=model.fingerprint(),analysis_case_status={'CASE_I':4})"
+    },
+    {
+      "file": "tests/test_laboratory.py",
+      "line": 37,
+      "text": "a=np.full(10,35.);ev.evaluate(a);ev.evaluate(a)"
+    },
+    {
+      "file": "tests/test_laboratory.py",
+      "line": 39,
+      "text": "ev.evaluate(np.full(10,30.));ev.evaluate(a)"
+    },
+    {
+      "file": "tests/test_laboratory.py",
+      "line": 40,
+      "text": "with pytest.raises(BudgetReached):ev.evaluate(np.full(10,29.))"
+    },
+    {
+      "file": "tests/test_laboratory.py",
+      "line": 50,
+      "text": "r=ev.evaluate(np.full(10,20.))"
+    },
+    {
+      "file": "tests/test_model_documents.py",
+      "line": 75,
+      "text": "assert r['weight_lb']==pytest.approx(5060.855730008,rel=1e-8)"
+    },
+    {
+      "file": "tests/test_physics.py",
+      "line": 36,
+      "text": "def test_case_i_loads_supports_connectivity():"
+    },
+    {
+      "file": "tests/test_physics.py",
+      "line": 105,
+      "text": "p=Path(__file__).resolve().parents[1]/'data'/'sap_case_i.trusslab.json'"
+    },
+    {
+      "file": "trusslab/cli.py",
+      "line": 24,
+      "text": "save_project(out/('analysis.trusslab.json' if args.project else 'case_i.trusslab.json'), m, r)"
+    },
+    {
+      "file": "trusslab/cli.py",
+      "line": 28,
+      "text": "save_project(out/('sap_analysis.trusslab.json' if args.project else 'sap_case_i.trusslab.json'), m, r)"
+    },
+    {
+      "file": "trusslab/core.py",
+      "line": 239,
+      "text": "return Model('Cercha de 10 barras · Caso I',nodes,[Member(i+1,*p) for i,p in enumerate(pairs)],project_id='benchmark-case-i')"
+    },
+    {
+      "file": "trusslab/lab_report.py",
+      "line": 56,
+      "text": "'Referencias del Caso I: 5060.855730008 lb (diseño anterior), y aproximadamente 5060.877 lb (artículo). Solo son comparables si geometría, cargas, material y límites coinciden con el benchmark de 25 ksi; no son objetivos impuestos.','',"
+    },
+    {
+      "file": "trusslab/ui.py",
+      "line": 96,
+      "text": "self.status_units=label('kip · in · ksi   |   Plano XZ   |   6 nodos · 10 barras','muted')"
+    },
+    {
+      "file": "trusslab/ui.py",
+      "line": 715,
+      "text": "choice=QComboBox();choice.setObjectName('project_type');choice.addItems(['Cercha plana 2D','Cercha espacial 3D','Ejemplo · Caso I','Ejemplo · Triángulo 2D','Ejemplo · Trípode 3D']);l.addWidget(choice)"
+    }
+  ],
+  "installed_packages": {
+    "altgraph": "0.17.5",
+    "attrs": "26.1.0",
+    "certifi": "2026.7.22",
+    "charset-normalizer": "3.5.2",
+    "colorama": "0.4.6",
+    "comtypes": "1.4.17",
+    "contourpy": "1.3.3",
+    "cycler": "0.12.1",
+    "cyclopts": "5.2.0",
+    "docstring_parser": "0.18.0",
+    "et_xmlfile": "2.0.0",
+    "fonttools": "4.67.0",
+    "idna": "3.20",
+    "iniconfig": "2.3.1",
+    "kiwisolver": "1.5.1",
+    "markdown-it-py": "4.2.0",
+    "matplotlib": "3.11.2",
+    "mdurl": "0.1.2",
+    "numpy": "2.4.6",
+    "openpyxl": "3.1.5",
+    "packaging": "26.3",
+    "pefile": "2024.8.26",
+    "pillow": "13.0.0",
+    "pip": "24.0",
+    "platformdirs": "4.13.4",
+    "pluggy": "1.7.0",
+    "pooch": "1.9.0",
+    "Pygments": "2.21.0",
+    "pyinstaller": "6.22.3",
+    "pyinstaller-hooks-contrib": "2026.8",
+    "pyparsing": "3.3.3",
+    "pypdf": "6.21.1",
+    "PySide6": "6.12.0",
+    "PySide6_Addons": "6.12.0",
+    "PySide6_Essentials": "6.12.0",
+    "PySide6_Pdf": "6.12.0.140",
+    "PySide6_WebEngine": "6.12.0.140",
+    "pytest": "9.1.1",
+    "python-dateutil": "2.9.0.post0",
+    "pyvista": "0.49.1",
+    "pyvistaqt": "0.13.1",
+    "pyvista-validation": "0.2.2",
+    "pywin32-ctypes": "0.2.3",
+    "QtPy": "2.4.3",
+    "reportlab": "5.0.1",
+    "requests": "2.34.2",
+    "rich": "15.0.0",
+    "rich-rst": "2.2.0",
+    "scipy": "1.17.1",
+    "scooby": "0.12.0",
+    "setuptools": "65.5.0",
+    "shiboken6": "6.12.0",
+    "six": "1.17.0",
+    "typing_extensions": "4.16.0",
+    "urllib3": "2.8.0",
+    "vtk": "9.7.1"
+  },
+  "scope": "AST of all project Python and tests; installed, generated, data directories excluded"
+}

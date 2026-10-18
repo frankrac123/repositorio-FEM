@@ -17,7 +17,7 @@ def configuration(methods=None,seeds=None,budget=240):
     return c
 
 
-def test_prepared_fem_matches_independent_solver_for_varied_areas_and_space():
+def test_prepared_adapter_matches_public_kernel_for_varied_areas_and_space():
     spatial=Model('Tetraedro',[Node(1,[0,0,0],[True]*3),Node(2,[120,0,0],[True]*3),Node(3,[0,120,0],[True]*3),
         Node(4,[30,40,120],[False]*3,[5,-3,-20])],[Member(1,1,4,3),Member(2,2,4,4),Member(3,3,4,5)])
     rng=np.random.default_rng(17)

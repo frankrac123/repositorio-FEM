@@ -69,9 +69,11 @@ def equilibrium(model,result):
 
 def limits(model,result):
     stress=max(abs(r['stress'])/model.stress_limit for r in result['members'])
-    displacement=max(abs(result['displacements'][str(n.id)][d])/model.displacement_limit
-                     for n in model.nodes for d in range(3) if not model.restraints(n)[d])
+    displacement=max((abs(result['displacements'][str(n.id)][d])/model.displacement_limit
+                     for n in model.nodes for d in range(3) if not model.restraints(n)[d]),default=0.)
     return {'stress_ratio':stress,'displacement_ratio':displacement,
+            'strict_passed':bool(math.isfinite(stress) and math.isfinite(displacement) and stress<=1 and displacement<=1),
+            'relative_tolerance':1e-6,
             'stress_passed':bool(math.isfinite(stress) and stress<=1+1e-6),
             'displacement_passed':bool(math.isfinite(displacement) and displacement<=1+1e-6)}
 

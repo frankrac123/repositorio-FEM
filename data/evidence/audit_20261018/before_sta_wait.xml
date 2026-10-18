@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="74" time="331.708" timestamp="2026-10-18T02:47:07.027324-05:00" hostname="DESKTOP-92BJVG2"><testcase classname="tests.test_asam" name="test_logistic_rule_not_metropolis" time="0.001" /><testcase classname="tests.test_asam" name="test_uniform_preliminary_reflection_and_seed" time="0.002" /><testcase classname="tests.test_asam" name="test_asam_three_mechanisms_and_feasible_priority" time="0.002" /><testcase classname="tests.test_asam" name="test_groups_and_fixed_members" time="0.002" /><testcase classname="tests.test_asam" name="test_asam_budget_seed_and_best_is_genuinely_feasible" time="0.717" /><testcase classname="tests.test_asam" name="test_controlled_cancel_keeps_best_and_input" time="0.022" /><testcase classname="tests.test_asam" name="test_pause_can_be_cancelled_safely" time="0.069" /><testcase classname="tests.test_asam" name="test_hybrid_provenance_lifecycle_and_no_fallback" time="0.141" /><testcase classname="tests.test_asam" name="test_cancelled_hybrid_never_claims_external_validation" time="0.034" /><testcase classname="tests.test_asam" name="test_no_feasible_candidate_is_never_reported_as_optimum" time="0.089" /><testcase classname="tests.test_asam" name="test_sap_winner_restoration_is_counted_within_budget" time="0.035" /><testcase classname="tests.test_audit_regressions" name="test_prepared_rejects_unknown_case" time="0.001" /><testcase classname="tests.test_audit_regressions" name="test_fixed_member_outside_design_bounds_is_analyzable" time="0.003" /><testcase classname="tests.test_audit_regressions" name="test_explicit_case_independent_of_active_case" time="0.002" /><testcase classname="tests.test_audit_regressions" name="test_deleted_patterns_do_not_resurrect_legacy_loads" time="0.001" /><testcase classname="tests.test_audit_regressions" name="test_sap_global_material_and_explicit_legacy_are_distinct" time="0.001" /><testcase classname="tests.test_audit_regressions" name="test_stale_save_discards_history" time="0.016" /><testcase classname="tests.test_audit_regressions" name="test_units_self_weight_and_closed_form" time="0.002" /><testcase classname="tests.test_audit_regressions" name="test_cache_with_matching_fingerprint_but_corrupt_values_rejected" time="0.021" /><testcase classname="tests.test_audit_regressions" name="test_multiple_cases_include_governing_nonactive_case" time="0.007" /><testcase classname="tests.test_audit_regressions" name="test_fully_restrained_truss_has_zero_motion_and_balanced_reactions" time="0.002" /><testcase classname="tests.test_audit_regressions" name="test_campaign_retains_best_on_later_failure" time="0.113" /><testcase classname="tests.test_audit_regressions" name="test_runtime_counts_failure_and_retains_best" time="0.024" /><testcase classname="tests.test_lab_extensions" name="test_hybrids_keep_identity_and_refinement_inside_total_budget[ASAM+SLSQP]" time="0.534" /><testcase classname="tests.test_lab_extensions" name="test_hybrids_keep_identity_and_refinement_inside_total_budget[DE+SLSQP]" time="0.629" /><testcase classname="tests.test_lab_extensions" name="test_validation_error_retains_fem_pending_without_fallback" time="0.335" /><testcase classname="tests.test_lab_extensions" name="test_validation_selects_one_best_per_method_with_one_owned_session" time="0.662" /><testcase classname="tests.test_lab_extensions" name="test_report_exports_real_campaign_values_and_all_graph_formats" time="6.431" /><testcase classname="tests.test_laboratory" name="test_prepared_fem_matches_independent_solver_for_varied_areas_and_space" time="0.081" /><testcase classname="tests.test_laboratory" name="test_real_evaluation_budget_and_cache_are_separate" time="0.017" /><testcase classname="tests.test_laboratory" name="test_failed_analysis_is_not_an_infeasible_physical_solution" time="0.016" /><testcase classname="tests.test_laboratory" name="test_campaign_equal_limits_common_pool_persistence_and_original_unchanged" time="1.380" /><testcase classname="tests.test_laboratory" name="test_same_seed_reproduces_all_algorithms" time="2.133" /><testcase classname="tests.test_laboratory" name="test_campaign_cancellation_is_saved_without_modifying_model" time="0.049" /><testcase classname="tests.test_laboratory" name="test_statistics_exclude_infeasible_and_cancelled_weights" time="0.001" /><testcase classname="tests.test_model_documents" name="test_empty_and_isolated_documents_round_trip" time="0.015" /><testcase classname="tests.test_model_documents" name="test_connectivity_and_copy_delete_commands" time="0.001" /><testcase classname="tests.test_model_documents" name="test_explicit_plane_not_coordinate_based_support[XZ-1]" time="0.002" /><testcase classname="tests.test_model_documents" name="test_explicit_plane_not_coordinate_based_support[XY-2]" time="0.002" /><testcase classname="tests.test_model_documents" name="test_explicit_plane_not_coordinate_based_support[YZ-0]" time="0.003" /><testcase classname="tests.test_model_documents" name="test_materials_patterns_cases_and_prepared_solver[triangle]" time="0.011" /><testcase classname="tests.test_model_documents" name="test_materials_patterns_cases_and_prepared_solver[spatial]" time="0.011" /><testcase classname="tests.test_model_documents" name="test_case_violation_cannot_be_hidden_by_active_case" time="0.007" /><testcase classname="tests.test_model_documents" name="test_group_variables_follow_document_and_legacy_migration" time="0.029" /><testcase classname="tests.test_modeler_ui" name="test_windows_modeler_from_empty_document" time="9.812" /><testcase classname="tests.test_modeler_ui" name="test_mouse_node_creation_uses_camera_ray_and_work_plane" time="2.081" /><testcase classname="tests.test_modeler_ui" name="test_material_section_pattern_and_multiple_support_editors" time="3.327" /><testcase classname="tests.test_modeler_ui" name="test_property_apply_preserves_full_precision" time="2.556" /><testcase classname="tests.test_modeler_ui" name="test_equal_numeric_edit_and_external_mutation_guard" time="2.376" /><testcase classname="tests.test_modeler_ui" name="test_save_open_validate_and_exports_use_current_model" time="4.060" /><testcase classname="tests.test_modeler_ui" name="test_deleting_loads_and_renaming_pattern_preserves_assignments" time="3.734" /><testcase classname="tests.test_physics" name="test_axial_bar_matches_closed_form" time="0.003" /><testcase classname="tests.test_physics" name="test_spatial_bar_matches_axial_solution" time="0.010" /><testcase classname="tests.test_physics" name="test_case_i_loads_supports_connectivity" time="0.005" /><testcase classname="tests.test_physics" name="test_area_scaling_and_load_linearity" time="0.013" /><testcase classname="tests.test_physics" name="test_invalid_structures_rejected" time="0.002" /><testcase classname="tests.test_physics" name="test_project_round_trip_and_no_prefixed_results" time="0.028" /><testcase classname="tests.test_physics" name="test_optimizer_returns_recomputed_feasible_design" time="2.636" /><testcase classname="tests.test_physics" name="test_de_finite_candidate_and_feasibility" time="0.752" /><testcase classname="tests.test_physics" name="test_saved_sap_comparison_is_with_same_model" time="0.006" /><testcase classname="tests.test_result_styles" name="test_display_radius_preserves_area_proportions" time="0.001" /><testcase classname="tests.test_result_styles" name="test_signed_stress_colormap_is_consistent_and_monotone" time="0.001" /><testcase classname="tests.test_sap_integration" name="test_real_batch_updates_sections_and_preserves_results" time="35.077" /><testcase classname="tests.test_sap_integration" name="test_real_visible_update_and_automatic_are_independent" time="250.040"><failure message="assert False&#10; +  where False = shutdown(timeout=10)&#10; +    where shutdown = &lt;trusslab.sap.VisibleSapSessions object at 0x0000021119FC0750&gt;.shutdown">tmp_path = WindowsPath('C:/Users/ASUSBOOK/AppData/Local/Temp/pytest-of-ASUSBOOK/pytest-27/test_real_visible_update_and_a0')
+
+    @pytest.mark.integration
+    @pytest.mark.skipif(os.environ.get('TRUSSLAB_RUN_SAP_INTEGRATION')!='1',reason='Requires explicit opt-in to open real SAP2000')
+    def test_real_visible_update_and_automatic_are_independent(tmp_path):
+        manager=VisibleSapSessions()
+        try:
+            model=benchmark()
+&gt;           first=manager.open(model,tmp_path).result(timeout=240)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_sap_integration.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = None, timeout = 240
+
+    def result(self, timeout=None):
+        """Return the result of the call that the future represents.
+
+        Args:
+            timeout: The number of seconds to wait for the result if the future
+                isn't done. If None, then there is no limit on the wait time.
+
+        Returns:
+            The result of the call that the future represents.
+
+        Raises:
+            CancelledError: If the future was cancelled.
+            TimeoutError: If the future didn't finish executing before the given
+                timeout.
+            Exception: If the call raised then that exception will be raised.
+        """
+        try:
+            with self._condition:
+                if self._state in [CANCELLED, CANCELLED_AND_NOTIFIED]:
+                    raise CancelledError()
+                elif self._state == FINISHED:
+                    return self.__get_result()
+
+                self._condition.wait(timeout)
+
+                if self._state in [CANCELLED, CANCELLED_AND_NOTIFIED]:
+                    raise CancelledError()
+                elif self._state == FINISHED:
+                    return self.__get_result()
+                else:
+&gt;                   raise TimeoutError()
+E                   TimeoutError
+
+C:\Users\ASUSBOOK\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py:458: TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/ASUSBOOK/AppData/Local/Temp/pytest-of-ASUSBOOK/pytest-27/test_real_visible_update_and_a0')
+
+    @pytest.mark.integration
+    @pytest.mark.skipif(os.environ.get('TRUSSLAB_RUN_SAP_INTEGRATION')!='1',reason='Requires explicit opt-in to open real SAP2000')
+    def test_real_visible_update_and_automatic_are_independent(tmp_path):
+        manager=VisibleSapSessions()
+        try:
+            model=benchmark()
+            first=manager.open(model,tmp_path).result(timeout=240)
+            assert first['input_audit']['node_count']==6
+            assert first['input_audit']['member_count']==10
+            assert first['validation']['passed']
+            assert first['analysis_case_status'][first['sap_analysis_case']]==4
+            path=Path(first['sap_model'])
+            original=hashlib.sha256(path.read_bytes()).hexdigest()
+            changed=model.clone()
+            changed.members[0].area=30.
+            changed.node(4).load[2]=-95.
+            changed.node(1).xyz[0]+=10
+            second=manager.open(changed,tmp_path,previous_id=first['session']['id']).result(timeout=240)
+            assert second['validation']['passed']
+            assert second['model_fingerprint']==changed.fingerprint()
+            assert second['analysis_case_status'][second['sap_analysis_case']]==4
+            assert second['sap_model']!=first['sap_model']
+            assert hashlib.sha256(path.read_bytes()).hexdigest()==original
+            assert manager.inspect(first['session']['id']).result(timeout=30)['visible']
+            automatic=analyze(changed,tmp_path)
+            assert automatic['mode']=='automatic' and automatic['analysis_case_status'][automatic['sap_analysis_case']]==4
+            assert manager.inspect(second['session']['id']).result(timeout=30)['visible']
+        finally:
+&gt;           assert manager.shutdown(timeout=10)
+E           assert False
+E            +  where False = shutdown(timeout=10)
+E            +    where shutdown = &lt;trusslab.sap.VisibleSapSessions object at 0x0000021119FC0750&gt;.shutdown
+
+tests\test_sap_integration.py:61: AssertionError</failure></testcase><testcase classname="tests.test_sap_sessions" name="test_visible_queue_serializes_and_copies_snapshots" time="0.014" /><testcase classname="tests.test_sap_sessions" name="test_failed_visible_operation_keeps_references_until_shutdown" time="0.012" /><testcase classname="tests.test_sap_sessions" name="test_batch_closes_only_its_owned_reference" time="0.014" /><testcase classname="tests.test_validation" name="test_comparison_aligns_ids_and_rejects_missing_results" time="0.005" /><testcase classname="tests.test_validation" name="test_comparison_rejects_nonfinite_missing_components_and_weight" time="0.004" /><testcase classname="tests.test_validation" name="test_relative_error_omitted_at_zero_and_mismatch_detected" time="0.003" /><testcase classname="tests.test_validation" name="test_equilibrium_and_feasibility_are_separate_from_agreement" time="0.003" /><testcase classname="tests.test_validation" name="test_input_audit_and_nonaxial_action_cannot_validate" time="0.004" /><testcase classname="tests.test_validation" name="test_fingerprint_changes_for_every_transferred_input" time="0.004" /><testcase classname="tests.test_validation" name="test_managed_com_references_are_confined_to_owner_thread" time="0.002" /></testsuite></testsuites>

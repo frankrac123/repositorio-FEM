@@ -12,6 +12,24 @@ import pytest
 from trusslab.core import benchmark
 from trusslab.sap import VisibleSapSessions,analyze
 
+def wait_com(future,timeout):
+    """An STA caller must pump COM/Qt messages while waiting on the SAP STA.
+
+    The desktop already does this in its event loop. Future.result() on the
+    pytest main STA can block Helper.CreateObject after a previous COM test.
+    """
+    import time
+    from trusslab.sap import pump_sta_messages
+    deadline=time.monotonic()+timeout
+    while not future.done() and time.monotonic()<deadline:
+        pump_sta_messages();time.sleep(.01)
+        try:
+            from PySide6.QtCore import QCoreApplication
+            app=QCoreApplication.instance()
+            if app:app.processEvents()
+        except ImportError:pass
+    return future.result(timeout=0)
+
 
 @pytest.mark.integration
 @pytest.mark.skipif(os.environ.get('TRUSSLAB_RUN_SAP_BATCH')!='1',reason='Opt-in real hidden persistent SAP session')
@@ -36,7 +54,7 @@ def test_real_visible_update_and_automatic_are_independent(tmp_path):
     manager=VisibleSapSessions()
     try:
         model=benchmark()
-        first=manager.open(model,tmp_path).result(timeout=240)
+        first=wait_com(manager.open(model,tmp_path),240)
         assert first['input_audit']['node_count']==6
         assert first['input_audit']['member_count']==10
         assert first['validation']['passed']
@@ -47,15 +65,15 @@ def test_real_visible_update_and_automatic_are_independent(tmp_path):
         changed.members[0].area=30.
         changed.node(4).load[2]=-95.
         changed.node(1).xyz[0]+=10
-        second=manager.open(changed,tmp_path,previous_id=first['session']['id']).result(timeout=240)
+        second=wait_com(manager.open(changed,tmp_path,previous_id=first['session']['id']),240)
         assert second['validation']['passed']
         assert second['model_fingerprint']==changed.fingerprint()
         assert second['analysis_case_status'][second['sap_analysis_case']]==4
         assert second['sap_model']!=first['sap_model']
         assert hashlib.sha256(path.read_bytes()).hexdigest()==original
-        assert manager.inspect(first['session']['id']).result(timeout=30)['visible']
+        assert wait_com(manager.inspect(first['session']['id']),30)['visible']
         automatic=analyze(changed,tmp_path)
         assert automatic['mode']=='automatic' and automatic['analysis_case_status'][automatic['sap_analysis_case']]==4
-        assert manager.inspect(second['session']['id']).result(timeout=30)['visible']
+        assert wait_com(manager.inspect(second['session']['id']),30)['visible']
     finally:
         assert manager.shutdown(timeout=10)

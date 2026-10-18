@@ -67,9 +67,9 @@ Consulta [la guía de SAP2000](docs/SAP2000_VISIBLE.md).
 
 ## Uso inicial
 
-El programa abre el ejemplo calculado de `examples/Caso_I_calculado.trusslab.json`. **Nuevo** restaura el Caso I con áreas de 35 in². **Analizar** permite seleccionar FEM o SAP; **Optimizar** configura algoritmo, motor, variables, grupos y parámetros. El menú SAP permite consultar el panel de resultados después de analizar el diseño actual.
+El programa inicia con un documento vacío. **Nuevo** permite elegir una cercha 2D/3D o un ejemplo; **Abrir** recupera proyectos guardados, incluido `examples/Caso_I_calculado.trusslab.json`. **Analizar** calcula el caso activo; **Optimizar** configura algoritmo, motor, variables, grupos y parámetros. El laboratorio compara los cinco métodos existentes sobre todos los casos seleccionados.
 
-Los cambios del modelo invalidan los resultados anteriores y recalculan FEM. Una estructura inestable se informa como tal; no se añade rigidez artificial. Atajos: Ctrl+N, Ctrl+O, Ctrl+S, F5 FEM, F6 SAP y Supr para eliminar la selección.
+Los cambios del modelo invalidan los resultados anteriores; confirma la edición y pulsa **Analizar** cuando corresponda. Una estructura inestable se informa como tal. Atajos: Ctrl+N, Ctrl+O, Ctrl+S, F5 FEM, F6 SAP y Supr para eliminar la selección.
 
 También hay una interfaz numérica básica:
 
@@ -103,11 +103,11 @@ El texto del artículo contiene una discrepancia de 20/25 ksi, documentada en [l
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
-La última validación local terminó con **32 pruebas aprobadas y dos integraciones opcionales omitidas**. Los ensayos separados con SAP real comprobaron actualización de áreas, sesión persistente, recuperación de resultados, comparación FEM y restauración del diseño ganador. GitHub Actions ejecuta las pruebas numéricas; las integraciones SAP requieren activación explícita y una instalación real, como explica [CONTRIBUTING.md](CONTRIBUTING.md).
+Consulta la [auditoría de estabilización](AUDITORIA_ESTABILIZACION_TRUSSLAB.md) y sus registros para los conteos y commits comprobados. La suite ordinaria no abre SAP ni ventanas Qt. Las pruebas Qt y SAP reales requieren activación explícita; GitHub Actions verifica el núcleo numérico en Windows y Linux.
 
 ASAM produjo diseños factibles de **5114.494, 5097.239 y 5082.111 lb** para semillas 42, 7 y 17. La repetición de semilla 42 dio las mismas áreas. Estas corridas se comprobaron con FEM y siguen pendientes de validación SAP individual. Todavía no reproducen el mejor peso publicado de 5060.877 lb; no se afirma optimalidad global. El ejemplo anterior SLSQP de aproximadamente 5060.856 lb se conserva con su evidencia.
 
-Las etapas 2–4 están implementadas. El laboratorio comparativo, GA/PSO, informes académicos Excel completos, múltiples materiales/patrones, pandeo, perfiles comerciales y optimización de geometría/topología quedan pendientes.
+Están implementados el laboratorio comparativo, los informes PDF/Excel y los materiales/patrones/casos múltiples. Siguen fuera del alcance GA/PSO, pandeo, perfiles comerciales y optimización de geometría/topología. El cálculo actual es lineal elástico axial de cerchas, sin vigas, pórticos ni análisis de edificios.
 
 ## Organización del repositorio
 
@@ -124,3 +124,12 @@ Las etapas 2–4 están implementadas. El laboratorio comparativo, GA/PSO, infor
 | `launcher.cs`, `TrussLab3D.exe` | Fuente y lanzador de Windows |
 
 Consulta el [índice de documentación](docs/INDEX.md) y el [informe de las etapas 2–4](docs/VALIDACION_FASE3.md). Se conserva el historial Git con el punto previo a la ampliación (`pre-phase3-20261017`). Los entornos virtuales, dependencias instaladas, cachés y archivos temporales de SAP no forman parte del repositorio.
+
+
+## Núcleo y documentos auditados
+
+`truss_kernel.py` contiene la única formulación FEM; `fem.solve(model, case=...)` y `PreparedTruss` son interfaces compatibles que la utilizan. El modelo central conserva geometría, áreas individuales efectivas, materiales, cargas y restricciones. Las áreas de sección inicializan o actualizan las asignaciones; la optimización modifica el área efectiva de cada barra.
+
+Se guarda `trusslab/3` y se leen las versiones 1/2. La carga de un documento con resultados comprueba su huella y contrasta sus valores con FEM; descarta resultados e historial incompatibles. Un borrador sin resultados no ejecuta análisis al abrirse. `density` representa peso específico en lb/in³; nunca densidad de masa. El peso se expresa en lb y la carga gravitatoria equivalente se convierte a kip dividiendo entre 1000.
+
+La factibilidad utiliza tolerancia relativa 1e-6; `strict_feasible` identifica cumplimiento estricto. Una corrida fallida conserva su mejor diseño previo como evidencia separada y no se declara exitosa.

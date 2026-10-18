@@ -4,7 +4,7 @@ import numpy as np
 def design_cases(model):
     cases=model.optimization_config.get('load_cases') or [model.active_case]
     if len(cases)!=len(set(cases)):raise ValueError('Casos de optimización duplicados.')
-    available={c.id for c in model.analysis_cases}|{p.id for p in model.load_patterns} or {'LC1'}
+    available=model.available_cases()
     if not set(cases)<=available:raise ValueError('Un caso seleccionado para optimización no existe.')
     return list(cases)
 
@@ -16,6 +16,8 @@ def combine_cases(model,results):
     result['stress_ratio']=max(r['stress_ratio'] for r in results.values())
     result['displacement_ratio']=max(r['displacement_ratio'] for r in results.values())
     result['feasible']=all(r['feasible'] for r in results.values())
+    result['strict_feasible']=all(r.get('strict_feasible',r['stress_ratio']<=1 and r['displacement_ratio']<=1) for r in results.values())
+    result['feasibility_tolerance']=1e-6
     result['governing_cases']={key:max(results,key=lambda c:results[c][key]) for key in ('stress_ratio','displacement_ratio')}
     excess=np.maximum(-constraint_margins(model,result)-1e-6,0.)
     result['constraint_violation']=float(np.dot(excess,excess))

@@ -10,7 +10,18 @@ class NumberEdit(QDoubleSpinBox):
         self.setLocale(QLocale.c());self.setRange(minimum,maximum);self.setDecimals(decimals)
         self.setKeyboardTracking(False);self.setButtonSymbols(QDoubleSpinBox.NoButtons)
         self.setMinimumHeight(32);self.setMinimumWidth(86);self.setValue(float(value))
+        self.lineEdit().textEdited.connect(self.mark_edited)
         self.setStyleSheet('QDoubleSpinBox {color:#152745;background:white;padding:4px 6px;} QDoubleSpinBox QLineEdit {border:0;background:transparent;color:#152745;padding:0;}')
+    def mark_edited(self,*args):self._edited=True
+    def setValue(self,value):
+        super().setValue(float(value))
+        self._exact=float(value);self._shown=super().value();self._edited=False
+    def value(self):
+        self.interpretText()
+        return self._exact if not self._edited and super().value()==self._shown else super().value()
+    def stepBy(self,steps):
+        self._edited=True
+        super().stepBy(steps)
     def resizeEvent(self,event):
         super().resizeEvent(event)
         self.layout_text()
@@ -39,7 +50,7 @@ class PropertiesEditor(QWidget):
                     f=self.number('xyz_'+axis,f'{axis} (in)',node.xyz[d]);f.setEnabled(m.structure_type!='2D' or d!=m.normal_axis)
             self.pattern=QComboBox();self.pattern.setObjectName('load_pattern')
             for p in m.load_patterns:self.pattern.addItem(p.name,p.id)
-            if not m.load_patterns:self.pattern.addItem('Carga histórica','LC1')
+            if not m.load_patterns and m.load_storage=='legacy':self.pattern.addItem('Carga histórica','LC1')
             index=self.pattern.findData(owner.display_pattern)
             self.pattern.setCurrentIndex(max(index,0));self.form.addRow('Patrón',self.pattern)
             self.pattern.currentIndexChanged.connect(self.load_pattern)

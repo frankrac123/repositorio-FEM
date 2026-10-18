@@ -163,3 +163,71 @@ def test_material_section_pattern_and_multiple_support_editors(window,tmp_path):
     path=tmp_path/'libraries.json';save_project(path,w.model);restored,_,_=load_project(path)
     assert restored.to_dict()==w.model.to_dict()
     assert not w.test_errors
+
+def test_property_apply_preserves_full_precision(window):
+    from trusslab.examples import triangle
+    from trusslab.fem import solve
+    w=window;w.model=triangle();w.model.members[0].area=1.123456789123
+    w.result=solve(w.model);w.refresh();w.select('member',1)
+    editor=w.property_editor;editor.fields['group'].setText('changed');editor.apply()
+    assert w.model.members[0].area==1.123456789123
+    assert w.result is None
+
+def test_equal_numeric_edit_and_external_mutation_guard(window):
+    from trusslab.examples import triangle
+    from trusslab.fem import solve
+    w=window;w.model=triangle();w.model.nodes[0].xyz=[0,0,0]
+    w.result=solve(w.model);fp=w.model.fingerprint()
+    w.edit(lambda:setattr(w.model.nodes[0],'xyz',[0.,0.,0.]))
+    assert w.model.fingerprint()==fp and w.result is not None
+    w.model.members[0].area*=2.;w.refresh()
+    assert w.result is None
+
+def test_save_open_validate_and_exports_use_current_model(window,tmp_path,monkeypatch):
+    import json,csv
+    from PySide6.QtWidgets import QFileDialog
+    from trusslab.examples import triangle
+    w=window;w.set_document(triangle());w.validate_document()
+    assert w.checked_fingerprint==w.model.fingerprint()
+    w.run_fem();assert w.result
+    target=tmp_path/'ui_project.json'
+    monkeypatch.setattr(QFileDialog,'getSaveFileName',lambda *args,**kwargs:(str(target),''))
+    assert w.save_project() and target.exists()
+    expected=w.model.fingerprint();w.model.name='changed';w.dirty=False
+    monkeypatch.setattr(QFileDialog,'getOpenFileName',lambda *args,**kwargs:(str(target),''))
+    w.open_project();assert w.model.fingerprint()==expected and w.result
+    target=tmp_path/'ui_results.csv';w.export_csv()
+    with target.open(encoding='utf-8-sig',newline='') as f:assert len(list(csv.DictReader(f)))==len(w.model.members)
+    target=tmp_path/'ui_report.json';w.export_report();assert json.loads(target.read_text(encoding='utf-8'))
+    target=tmp_path/'ui_view.png';w.export_image();assert target.stat().st_size>1000
+    assert not w.test_errors
+
+def test_deleting_loads_and_renaming_pattern_preserves_assignments(window):
+    from PySide6.QtCore import Qt
+    from trusslab.editor_libraries import LoadsDialog
+    from trusslab.examples import triangle
+    w=window;w.set_document(triangle());d=LoadsDialog(w)
+    d.patterns.item(0,0).setText('D')
+    d.cases.item(0,2).setText('D=1');d.cases.item(2,2).setText('D=1.2; LC2=1.6')
+    d.apply_definitions();assert w.model.pattern_load(3,'D')==[0.,0.,-10.]
+    d.patterns.setRowCount(0);d.cases.setRowCount(0);d.apply_definitions()
+    assert not w.model.load_patterns and not any(any(v) for v in w.model.nodal_loads().values())
+    assert w.model.analysis_issues()
+    d.close();assert not w.test_errors
+
+def test_optimize_action_runs_worker_and_updates_model(window):
+    import time
+    from PySide6.QtCore import QTimer,Qt
+    from PySide6.QtWidgets import QApplication,QDialogButtonBox
+    from PySide6.QtTest import QTest
+    from trusslab.examples import triangle
+    w=window;w.set_document(triangle());initial=w.model.weight()
+    def accept_configuration():
+        d=QApplication.activeModalWidget();d.iterations.setValue(60);d.budget.setValue(150)
+        QTest.mouseClick(d.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok),Qt.LeftButton)
+    QTimer.singleShot(80,accept_configuration);w.optimize_dialog()
+    deadline=time.monotonic()+90
+    while w.job and time.monotonic()<deadline:QTest.qWait(50)
+    assert w.job is None and not w.test_errors
+    assert w.result['feasible'] and w.model.weight()<initial
+    assert w.result['model_fingerprint']==w.model.fingerprint() and w.history

@@ -38,6 +38,17 @@ status=w.sap_sessions.inspect(w.sap_session_id).result(timeout=30)
 assert status['visible'] and status['analysis_locked']
 proof={'passed':True,'campaign':lab.campaign['_directory'],'methods':[r['algorithm'] for r in lab.campaign['runs']],
  'visible_session':status,'sap_model':w.result['sap_model'],'model_fingerprint':w.model.fingerprint(),'validation':w.result['validation']}
+if '--audit-update' in sys.argv:
+    import hashlib
+    first_path=Path(w.result['sap_model']);first_hash=hashlib.sha256(first_path.read_bytes()).hexdigest()
+    w.edit(lambda:setattr(w.model.members[0],'area',w.model.members[0].area*1.1))
+    if hasattr(w,'comparison_dialog'):w.comparison_dialog.close()
+    w.update_in_sap();deadline=time.monotonic()+180
+    while w.job and time.monotonic()<deadline:QTest.qWait(100)
+    assert w.job is None and not errors,errors
+    assert w.result['validation']['passed'] and w.result['model_fingerprint']==w.model.fingerprint()
+    assert w.result['sap_model']!=str(first_path) and hashlib.sha256(first_path.read_bytes()).hexdigest()==first_hash
+    proof['update']={'passed':True,'result':w.result,'original_sdb_unchanged':True}
 Path('data/modeler/qt_laboratory_sap.json').write_text(json.dumps(proof,indent=2),encoding='utf-8')
 if hasattr(w,'comparison_dialog'):w.comparison_dialog.close()
 w.dirty=False;w.close();app.processEvents()

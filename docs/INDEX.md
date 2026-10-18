@@ -11,3 +11,5 @@
 | [Contribuir](../CONTRIBUTING.md) | Entorno de desarrollo, pruebas e integraciones opcionales |
 
 Las referencias bibliográficas del algoritmo están en [ASAM y motores](ASAM_Y_MOTORES.md). El artículo se enlaza a su publicación original; no se incorpora una copia del PDF al repositorio.
+
+La referencia vigente de estabilización y reproducibilidad es [AUDITORIA_ESTABILIZACION_TRUSSLAB.md](../AUDITORIA_ESTABILIZACION_TRUSSLAB.md). Las validaciones de fases anteriores conservan resultados históricos, no el conteo de la suite actual.

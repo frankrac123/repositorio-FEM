@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "campaign": "C:\\Users\\ASUSBOOK\\Documents\\Codex\\2026-10-17\\al\\outputs\\TrussLab3D\\data\\campaigns\\campaign_20261018_024612_bd445b",
+  "methods": [
+    "ASAM",
+    "DE",
+    "SLSQP"
+  ],
+  "history_rows": 101
+}
