@@ -62,6 +62,22 @@
       "definitions": []
     },
     {
+      "path": "scripts/run_audit_tests.py",
+      "lines": 23,
+      "sha256": "680e942124333387dea386b0b489d45fc63c634ee51b8bdd8e7e9d60cd7c28d4",
+      "imports": [
+        "argparse",
+        "json",
+        "pathlib",
+        "subprocess",
+        "sys",
+        "time"
+      ],
+      "definitions": [
+        "main"
+      ]
+    },
+    {
       "path": "scripts/summarize_phase3.py",
       "lines": 86,
       "sha256": "c46ecca923073ec06cd6aa76d8ccb40295aeed2b30a3d18a9ecb4dda38237d2f",

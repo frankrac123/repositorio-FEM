@@ -133,3 +133,5 @@ Consulta el [índice de documentación](docs/INDEX.md) y el [informe de las etap
 Se guarda `trusslab/3` y se leen las versiones 1/2. La carga de un documento con resultados comprueba su huella y contrasta sus valores con FEM; descarta resultados e historial incompatibles. Un borrador sin resultados no ejecuta análisis al abrirse. `density` representa peso específico en lb/in³; nunca densidad de masa. El peso se expresa en lb y la carga gravitatoria equivalente se convierte a kip dividiendo entre 1000.
 
 La factibilidad utiliza tolerancia relativa 1e-6; `strict_feasible` identifica cumplimiento estricto. Una corrida fallida conserva su mejor diseño previo como evidencia separada y no se declara exitosa.
+
+La auditoría reproducida desde GitHub comprobó 78/78 pruebas con Qt y SAP reales; el CI numérico pasó en Windows/Linux. Los avisos RPC nativos observados se conservan en el informe. Para registrar la salida sin esperar al cierre de copias SAP visibles, utiliza `scripts/run_audit_tests.py` como explica la auditoría.

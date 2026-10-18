@@ -1,0 +1,5154 @@
+{
+  "schema": "trusslab.campaign/1",
+  "created_utc": "2026-10-18T08:12:14.564640+00:00",
+  "model": {
+    "name": "Triángulo 2D · materiales y cargas",
+    "nodes": [
+      {
+        "id": 1,
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          true,
+          false,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 2,
+        "xyz": [
+          140.0,
+          0.0,
+          0.0
+        ],
+        "fixed": [
+          false,
+          false,
+          true
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 3,
+        "xyz": [
+          55.0,
+          0.0,
+          95.0
+        ],
+        "fixed": [
+          false,
+          false,
+          false
+        ],
+        "load": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "members": [
+      {
+        "id": 1,
+        "start": 1,
+        "end": 2,
+        "area": 1.5,
+        "material_id": null,
+        "section_id": "S1",
+        "group": "base",
+        "element_type": "truss"
+      },
+      {
+        "id": 2,
+        "start": 1,
+        "end": 3,
+        "area": 2.0,
+        "material_id": "legacy",
+        "section_id": null,
+        "group": "diagonales",
+        "element_type": "truss"
+      },
+      {
+        "id": 3,
+        "start": 2,
+        "end": 3,
+        "area": 2.0,
+        "material_id": "M1",
+        "section_id": null,
+        "group": "diagonales",
+        "element_type": "truss"
+      }
+    ],
+    "elastic_modulus": 29000.0,
+    "density": 0.283,
+    "stress_limit": 25.0,
+    "displacement_limit": 2.0,
+    "area_min": 0.1,
+    "area_max": 35.0,
+    "material_name": "Acero · E = 29,000 ksi",
+    "project_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+    "structure_type": "2D",
+    "units": "kip-in-ksi",
+    "work_plane": "XZ",
+    "work_elevation": 0.0,
+    "grid_step": 25.0,
+    "materials": [
+      {
+        "id": "M1",
+        "name": "Acero",
+        "elastic_modulus": 29000.0,
+        "density": 0.283
+      },
+      {
+        "id": "M2",
+        "name": "Material E 10,000 ksi",
+        "elastic_modulus": 10000.0,
+        "density": 0.1
+      },
+      {
+        "id": "legacy",
+        "name": "Explicit identifier collision regression",
+        "elastic_modulus": 18000.0,
+        "density": 0.18
+      }
+    ],
+    "sections": [
+      {
+        "id": "S1",
+        "name": "Área 1 in²",
+        "area": 1.0,
+        "section_type": "axial"
+      }
+    ],
+    "load_patterns": [
+      {
+        "id": "LC1",
+        "name": "Vertical y peso propio",
+        "load_type": "Dead",
+        "nodal_loads": {
+          "3": [
+            0.0,
+            0.0,
+            -10.0
+          ]
+        },
+        "self_weight": 1.0
+      },
+      {
+        "id": "LC2",
+        "name": "Horizontal",
+        "load_type": "Wind",
+        "nodal_loads": {
+          "3": [
+            4.0,
+            0.0,
+            -2.0
+          ]
+        },
+        "self_weight": 0.0
+      }
+    ],
+    "analysis_cases": [
+      {
+        "id": "C1",
+        "name": "Vertical",
+        "factors": {
+          "LC1": 1.0
+        }
+      },
+      {
+        "id": "C2",
+        "name": "Horizontal",
+        "factors": {
+          "LC2": 1.0
+        }
+      },
+      {
+        "id": "ULS",
+        "name": "Combinación 1.2D + 1.6W",
+        "factors": {
+          "LC1": 1.2,
+          "LC2": 1.6
+        }
+      }
+    ],
+    "active_case": "C1",
+    "optimization_config": {
+      "load_cases": [
+        "C1",
+        "C2",
+        "ULS"
+      ]
+    },
+    "load_storage": "patterns"
+  },
+  "model_fingerprint": "ff719f85509b3213a1a0e3abe76639de168306e3a16b33920221eadd7e2969d2",
+  "configuration": {
+    "algorithms": [
+      "ASAM",
+      "DE",
+      "SLSQP",
+      "ASAM+SLSQP",
+      "DE+SLSQP"
+    ],
+    "seeds": [
+      42,
+      17
+    ],
+    "budget": 240,
+    "engine": "FEM",
+    "parameters": {
+      "asam": {
+        "temperature_initial": 0.05,
+        "temperature_final": 1e-06,
+        "cooling": 0.96,
+        "initial_points": 20,
+        "radius_initial": 17.45,
+        "radius_reduction": 0.96,
+        "proposals_per_temperature": 10,
+        "convergence_tolerance": 0.0,
+        "convergence_patience": 30
+      },
+      "iterations": 10000,
+      "slsqp_starts": 5,
+      "slsqp_ftol": 1e-10,
+      "de_mutation": [
+        0.5,
+        1.0
+      ],
+      "de_recombination": 0.7,
+      "de_tolerance": 1e-06,
+      "asam_constraint_policy": "feasible_first",
+      "penalty_coefficient": 100.0,
+      "global_fraction": 0.7
+    },
+    "sap_validation": "none",
+    "active_ids": null,
+    "groups": null
+  },
+  "software": {
+    "trusslab": "0.1.0",
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "source_sha256": "350427bd864f44e67dd8d72d2796862a5e3b70e12b8055c0a447d6fd21789830"
+  },
+  "runs": [
+    {
+      "id": "000_ASAM_seed42",
+      "algorithm": "ASAM",
+      "seed": 42,
+      "trace": "runs/000_ASAM_seed42/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "max_evaluations",
+        "converged": false,
+        "iterations": 22,
+        "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+        "initial_policy": "shared_uniform_population",
+        "starts": [],
+        "hybrid": false
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.4471624271289194,
+        0.8595217649273564
+      ],
+      "areas_in2": [
+        0.4471624271289194,
+        0.8595217649273564,
+        0.8595217649273564
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:15.116535+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "d34dee652f23e9cf86db92a1d420ca0423bd92717dc3d5146ece9281867133e4",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 65.70763928543707,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.523472113678124,
+            "stress": 7.879624717803689,
+            "ratio": 0.31518498871214756,
+            "length": 140.0,
+            "area": 0.4471624271289194
+          },
+          {
+            "id": 2,
+            "force": -7.0323693529585345,
+            "stress": -8.181723418665127,
+            "ratio": 0.32726893674660507,
+            "length": 109.77249200050075,
+            "area": 0.8595217649273564
+          },
+          {
+            "id": 3,
+            "force": -5.284192077424932,
+            "stress": -6.147828121457207,
+            "ratio": 0.24591312485828826,
+            "length": 127.47548783981962,
+            "area": 0.8595217649273564
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.03803956760319022,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.00857898318865975,
+            0.0,
+            -0.06262161435771224
+          ]
+        },
+        "reactions": {
+          "1": [
+            8.117127520760668e-16,
+            0.0,
+            6.103347241089467
+          ],
+          "2": [
+            -2.6632173416131034e-16,
+            0.0,
+            3.962360398195971
+          ],
+          "3": [
+            3.427874017853688e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 0.8264283662222502,
+        "displacement_ratio": 0.05030714519811144,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 3.427874017853688e-16,
+        "condition_number": 6.308969910158051,
+        "equilibrium": {
+          "net_force_kip": [
+            8.881784197001252e-16,
+            0.0,
+            0.0
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            1.1368683772161603e-13,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:15.116535+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "d34dee652f23e9cf86db92a1d420ca0423bd92717dc3d5146ece9281867133e4",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 65.70763928543707,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.523472113678124,
+                "stress": 7.879624717803689,
+                "ratio": 0.31518498871214756,
+                "length": 140.0,
+                "area": 0.4471624271289194
+              },
+              {
+                "id": 2,
+                "force": -7.0323693529585345,
+                "stress": -8.181723418665127,
+                "ratio": 0.32726893674660507,
+                "length": 109.77249200050075,
+                "area": 0.8595217649273564
+              },
+              {
+                "id": 3,
+                "force": -5.284192077424932,
+                "stress": -6.147828121457207,
+                "ratio": 0.24591312485828826,
+                "length": 127.47548783981962,
+                "area": 0.8595217649273564
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.03803956760319022,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.00857898318865975,
+                0.0,
+                -0.06262161435771224
+              ]
+            },
+            "reactions": {
+              "1": [
+                8.117127520760668e-16,
+                0.0,
+                6.103347241089467
+              ],
+              "2": [
+                -2.6632173416131034e-16,
+                0.0,
+                3.962360398195971
+              ],
+              "3": [
+                3.427874017853688e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.32726893674660507,
+            "displacement_ratio": 0.03131080717885612,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 3.427874017853688e-16,
+            "condition_number": 6.308969910158051,
+            "equilibrium": {
+              "net_force_kip": [
+                8.881784197001252e-16,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                1.1368683772161603e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:15.117535+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "d34dee652f23e9cf86db92a1d420ca0423bd92717dc3d5146ece9281867133e4",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 65.70763928543707,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684204,
+                "stress": 7.003224683869893,
+                "ratio": 0.2801289873547957,
+                "length": 140.0,
+                "area": 0.4471624271289194
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921162,
+                "stress": 2.0165281955816488,
+                "ratio": 0.08066112782326595,
+                "length": 109.77249200050075,
+                "area": 0.8595217649273564
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467037,
+                "stress": -5.464044696836694,
+                "ratio": 0.21856178787346775,
+                "length": 127.47548783981962,
+                "area": 0.8595217649273564
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.03380867088764776,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.052038855761571856,
+                0.0,
+                -0.015917720729355128
+              ]
+            },
+            "reactions": {
+              "1": [
+                -3.999999999999999,
+                0.0,
+                -1.4999999999999996
+              ],
+              "2": [
+                -2.400854196794964e-16,
+                0.0,
+                3.4999999999999996
+              ],
+              "3": [
+                -8.881784197001252e-16,
+                0.0,
+                2.220446049250313e-16
+              ]
+            },
+            "stress_ratio": 0.2801289873547957,
+            "displacement_ratio": 0.026019427880785928,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 8.881784197001252e-16,
+            "condition_number": 6.308969910158051,
+            "equilibrium": {
+              "net_force_kip": [
+                -4.440892098500626e-16,
+                0.0,
+                2.220446049250313e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:15.118535+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "d34dee652f23e9cf86db92a1d420ca0423bd92717dc3d5146ece9281867133e4",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 65.70763928543707,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.238692852203222,
+                "stress": 20.660709155556255,
+                "ratio": 0.8264283662222502,
+                "length": 140.0,
+                "area": 0.4471624271289194
+              },
+              {
+                "id": 2,
+                "force": -5.665643425642853,
+                "stress": -6.591622989467512,
+                "ratio": 0.2636649195787005,
+                "length": 109.77249200050075,
+                "area": 0.8595217649273564
+              },
+              {
+                "id": 3,
+                "force": -13.855375039257183,
+                "stress": -16.119865260687362,
+                "ratio": 0.6447946104274945,
+                "length": 127.47548783981962,
+                "area": 0.8595217649273564
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.09974135454406469,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.09355694904490668,
+                0.0,
+                -0.10061429039622288
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.399999999999999,
+                0.0,
+                4.924016689307359
+              ],
+              "2": [
+                3.7504408968302457e-16,
+                0.0,
+                10.354832477835165
+              ],
+              "3": [
+                -2.6645352591003757e-15,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.8264283662222502,
+            "displacement_ratio": 0.05030714519811144,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 2.6645352591003757e-15,
+            "condition_number": 6.308969910158051,
+            "equilibrium": {
+              "net_force_kip": [
+                -8.881784197001252e-16,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -8.526512829121202e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "ASAM",
+          "seed": 42,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "max_evaluations",
+          "converged": false,
+          "iterations": 22,
+          "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+          "initial_policy": "shared_uniform_population",
+          "starts": [],
+          "hybrid": false,
+          "evaluations": 239,
+          "budget": 240,
+          "requests": 260,
+          "cache_hits": 20,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 239,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 115,
+          "feasible_candidates": 222,
+          "elapsed_seconds": 1.103520299999218
+        }
+      },
+      "max_abs_stress_ksi": 20.660709155556255,
+      "max_displacement_components_in": [
+        0.09974135454406469,
+        0.0,
+        0.10061429039622288
+      ],
+      "active_constraints": [],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/000_ASAM_seed42/best.trusslab.json",
+      "metrics": {
+        "evaluations": 239,
+        "budget": 240,
+        "requests": 260,
+        "cache_hits": 20,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 239,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 115,
+        "feasible_candidates": 222,
+        "elapsed_seconds": 1.108520400000998
+      }
+    },
+    {
+      "id": "001_DE_seed42",
+      "algorithm": "DE",
+      "seed": 42,
+      "trace": "runs/001_DE_seed42/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "max_evaluations",
+        "converged": false,
+        "iterations": 10,
+        "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+        "initial_policy": "shared_uniform_population",
+        "starts": [],
+        "hybrid": false
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.38195230356409837,
+        0.792357200520236
+      ],
+      "areas_in2": [
+        0.38195230356409837,
+        0.792357200520236,
+        0.792357200520236
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:16.342810+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "4a4c03690454b2e0b7a70e3a172f8c3326d95b7ae583b7c751b16c2d8a31d1f3",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 59.37390682158416,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.522813025259086,
+            "stress": 9.223175229961392,
+            "ratio": 0.36892700919845567,
+            "length": 140.0,
+            "area": 0.38195230356409837
+          },
+          {
+            "id": 2,
+            "force": -7.031053902445688,
+            "stress": -8.87359122606487,
+            "ratio": 0.3549436490425948,
+            "length": 109.77249200050075,
+            "area": 0.792357200520236
+          },
+          {
+            "id": 3,
+            "force": -5.283203634863206,
+            "stress": -6.667704453741856,
+            "ratio": 0.26670817814967424,
+            "length": 127.47548783981962,
+            "area": 0.792357200520236
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.044525673523951544,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.011289425739311092,
+            0.0,
+            -0.06906626067602319
+          ]
+        },
+        "reactions": {
+          "1": [
+            1.213256932117274e-16,
+            0.0,
+            6.100253449145761
+          ],
+          "2": [
+            3.0584174793143664e-16,
+            0.0,
+            3.9591204576758185
+          ],
+          "3": [
+            -8.712566509932267e-16,
+            0.0,
+            1.7763568394002505e-15
+          ]
+        },
+        "stress_ratio": 0.9674403698994939,
+        "displacement_ratio": 0.05838002232152119,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 1.7763568394002505e-15,
+        "condition_number": 6.648427144253952,
+        "equilibrium": {
+          "net_force_kip": [
+            -4.440892098500626e-16,
+            0.0,
+            -1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            1.1368683772161603e-13,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:16.342810+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "4a4c03690454b2e0b7a70e3a172f8c3326d95b7ae583b7c751b16c2d8a31d1f3",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 59.37390682158416,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.522813025259086,
+                "stress": 9.223175229961392,
+                "ratio": 0.36892700919845567,
+                "length": 140.0,
+                "area": 0.38195230356409837
+              },
+              {
+                "id": 2,
+                "force": -7.031053902445688,
+                "stress": -8.87359122606487,
+                "ratio": 0.3549436490425948,
+                "length": 109.77249200050075,
+                "area": 0.792357200520236
+              },
+              {
+                "id": 3,
+                "force": -5.283203634863206,
+                "stress": -6.667704453741856,
+                "ratio": 0.26670817814967424,
+                "length": 127.47548783981962,
+                "area": 0.792357200520236
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.044525673523951544,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.011289425739311092,
+                0.0,
+                -0.06906626067602319
+              ]
+            },
+            "reactions": {
+              "1": [
+                1.213256932117274e-16,
+                0.0,
+                6.100253449145761
+              ],
+              "2": [
+                3.0584174793143664e-16,
+                0.0,
+                3.9591204576758185
+              ],
+              "3": [
+                -8.712566509932267e-16,
+                0.0,
+                1.7763568394002505e-15
+              ]
+            },
+            "stress_ratio": 0.36892700919845567,
+            "displacement_ratio": 0.03453313033801159,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.7763568394002505e-15,
+            "condition_number": 6.648427144253952,
+            "equilibrium": {
+              "net_force_kip": [
+                -4.440892098500626e-16,
+                0.0,
+                -1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                1.1368683772161603e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:16.343819+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "4a4c03690454b2e0b7a70e3a172f8c3326d95b7ae583b7c751b16c2d8a31d1f3",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 59.37390682158416,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.131578947368421,
+                "stress": 8.198874357208547,
+                "ratio": 0.32795497428834186,
+                "length": 140.0,
+                "area": 0.38195230356409837
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921178,
+                "stress": 2.1874602421157054,
+                "ratio": 0.08749840968462821,
+                "length": 109.77249200050075,
+                "area": 0.792357200520236
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467038,
+                "stress": -5.927207247417567,
+                "ratio": 0.2370882898967027,
+                "length": 127.47548783981962,
+                "area": 0.792357200520236
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.039580772758937816,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.058214490815422036,
+                0.0,
+                -0.01828856724548162
+              ]
+            },
+            "reactions": {
+              "1": [
+                -3.9999999999999996,
+                0.0,
+                -1.5000000000000004
+              ],
+              "2": [
+                2.4263925976032736e-16,
+                0.0,
+                3.4999999999999996
+              ],
+              "3": [
+                0.0,
+                0.0,
+                1.1102230246251565e-15
+              ]
+            },
+            "stress_ratio": 0.32795497428834186,
+            "displacement_ratio": 0.029107245407711018,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.1102230246251565e-15,
+            "condition_number": 6.648427144253952,
+            "equilibrium": {
+              "net_force_kip": [
+                8.881784197001252e-16,
+                0.0,
+                2.220446049250313e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:16.344812+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "4a4c03690454b2e0b7a70e3a172f8c3326d95b7ae583b7c751b16c2d8a31d1f3",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 59.37390682158416,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.237901946100378,
+                "stress": 24.18600924748735,
+                "ratio": 0.9674403698994939,
+                "length": 140.0,
+                "area": 0.38195230356409837
+              },
+              {
+                "id": 2,
+                "force": -5.6640648850274395,
+                "stress": -7.148373083892718,
+                "ratio": 0.2859349233557087,
+                "length": 109.77249200050075,
+                "area": 0.792357200520236
+              },
+              {
+                "id": 3,
+                "force": -13.854188908183108,
+                "stress": -17.484776940358337,
+                "ratio": 0.6993910776143335,
+                "length": 127.47548783981962,
+                "area": 0.792357200520236
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.11676004464304238,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.10669049619184857,
+                0.0,
+                -0.11214122040399845
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.3999999999999995,
+                0.0,
+                4.920304138974916
+              ],
+              "2": [
+                2.6389679859990146e-15,
+                0.0,
+                10.350944549210983
+              ],
+              "3": [
+                -1.7763568394002505e-15,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.9674403698994939,
+            "displacement_ratio": 0.05838002232152119,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 2.6389679859990146e-15,
+            "condition_number": 6.648427144253952,
+            "equilibrium": {
+              "net_force_kip": [
+                1.7763568394002505e-15,
+                0.0,
+                -3.552713678800501e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                1.1368683772161603e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "DE",
+          "seed": 42,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "max_evaluations",
+          "converged": false,
+          "iterations": 10,
+          "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+          "initial_policy": "shared_uniform_population",
+          "starts": [],
+          "hybrid": false,
+          "evaluations": 239,
+          "budget": 240,
+          "requests": 457,
+          "cache_hits": 217,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 239,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 189,
+          "feasible_candidates": 214,
+          "elapsed_seconds": 0.8390523000016401
+        }
+      },
+      "max_abs_stress_ksi": 24.18600924748735,
+      "max_displacement_components_in": [
+        0.11676004464304238,
+        0.0,
+        0.11214122040399845
+      ],
+      "active_constraints": [],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/001_DE_seed42/best.trusslab.json",
+      "metrics": {
+        "evaluations": 239,
+        "budget": 240,
+        "requests": 457,
+        "cache_hits": 217,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 239,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 189,
+        "feasible_candidates": 214,
+        "elapsed_seconds": 0.8429019000031985
+      }
+    },
+    {
+      "id": "002_SLSQP_seed42",
+      "algorithm": "SLSQP",
+      "seed": 42,
+      "trace": "runs/002_SLSQP_seed42/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "multistart_completed",
+        "converged": true,
+        "iterations": 68,
+        "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+        "initial_policy": "shared_uniform_population",
+        "starts": [
+          {
+            "variables_in2": [
+              16.388563030073495,
+              1.6287514259742844
+            ],
+            "start_evaluation": 20,
+            "phase": "slsqp_multistart",
+            "limit": 63,
+            "message": "Optimization terminated successfully",
+            "iterations": 13,
+            "converged": true,
+            "evaluations": 35
+          },
+          {
+            "variables_in2": [
+              3.3867894412789687,
+              34.14922007212278
+            ],
+            "start_evaluation": 55,
+            "phase": "slsqp_multistart",
+            "limit": 101,
+            "message": "stage_budget",
+            "evaluations": 46
+          },
+          {
+            "variables_in2": [
+              33.977361051382125,
+              31.269927134144698
+            ],
+            "start_evaluation": 101,
+            "phase": "slsqp_multistart",
+            "limit": 147,
+            "message": "stage_budget",
+            "evaluations": 46
+          },
+          {
+            "variables_in2": [
+              4.571165780376551,
+              15.818469232555293
+            ],
+            "start_evaluation": 147,
+            "phase": "slsqp_multistart",
+            "limit": 193,
+            "message": "Optimization terminated successfully",
+            "iterations": 13,
+            "converged": true,
+            "evaluations": 38
+          },
+          {
+            "variables_in2": [
+              27.11106609460312,
+              15.416857547346625
+            ],
+            "start_evaluation": 185,
+            "phase": "slsqp_multistart",
+            "limit": 239,
+            "message": "Optimization terminated successfully",
+            "iterations": 17,
+            "converged": true,
+            "evaluations": 52
+          }
+        ],
+        "hybrid": false
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.36940380444270865,
+        0.5539991795239249
+      ],
+      "areas_in2": [
+        0.36940380444270865,
+        0.5539991795239249,
+        0.5539991795239249
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:16.989874+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "16b9b905ed2d769fcd50ba2708804d868fb1f76d55174c8a94668a548c510810",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 45.568107757849646,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.520474008954727,
+            "stress": 9.530150925938074,
+            "ratio": 0.3812060370375229,
+            "length": 140.0,
+            "area": 0.36940380444270865
+          },
+          {
+            "id": 2,
+            "force": -7.026385545199155,
+            "stress": -12.683025182884256,
+            "ratio": 0.5073210073153702,
+            "length": 109.77249200050075,
+            "area": 0.5539991795239249
+          },
+          {
+            "id": 3,
+            "force": -5.279695784928345,
+            "stress": -9.530150910088734,
+            "ratio": 0.3812060364035494,
+            "length": 127.47548783981962,
+            "area": 0.5539991795239249
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.04600762515970105,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.005430272569485308,
+            0.0,
+            -0.09251837619739518
+          ]
+        },
+        "reactions": {
+          "1": [
+            -1.4916709736078897e-16,
+            0.0,
+            6.0936098804512255
+          ],
+          "2": [
+            2.219101663488043e-16,
+            0.0,
+            3.9519582273066227
+          ],
+          "3": [
+            -7.274306898801532e-17,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 1.0000000016748531,
+        "displacement_ratio": 0.07202611063023658,
+        "strict_feasible": false,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 2.219101663488043e-16,
+        "condition_number": 5.426683222271405,
+        "equilibrium": {
+          "net_force_kip": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            1.5631940186722204e-13,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:16.989874+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "16b9b905ed2d769fcd50ba2708804d868fb1f76d55174c8a94668a548c510810",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 45.568107757849646,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.520474008954727,
+                "stress": 9.530150925938074,
+                "ratio": 0.3812060370375229,
+                "length": 140.0,
+                "area": 0.36940380444270865
+              },
+              {
+                "id": 2,
+                "force": -7.026385545199155,
+                "stress": -12.683025182884256,
+                "ratio": 0.5073210073153702,
+                "length": 109.77249200050075,
+                "area": 0.5539991795239249
+              },
+              {
+                "id": 3,
+                "force": -5.279695784928345,
+                "stress": -9.530150910088734,
+                "ratio": 0.3812060364035494,
+                "length": 127.47548783981962,
+                "area": 0.5539991795239249
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04600762515970105,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.005430272569485308,
+                0.0,
+                -0.09251837619739518
+              ]
+            },
+            "reactions": {
+              "1": [
+                -1.4916709736078897e-16,
+                0.0,
+                6.0936098804512255
+              ],
+              "2": [
+                2.219101663488043e-16,
+                0.0,
+                3.9519582273066227
+              ],
+              "3": [
+                -7.274306898801532e-17,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.5073210073153702,
+            "displacement_ratio": 0.04625918809869759,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 2.219101663488043e-16,
+            "condition_number": 5.426683222271405,
+            "equilibrium": {
+              "net_force_kip": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                1.5631940186722204e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:16.990875+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "16b9b905ed2d769fcd50ba2708804d868fb1f76d55174c8a94668a548c510810",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 45.568107757849646,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.131578947368421,
+                "stress": 8.477386831716027,
+                "ratio": 0.3390954732686411,
+                "length": 140.0,
+                "area": 0.36940380444270865
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921162,
+                "stress": 3.128614513800493,
+                "ratio": 0.1251445805520197,
+                "length": 109.77249200050075,
+                "area": 0.5539991795239249
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467038,
+                "stress": -8.47738681761751,
+                "ratio": 0.3390954727047004,
+                "length": 127.47548783981962,
+                "area": 0.5539991795239249
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04092531573931875,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.0737381806972397,
+                0.0,
+                -0.020643856139749332
+              ]
+            },
+            "reactions": {
+              "1": [
+                -3.999999999999999,
+                0.0,
+                -1.4999999999999991
+              ],
+              "2": [
+                2.0025544918936166e-16,
+                0.0,
+                3.499999999999999
+              ],
+              "3": [
+                -4.440892098500626e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.3390954732686411,
+            "displacement_ratio": 0.03686909034861985,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 4.440892098500626e-16,
+            "condition_number": 5.426683222271405,
+            "equilibrium": {
+              "net_force_kip": [
+                4.440892098500626e-16,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                2.842170943040401e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:16.990875+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "16b9b905ed2d769fcd50ba2708804d868fb1f76d55174c8a94668a548c510810",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 45.568107757849646,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.235095126535146,
+                "stress": 25.00000004187133,
+                "ratio": 1.0000000016748531,
+                "length": 140.0,
+                "area": 0.36940380444270865
+              },
+              {
+                "id": 2,
+                "force": -5.658462856331601,
+                "stress": -10.21384699738032,
+                "ratio": 0.40855387989521286,
+                "length": 109.77249200050075,
+                "area": 0.5539991795239249
+              },
+              {
+                "id": 3,
+                "force": -13.849979488261278,
+                "stress": -25.000000000294506,
+                "ratio": 1.0000000000117801,
+                "length": 127.47548783981962,
+                "area": 0.5539991795239249
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.12068965537455126,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.1244974161989659,
+                0.0,
+                -0.14405222126047315
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.3999999999999995,
+                0.0,
+                4.9123318565414715
+              ],
+              "2": [
+                -8.343845531986566e-16,
+                0.0,
+                10.342349872767947
+              ],
+              "3": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 1.0000000016748531,
+            "displacement_ratio": 0.07202611063023658,
+            "strict_feasible": false,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 8.343845531986566e-16,
+            "condition_number": 5.426683222271405,
+            "equilibrium": {
+              "net_force_kip": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                2.2737367544323206e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "SLSQP",
+          "seed": 42,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "multistart_completed",
+          "converged": true,
+          "iterations": 68,
+          "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+          "initial_policy": "shared_uniform_population",
+          "starts": [
+            {
+              "variables_in2": [
+                16.388563030073495,
+                1.6287514259742844
+              ],
+              "start_evaluation": 20,
+              "phase": "slsqp_multistart",
+              "limit": 63,
+              "message": "Optimization terminated successfully",
+              "iterations": 13,
+              "converged": true,
+              "evaluations": 35
+            },
+            {
+              "variables_in2": [
+                3.3867894412789687,
+                34.14922007212278
+              ],
+              "start_evaluation": 55,
+              "phase": "slsqp_multistart",
+              "limit": 101,
+              "message": "stage_budget",
+              "evaluations": 46
+            },
+            {
+              "variables_in2": [
+                33.977361051382125,
+                31.269927134144698
+              ],
+              "start_evaluation": 101,
+              "phase": "slsqp_multistart",
+              "limit": 147,
+              "message": "stage_budget",
+              "evaluations": 46
+            },
+            {
+              "variables_in2": [
+                4.571165780376551,
+                15.818469232555293
+              ],
+              "start_evaluation": 147,
+              "phase": "slsqp_multistart",
+              "limit": 193,
+              "message": "Optimization terminated successfully",
+              "iterations": 13,
+              "converged": true,
+              "evaluations": 38
+            },
+            {
+              "variables_in2": [
+                27.11106609460312,
+                15.416857547346625
+              ],
+              "start_evaluation": 185,
+              "phase": "slsqp_multistart",
+              "limit": 239,
+              "message": "Optimization terminated successfully",
+              "iterations": 17,
+              "converged": true,
+              "evaluations": 52
+            }
+          ],
+          "hybrid": false,
+          "evaluations": 238,
+          "budget": 240,
+          "requests": 548,
+          "cache_hits": 308,
+          "budget_rejections": 2,
+          "failed_analyses": 0,
+          "fem_evaluations": 238,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 137,
+          "feasible_candidates": 109,
+          "elapsed_seconds": 0.7833443999988958
+        }
+      },
+      "max_abs_stress_ksi": 25.00000004187133,
+      "max_displacement_components_in": [
+        0.1244974161989659,
+        0.0,
+        0.14405222126047315
+      ],
+      "active_constraints": [
+        "Esfuerzo B1 · ULS",
+        "Esfuerzo B3 · ULS"
+      ],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/002_SLSQP_seed42/best.trusslab.json",
+      "metrics": {
+        "evaluations": 238,
+        "budget": 240,
+        "requests": 548,
+        "cache_hits": 308,
+        "budget_rejections": 2,
+        "failed_analyses": 0,
+        "fem_evaluations": 238,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 137,
+        "feasible_candidates": 109,
+        "elapsed_seconds": 0.787668400000257
+      }
+    },
+    {
+      "id": "003_ASAM_SLSQP_seed42",
+      "algorithm": "ASAM+SLSQP",
+      "seed": 42,
+      "trace": "runs/003_ASAM_SLSQP_seed42/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "hybrid_completed",
+        "converged": false,
+        "iterations": 15,
+        "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+        "initial_policy": "shared_uniform_population",
+        "starts": [
+          {
+            "variables_in2": [
+              0.4471624271289194,
+              0.8595217649273564
+            ],
+            "start_evaluation": 167,
+            "phase": "local_refinement",
+            "limit": 239,
+            "message": "Optimization terminated successfully",
+            "iterations": 6,
+            "converged": true,
+            "evaluations": 18
+          }
+        ],
+        "hybrid": true,
+        "global_weight_lb": 65.70763928543707,
+        "refinement_improved": true
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.3694035750197079,
+        0.5539990004503338
+      ],
+      "areas_in2": [
+        0.3694035750197079,
+        0.5539990004503338,
+        0.5539990004503338
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:17.967363+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "3bbcf8991a027689fb41ccf8f7f464ab6c5494ef39076799bc2125f713a8914a",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 45.56808866960595,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.520474007197472,
+            "stress": 9.530156840007985,
+            "ratio": 0.3812062736003194,
+            "length": 140.0,
+            "area": 0.3694035750197079
+          },
+          {
+            "id": 2,
+            "force": -7.026385541691914,
+            "stress": -12.683029276190602,
+            "ratio": 0.5073211710476241,
+            "length": 109.77249200050075,
+            "area": 0.5539990004503338
+          },
+          {
+            "id": 3,
+            "force": -5.279695782292968,
+            "stress": -9.530153985839718,
+            "ratio": 0.3812061594335887,
+            "length": 127.47548783981962,
+            "area": 0.5539990004503338
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.04600765371038337,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.005430282641256467,
+            0.0,
+            -0.0925184108730647
+          ]
+        },
+        "reactions": {
+          "1": [
+            -1.9124031204612678e-16,
+            0.0,
+            6.0936098711019335
+          ],
+          "2": [
+            -3.7895463833220144e-16,
+            0.0,
+            3.9519582175676713
+          ],
+          "3": [
+            5.701949503783282e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 1.0000006225098113,
+        "displacement_ratio": 0.0720261402014112,
+        "strict_feasible": false,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 5.701949503783282e-16,
+        "condition_number": 5.426684087577924,
+        "equilibrium": {
+          "net_force_kip": [
+            0.0,
+            0.0,
+            -1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            5.684341886080802e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:17.967363+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "3bbcf8991a027689fb41ccf8f7f464ab6c5494ef39076799bc2125f713a8914a",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 45.56808866960595,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.520474007197472,
+                "stress": 9.530156840007985,
+                "ratio": 0.3812062736003194,
+                "length": 140.0,
+                "area": 0.3694035750197079
+              },
+              {
+                "id": 2,
+                "force": -7.026385541691914,
+                "stress": -12.683029276190602,
+                "ratio": 0.5073211710476241,
+                "length": 109.77249200050075,
+                "area": 0.5539990004503338
+              },
+              {
+                "id": 3,
+                "force": -5.279695782292968,
+                "stress": -9.530153985839718,
+                "ratio": 0.3812061594335887,
+                "length": 127.47548783981962,
+                "area": 0.5539990004503338
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04600765371038337,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.005430282641256467,
+                0.0,
+                -0.0925184108730647
+              ]
+            },
+            "reactions": {
+              "1": [
+                -1.9124031204612678e-16,
+                0.0,
+                6.0936098711019335
+              ],
+              "2": [
+                -3.7895463833220144e-16,
+                0.0,
+                3.9519582175676713
+              ],
+              "3": [
+                5.701949503783282e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.5073211710476241,
+            "displacement_ratio": 0.04625920543653235,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 5.701949503783282e-16,
+            "condition_number": 5.426684087577924,
+            "equilibrium": {
+              "net_force_kip": [
+                0.0,
+                0.0,
+                -1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                5.684341886080802e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:17.968361+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "3bbcf8991a027689fb41ccf8f7f464ab6c5494ef39076799bc2125f713a8914a",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 45.56808866960595,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684217,
+                "stress": 8.477392096709812,
+                "ratio": 0.33909568386839245,
+                "length": 140.0,
+                "area": 0.3694035750197079
+              },
+              {
+                "id": 2,
+                "force": 1.733249873692117,
+                "stress": 3.1286155250879437,
+                "ratio": 0.12514462100351775,
+                "length": 109.77249200050075,
+                "area": 0.5539990004503338
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467038,
+                "stress": -8.477389557832023,
+                "ratio": 0.3390955823132809,
+                "length": 127.47548783981962,
+                "area": 0.5539990004503338
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.040925341156530126,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.07373821193244513,
+                0.0,
+                -0.020643867096965474
+              ]
+            },
+            "reactions": {
+              "1": [
+                -4.000000000000001,
+                0.0,
+                -1.5000000000000002
+              ],
+              "2": [
+                -3.494012539551268e-16,
+                0.0,
+                3.5
+              ],
+              "3": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.33909568386839245,
+            "displacement_ratio": 0.036869105966222566,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 3.494012539551268e-16,
+            "condition_number": 5.426684087577924,
+            "equilibrium": {
+              "net_force_kip": [
+                -8.881784197001252e-16,
+                0.0,
+                -2.220446049250313e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:17.968361+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "3bbcf8991a027689fb41ccf8f7f464ab6c5494ef39076799bc2125f713a8914a",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 45.56808866960595,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.235095124426442,
+                "stress": 25.000015562745283,
+                "ratio": 1.0000006225098113,
+                "length": 140.0,
+                "area": 0.3694035750197079
+              },
+              {
+                "id": 2,
+                "force": -5.658462852122909,
+                "stress": -10.213850291288011,
+                "ratio": 0.40855401165152044,
+                "length": 109.77249200050075,
+                "area": 0.5539990004503338
+              },
+              {
+                "id": 3,
+                "force": -13.849979485098824,
+                "stress": -25.0000080755389,
+                "ratio": 1.000000323021556,
+                "length": 127.47548783981962,
+                "area": 0.5539990004503338
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.12068973030290826,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.12449747826141998,
+                0.0,
+                -0.1440522804028224
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.400000000000002,
+                0.0,
+                4.91233184532232
+              ],
+              "2": [
+                1.4654966086961414e-15,
+                0.0,
+                10.342349861081205
+              ],
+              "3": [
+                0.0,
+                0.0,
+                1.7763568394002505e-15
+              ]
+            },
+            "stress_ratio": 1.0000006225098113,
+            "displacement_ratio": 0.0720261402014112,
+            "strict_feasible": false,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.7763568394002505e-15,
+            "condition_number": 5.426684087577924,
+            "equilibrium": {
+              "net_force_kip": [
+                0.0,
+                0.0,
+                -1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                1.9895196601282805e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "ASAM+SLSQP",
+          "seed": 42,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "hybrid_completed",
+          "converged": false,
+          "iterations": 15,
+          "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+          "initial_policy": "shared_uniform_population",
+          "starts": [
+            {
+              "variables_in2": [
+                0.4471624271289194,
+                0.8595217649273564
+              ],
+              "start_evaluation": 167,
+              "phase": "local_refinement",
+              "limit": 239,
+              "message": "Optimization terminated successfully",
+              "iterations": 6,
+              "converged": true,
+              "evaluations": 18
+            }
+          ],
+          "hybrid": true,
+          "global_weight_lb": 65.70763928543707,
+          "refinement_improved": true,
+          "evaluations": 186,
+          "budget": 240,
+          "requests": 234,
+          "cache_hits": 47,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 186,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 180,
+          "feasible_candidates": 167,
+          "elapsed_seconds": 0.642748099999153
+        }
+      },
+      "max_abs_stress_ksi": 25.000015562745283,
+      "max_displacement_components_in": [
+        0.12449747826141998,
+        0.0,
+        0.1440522804028224
+      ],
+      "active_constraints": [
+        "Esfuerzo B1 · ULS",
+        "Esfuerzo B3 · ULS"
+      ],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/003_ASAM_SLSQP_seed42/best.trusslab.json",
+      "metrics": {
+        "evaluations": 186,
+        "budget": 240,
+        "requests": 234,
+        "cache_hits": 47,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 186,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 180,
+        "feasible_candidates": 167,
+        "elapsed_seconds": 0.6461748000001535
+      }
+    },
+    {
+      "id": "004_DE_SLSQP_seed42",
+      "algorithm": "DE+SLSQP",
+      "seed": 42,
+      "trace": "runs/004_DE_SLSQP_seed42/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "hybrid_completed",
+        "converged": false,
+        "iterations": 14,
+        "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+        "initial_policy": "shared_uniform_population",
+        "starts": [
+          {
+            "variables_in2": [
+              0.7474933338016854,
+              0.8130471354237301
+            ],
+            "start_evaluation": 167,
+            "phase": "local_refinement",
+            "limit": 239,
+            "message": "Optimization terminated successfully",
+            "iterations": 8,
+            "converged": true,
+            "evaluations": 24
+          }
+        ],
+        "hybrid": true,
+        "global_weight_lb": 75.01185691935135,
+        "refinement_improved": true
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.36940378784699057,
+        0.5539991795297975
+      ],
+      "areas_in2": [
+        0.36940378784699057,
+        0.5539991795297975,
+        0.5539991795297975
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:18.612239+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "0e57a47cb46bc9ac0327cf41ed4d8e8ad183ff4bdb0fe7a1430ba53521fe7313",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 45.5681071006552,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.5204740089547855,
+            "stress": 9.530151354086787,
+            "ratio": 0.3812060541634715,
+            "length": 140.0,
+            "area": 0.36940378784699057
+          },
+          {
+            "id": 2,
+            "force": -7.026385545199272,
+            "stress": -12.683025182750022,
+            "ratio": 0.5073210073100008,
+            "length": 109.77249200050075,
+            "area": 0.5539991795297975
+          },
+          {
+            "id": 3,
+            "force": -5.279695784928433,
+            "stress": -9.530150909987869,
+            "ratio": 0.3812060363995148,
+            "length": 127.47548783981962,
+            "area": 0.5539991795297975
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.046007627226625866,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.005430273824642121,
+            0.0,
+            -0.09251837692311898
+          ]
+        },
+        "reactions": {
+          "1": [
+            7.954354838572748e-16,
+            0.0,
+            6.093609880122623
+          ],
+          "2": [
+            1.975069774972505e-16,
+            0.0,
+            3.951958226978033
+          ],
+          "3": [
+            -1.0476404165440009e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 1.0000000466005456,
+        "displacement_ratio": 0.07202611158263703,
+        "strict_feasible": false,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 1.975069774972505e-16,
+        "condition_number": 5.426683352830105,
+        "equilibrium": {
+          "net_force_kip": [
+            8.881784197001252e-16,
+            0.0,
+            0.0
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            4.263256414560601e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:18.612239+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "0e57a47cb46bc9ac0327cf41ed4d8e8ad183ff4bdb0fe7a1430ba53521fe7313",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 45.5681071006552,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.5204740089547855,
+                "stress": 9.530151354086787,
+                "ratio": 0.3812060541634715,
+                "length": 140.0,
+                "area": 0.36940378784699057
+              },
+              {
+                "id": 2,
+                "force": -7.026385545199272,
+                "stress": -12.683025182750022,
+                "ratio": 0.5073210073100008,
+                "length": 109.77249200050075,
+                "area": 0.5539991795297975
+              },
+              {
+                "id": 3,
+                "force": -5.279695784928433,
+                "stress": -9.530150909987869,
+                "ratio": 0.3812060363995148,
+                "length": 127.47548783981962,
+                "area": 0.5539991795297975
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.046007627226625866,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.005430273824642121,
+                0.0,
+                -0.09251837692311898
+              ]
+            },
+            "reactions": {
+              "1": [
+                7.954354838572748e-16,
+                0.0,
+                6.093609880122623
+              ],
+              "2": [
+                1.975069774972505e-16,
+                0.0,
+                3.951958226978033
+              ],
+              "3": [
+                -1.0476404165440009e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.5073210073100008,
+            "displacement_ratio": 0.04625918846155949,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.975069774972505e-16,
+            "condition_number": 5.426683352830105,
+            "equilibrium": {
+              "net_force_kip": [
+                8.881784197001252e-16,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                4.263256414560601e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:18.613238+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "0e57a47cb46bc9ac0327cf41ed4d8e8ad183ff4bdb0fe7a1430ba53521fe7313",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 45.5681071006552,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684212,
+                "stress": 8.477387212568436,
+                "ratio": 0.33909548850273746,
+                "length": 140.0,
+                "area": 0.36940378784699057
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921167,
+                "stress": 3.1286145137673294,
+                "ratio": 0.12514458055069316,
+                "length": 109.77249200050075,
+                "area": 0.5539991795297975
+              },
+              {
+                "id": 3,
+                "force": -4.6964653414670385,
+                "stress": -8.477386817527648,
+                "ratio": 0.33909547270110596,
+                "length": 127.47548783981962,
+                "area": 0.5539991795297975
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.040925317577916585,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.07373818181301299,
+                0.0,
+                -0.02064385678595704
+              ]
+            },
+            "reactions": {
+              "1": [
+                -3.9999999999999996,
+                0.0,
+                -1.5
+              ],
+              "2": [
+                4.880547935045141e-17,
+                0.0,
+                3.4999999999999996
+              ],
+              "3": [
+                0.0,
+                0.0,
+                2.220446049250313e-16
+              ]
+            },
+            "stress_ratio": 0.33909548850273746,
+            "displacement_ratio": 0.036869090906506495,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 2.220446049250313e-16,
+            "condition_number": 5.426683352830105,
+            "equilibrium": {
+              "net_force_kip": [
+                4.440892098500626e-16,
+                0.0,
+                -2.220446049250313e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                2.842170943040401e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:18.613238+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "0e57a47cb46bc9ac0327cf41ed4d8e8ad183ff4bdb0fe7a1430ba53521fe7313",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 45.5681071006552,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.235095126535217,
+                "stress": 25.000001165013643,
+                "ratio": 1.0000000466005456,
+                "length": 140.0,
+                "area": 0.36940378784699057
+              },
+              {
+                "id": 2,
+                "force": -5.65846285633174,
+                "stress": -10.2138469972723,
+                "ratio": 0.40855387989089204,
+                "length": 109.77249200050075,
+                "area": 0.5539991795297975
+              },
+              {
+                "id": 3,
+                "force": -13.84997948826138,
+                "stress": -25.00000000002968,
+                "ratio": 1.0000000000011873,
+                "length": 127.47548783981962,
+                "area": 0.5539991795297975
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.12068966079661758,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.12449741949039134,
+                0.0,
+                -0.14405222316527405
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.399999999999999,
+                0.0,
+                4.912331856147149
+              ],
+              "2": [
+                3.2271242171544157e-16,
+                0.0,
+                10.34234987237364
+              ],
+              "3": [
+                0.0,
+                0.0,
+                1.7763568394002505e-15
+              ]
+            },
+            "stress_ratio": 1.0000000466005456,
+            "displacement_ratio": 0.07202611158263703,
+            "strict_feasible": false,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.7763568394002505e-15,
+            "condition_number": 5.426683352830105,
+            "equilibrium": {
+              "net_force_kip": [
+                1.7763568394002505e-15,
+                0.0,
+                1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -2.842170943040401e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "DE+SLSQP",
+          "seed": 42,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "hybrid_completed",
+          "converged": false,
+          "iterations": 14,
+          "initial_population_sha256": "5f45c6c3c3e6db5dab49b4851043e50dfa2db2437c1df784726bbd1facd5b2f5",
+          "initial_policy": "shared_uniform_population",
+          "starts": [
+            {
+              "variables_in2": [
+                0.7474933338016854,
+                0.8130471354237301
+              ],
+              "start_evaluation": 167,
+              "phase": "local_refinement",
+              "limit": 239,
+              "message": "Optimization terminated successfully",
+              "iterations": 8,
+              "converged": true,
+              "evaluations": 24
+            }
+          ],
+          "hybrid": true,
+          "global_weight_lb": 75.01185691935135,
+          "refinement_improved": true,
+          "evaluations": 192,
+          "budget": 240,
+          "requests": 380,
+          "cache_hits": 187,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 192,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 186,
+          "feasible_candidates": 164,
+          "elapsed_seconds": 0.6353029999991122
+        }
+      },
+      "max_abs_stress_ksi": 25.000001165013643,
+      "max_displacement_components_in": [
+        0.12449741949039134,
+        0.0,
+        0.14405222316527405
+      ],
+      "active_constraints": [
+        "Esfuerzo B1 · ULS",
+        "Esfuerzo B3 · ULS"
+      ],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/004_DE_SLSQP_seed42/best.trusslab.json",
+      "metrics": {
+        "evaluations": 192,
+        "budget": 240,
+        "requests": 380,
+        "cache_hits": 187,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 192,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 186,
+        "feasible_candidates": 164,
+        "elapsed_seconds": 0.6388000999977521
+      }
+    },
+    {
+      "id": "005_ASAM_seed17",
+      "algorithm": "ASAM",
+      "seed": 17,
+      "trace": "runs/005_ASAM_seed17/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "max_evaluations",
+        "converged": false,
+        "iterations": 22,
+        "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+        "initial_policy": "shared_uniform_population",
+        "starts": [],
+        "hybrid": false
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.45293103643029153,
+        1.175978279585911
+      ],
+      "areas_in2": [
+        0.45293103643029153,
+        1.175978279585911,
+        1.175978279585911
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:19.355703+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "02fced599e89abc8daba884e85bb0e8a1a111191e26d9ac1341cb2a260c54105",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 83.60541817614398,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.526577513464182,
+            "stress": 7.7861246631681,
+            "ratio": 0.311444986526724,
+            "length": 140.0,
+            "area": 0.45293103643029153
+          },
+          {
+            "id": 2,
+            "force": -7.038567307016232,
+            "stress": -5.98528682816716,
+            "ratio": 0.2394114731266864,
+            "length": 109.77249200050075,
+            "area": 1.175978279585911
+          },
+          {
+            "id": 3,
+            "force": -5.2888492815739365,
+            "stress": -4.497403883544738,
+            "ratio": 0.17989615534178952,
+            "length": 127.47548783981962,
+            "area": 1.175978279585911
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.03758818802908738,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.012201971218998752,
+            0.0,
+            -0.04924132034282049
+          ]
+        },
+        "reactions": {
+          "1": [
+            9.075801785330558e-16,
+            0.0,
+            6.11195182941761
+          ],
+          "2": [
+            1.0464800375212716e-16,
+            0.0,
+            3.9716535887585356
+          ],
+          "3": [
+            -1.012228182285183e-15,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 0.8162319283561792,
+        "displacement_ratio": 0.04925537498701081,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 1.012228182285183e-15,
+        "condition_number": 7.856041088879994,
+        "equilibrium": {
+          "net_force_kip": [
+            0.0,
+            0.0,
+            1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            -4.263256414560601e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:19.355703+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "02fced599e89abc8daba884e85bb0e8a1a111191e26d9ac1341cb2a260c54105",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 83.60541817614398,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.526577513464182,
+                "stress": 7.7861246631681,
+                "ratio": 0.311444986526724,
+                "length": 140.0,
+                "area": 0.45293103643029153
+              },
+              {
+                "id": 2,
+                "force": -7.038567307016232,
+                "stress": -5.98528682816716,
+                "ratio": 0.2394114731266864,
+                "length": 109.77249200050075,
+                "area": 1.175978279585911
+              },
+              {
+                "id": 3,
+                "force": -5.2888492815739365,
+                "stress": -4.497403883544738,
+                "ratio": 0.17989615534178952,
+                "length": 127.47548783981962,
+                "area": 1.175978279585911
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.03758818802908738,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.012201971218998752,
+                0.0,
+                -0.04924132034282049
+              ]
+            },
+            "reactions": {
+              "1": [
+                9.075801785330558e-16,
+                0.0,
+                6.11195182941761
+              ],
+              "2": [
+                1.0464800375212716e-16,
+                0.0,
+                3.9716535887585356
+              ],
+              "3": [
+                -1.012228182285183e-15,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.311444986526724,
+            "displacement_ratio": 0.024620660171410246,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.012228182285183e-15,
+            "condition_number": 7.856041088879994,
+            "equilibrium": {
+              "net_force_kip": [
+                0.0,
+                0.0,
+                1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -4.263256414560601e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:19.356703+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "02fced599e89abc8daba884e85bb0e8a1a111191e26d9ac1341cb2a260c54105",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 83.60541817614398,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684217,
+                "stress": 6.914030383189226,
+                "ratio": 0.276561215327569,
+                "length": 140.0,
+                "area": 0.45293103643029153
+              },
+              {
+                "id": 2,
+                "force": 1.733249873692116,
+                "stress": 1.473879155576269,
+                "ratio": 0.058955166223050755,
+                "length": 109.77249200050075,
+                "area": 1.175978279585911
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467039,
+                "stress": -3.9936667394237695,
+                "ratio": 0.15974666957695077,
+                "length": 127.47548783981962,
+                "area": 1.175978279585911
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.033378077711947986,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.0432974808466983,
+                0.0,
+                -0.014680855095635834
+              ]
+            },
+            "reactions": {
+              "1": [
+                -3.9999999999999996,
+                0.0,
+                -1.4999999999999996
+              ],
+              "2": [
+                1.9141165441511623e-16,
+                0.0,
+                3.5000000000000004
+              ],
+              "3": [
+                0.0,
+                0.0,
+                -4.440892098500626e-16
+              ]
+            },
+            "stress_ratio": 0.276561215327569,
+            "displacement_ratio": 0.02164874042334915,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 4.440892098500626e-16,
+            "condition_number": 7.856041088879994,
+            "equilibrium": {
+              "net_force_kip": [
+                4.440892098500626e-16,
+                0.0,
+                4.440892098500626e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -5.684341886080802e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:19.357701+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "02fced599e89abc8daba884e85bb0e8a1a111191e26d9ac1341cb2a260c54105",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 83.60541817614398,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.242419331946492,
+                "stress": 20.40579820890448,
+                "ratio": 0.8162319283561792,
+                "length": 140.0,
+                "area": 0.45293103643029153
+              },
+              {
+                "id": 2,
+                "force": -5.6730809705120935,
+                "stress": -4.824137544878563,
+                "ratio": 0.19296550179514252,
+                "length": 109.77249200050075,
+                "area": 1.175978279585911
+              },
+              {
+                "id": 3,
+                "force": -13.860963684235985,
+                "stress": -11.786751443331715,
+                "ratio": 0.4714700577332686,
+                "length": 127.47548783981962,
+                "area": 1.175978279585911
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.09851074997402162,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.08391833481751577,
+                0.0,
+                -0.08257895256440193
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.399999999999998,
+                0.0,
+                4.934342195301132
+              ],
+              "2": [
+                -6.339778520734117e-16,
+                0.0,
+                10.365984306510246
+              ],
+              "3": [
+                -2.6645352591003757e-15,
+                0.0,
+                -3.552713678800501e-15
+              ]
+            },
+            "stress_ratio": 0.8162319283561792,
+            "displacement_ratio": 0.04925537498701081,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 3.552713678800501e-15,
+            "condition_number": 7.856041088879994,
+            "equilibrium": {
+              "net_force_kip": [
+                -8.881784197001252e-16,
+                0.0,
+                1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -3.126388037344441e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "ASAM",
+          "seed": 17,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "max_evaluations",
+          "converged": false,
+          "iterations": 22,
+          "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+          "initial_policy": "shared_uniform_population",
+          "starts": [],
+          "hybrid": false,
+          "evaluations": 239,
+          "budget": 240,
+          "requests": 260,
+          "cache_hits": 20,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 239,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 203,
+          "feasible_candidates": 223,
+          "elapsed_seconds": 0.8381508999991638
+        }
+      },
+      "max_abs_stress_ksi": 20.40579820890448,
+      "max_displacement_components_in": [
+        0.09851074997402162,
+        0.0,
+        0.08257895256440193
+      ],
+      "active_constraints": [],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/005_ASAM_seed17/best.trusslab.json",
+      "metrics": {
+        "evaluations": 239,
+        "budget": 240,
+        "requests": 260,
+        "cache_hits": 20,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 239,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 203,
+        "feasible_candidates": 223,
+        "elapsed_seconds": 0.8427840000003926
+      }
+    },
+    {
+      "id": "006_DE_seed17",
+      "algorithm": "DE",
+      "seed": 17,
+      "trace": "runs/006_DE_seed17/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "max_evaluations",
+        "converged": false,
+        "iterations": 10,
+        "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+        "initial_policy": "shared_uniform_population",
+        "starts": [],
+        "hybrid": false
+      },
+      "status": "feasible",
+      "variables_in2": [
+        1.0379958398912699,
+        0.5730232312903141
+      ],
+      "areas_in2": [
+        1.0379958398912699,
+        0.5730232312903141,
+        0.5730232312903141
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:20.300547+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "a012f16d38050992a1cf317b2dae928c95917419df816c5d450a4a6fdc6abad9",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 73.11992474411315,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.5206606926965636,
+            "stress": 3.3917869006732753,
+            "ratio": 0.135671476026931,
+            "length": 140.0,
+            "area": 1.0379958398912699
+          },
+          {
+            "id": 2,
+            "force": -7.026758140463836,
+            "stress": -12.262606045903624,
+            "ratio": 0.49050424183614494,
+            "length": 109.77249200050075,
+            "area": 0.5730232312903141
+          },
+          {
+            "id": 3,
+            "force": -5.279975756705551,
+            "stress": -9.21424380092982,
+            "ratio": 0.3685697520371928,
+            "length": 127.47548783981962,
+            "area": 0.5730232312903141
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.01637414365842271,
+            0.0,
+            0.0
+          ],
+          "3": [
+            -0.011815553049327226,
+            0.0,
+            -0.0795713481487162
+          ]
+        },
+        "reactions": {
+          "1": [
+            6.426475783201667e-16,
+            0.0,
+            6.107365090990692
+          ],
+          "2": [
+            -3.0068139007551246e-16,
+            0.0,
+            3.965754833753419
+          ],
+          "3": [
+            1.0212302160540838e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 0.9668240097844728,
+        "displacement_ratio": 0.05667895223211938,
+        "strict_feasible": true,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 3.0068139007551246e-16,
+        "condition_number": 4.88466381788809,
+        "equilibrium": {
+          "net_force_kip": [
+            4.440892098500626e-16,
+            0.0,
+            -1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            -8.526512829121202e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:20.300547+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "a012f16d38050992a1cf317b2dae928c95917419df816c5d450a4a6fdc6abad9",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 73.11992474411315,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.5206606926965636,
+                "stress": 3.3917869006732753,
+                "ratio": 0.135671476026931,
+                "length": 140.0,
+                "area": 1.0379958398912699
+              },
+              {
+                "id": 2,
+                "force": -7.026758140463836,
+                "stress": -12.262606045903624,
+                "ratio": 0.49050424183614494,
+                "length": 109.77249200050075,
+                "area": 0.5730232312903141
+              },
+              {
+                "id": 3,
+                "force": -5.279975756705551,
+                "stress": -9.21424380092982,
+                "ratio": 0.3685697520371928,
+                "length": 127.47548783981962,
+                "area": 0.5730232312903141
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.01637414365842271,
+                0.0,
+                0.0
+              ],
+              "3": [
+                -0.011815553049327226,
+                0.0,
+                -0.0795713481487162
+              ]
+            },
+            "reactions": {
+              "1": [
+                6.426475783201667e-16,
+                0.0,
+                6.107365090990692
+              ],
+              "2": [
+                -3.0068139007551246e-16,
+                0.0,
+                3.965754833753419
+              ],
+              "3": [
+                1.0212302160540838e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.49050424183614494,
+            "displacement_ratio": 0.0397856740743581,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 3.0068139007551246e-16,
+            "condition_number": 4.88466381788809,
+            "equilibrium": {
+              "net_force_kip": [
+                4.440892098500626e-16,
+                0.0,
+                -1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -8.526512829121202e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:20.301560+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "a012f16d38050992a1cf317b2dae928c95917419df816c5d450a4a6fdc6abad9",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 73.11992474411315,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.131578947368421,
+                "stress": 3.0169474934470393,
+                "ratio": 0.12067789973788157,
+                "length": 140.0,
+                "area": 1.0379958398912699
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921171,
+                "stress": 3.0247462564288092,
+                "ratio": 0.12098985025715236,
+                "length": 109.77249200050075,
+                "area": 0.5730232312903141
+              },
+              {
+                "id": 3,
+                "force": -4.6964653414670385,
+                "stress": -8.195942302185024,
+                "ratio": 0.327837692087401,
+                "length": 127.47548783981962,
+                "area": 0.5730232312903141
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.014564574106296052,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.05611030180342806,
+                0.0,
+                -0.011170179178612065
+              ]
+            },
+            "reactions": {
+              "1": [
+                -4.0,
+                0.0,
+                -1.5000000000000002
+              ],
+              "2": [
+                -1.0233577599299728e-16,
+                0.0,
+                3.5
+              ],
+              "3": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.327837692087401,
+            "displacement_ratio": 0.02805515090171403,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.0233577599299728e-16,
+            "condition_number": 4.88466381788809,
+            "equilibrium": {
+              "net_force_kip": [
+                0.0,
+                0.0,
+                -2.220446049250313e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -2.842170943040401e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:20.301560+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "a012f16d38050992a1cf317b2dae928c95917419df816c5d450a4a6fdc6abad9",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 73.11992474411315,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.23531914702535,
+                "stress": 8.897260270323194,
+                "ratio": 0.35589041081292777,
+                "length": 140.0,
+                "area": 1.0379958398912699
+              },
+              {
+                "id": 2,
+                "force": -5.6589099706492165,
+                "stress": -9.875533244798255,
+                "ratio": 0.3950213297919302,
+                "length": 109.77249200050075,
+                "area": 0.5730232312903141
+              },
+              {
+                "id": 3,
+                "force": -13.85031545439392,
+                "stress": -24.17060024461182,
+                "ratio": 0.9668240097844728,
+                "length": 127.47548783981962,
+                "area": 0.5730232312903141
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04295229096018094,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.07559781922629223,
+                0.0,
+                -0.11335790446423875
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.4,
+                0.0,
+                4.928838109188831
+              ],
+              "2": [
+                5.390976677167421e-16,
+                0.0,
+                10.358905800504102
+              ],
+              "3": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.9668240097844728,
+            "displacement_ratio": 0.05667895223211938,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 5.390976677167421e-16,
+            "condition_number": 4.88466381788809,
+            "equilibrium": {
+              "net_force_kip": [
+                8.881784197001252e-16,
+                0.0,
+                -3.552713678800501e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "DE",
+          "seed": 17,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "max_evaluations",
+          "converged": false,
+          "iterations": 10,
+          "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+          "initial_policy": "shared_uniform_population",
+          "starts": [],
+          "hybrid": false,
+          "evaluations": 239,
+          "budget": 240,
+          "requests": 474,
+          "cache_hits": 234,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 239,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 205,
+          "feasible_candidates": 222,
+          "elapsed_seconds": 0.9554443999986688
+        }
+      },
+      "max_abs_stress_ksi": 24.17060024461182,
+      "max_displacement_components_in": [
+        0.07559781922629223,
+        0.0,
+        0.11335790446423875
+      ],
+      "active_constraints": [],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/006_DE_seed17/best.trusslab.json",
+      "metrics": {
+        "evaluations": 239,
+        "budget": 240,
+        "requests": 474,
+        "cache_hits": 234,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 239,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 205,
+        "feasible_candidates": 222,
+        "elapsed_seconds": 0.9591804000010598
+      }
+    },
+    {
+      "id": "007_SLSQP_seed17",
+      "algorithm": "SLSQP",
+      "seed": 17,
+      "trace": "runs/007_SLSQP_seed17/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "multistart_completed",
+        "converged": true,
+        "iterations": 66,
+        "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+        "initial_policy": "shared_uniform_population",
+        "starts": [
+          {
+            "variables_in2": [
+              14.10069530204796,
+              7.190338320517893
+            ],
+            "start_evaluation": 20,
+            "phase": "slsqp_multistart",
+            "limit": 63,
+            "message": "stage_budget",
+            "evaluations": 43
+          },
+          {
+            "variables_in2": [
+              3.0224106445812966,
+              34.92195246421188
+            ],
+            "start_evaluation": 63,
+            "phase": "slsqp_multistart",
+            "limit": 107,
+            "message": "Optimization terminated successfully",
+            "iterations": 14,
+            "converged": true,
+            "evaluations": 42
+          },
+          {
+            "variables_in2": [
+              32.20017123577837,
+              28.5408548197336
+            ],
+            "start_evaluation": 105,
+            "phase": "slsqp_multistart",
+            "limit": 149,
+            "message": "stage_budget",
+            "evaluations": 44
+          },
+          {
+            "variables_in2": [
+              29.148879745074566,
+              1.3835297825896362
+            ],
+            "start_evaluation": 149,
+            "phase": "slsqp_multistart",
+            "limit": 194,
+            "message": "Optimization terminated successfully",
+            "iterations": 13,
+            "converged": true,
+            "evaluations": 35
+          },
+          {
+            "variables_in2": [
+              8.96602789136311,
+              21.18469032428116
+            ],
+            "start_evaluation": 184,
+            "phase": "slsqp_multistart",
+            "limit": 239,
+            "message": "Optimization terminated successfully",
+            "iterations": 16,
+            "converged": true,
+            "evaluations": 45
+          }
+        ],
+        "hybrid": false
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.36940380463520917,
+        0.5539991769837721
+      ],
+      "areas_in2": [
+        0.36940380463520917,
+        0.5539991769837721,
+        0.5539991769837721
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:21.276597+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "8223f48cf7905398bd73ee96b62a6ef6b110ffa8317d028ab4e0c26a62f4d35f",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 45.568107623648075,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.520474008929801,
+            "stress": 9.530150920904328,
+            "ratio": 0.3812060368361731,
+            "length": 140.0,
+            "area": 0.36940380463520917
+          },
+          {
+            "id": 2,
+            "force": -7.026385545149407,
+            "stress": -12.683025240947652,
+            "ratio": 0.507321009637906,
+            "length": 109.77249200050075,
+            "area": 0.5539991769837721
+          },
+          {
+            "id": 3,
+            "force": -5.279695784890963,
+            "stress": -9.530150953718145,
+            "ratio": 0.38120603814872583,
+            "length": 127.47548783981962,
+            "area": 0.5539991769837721
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.0460076251354002,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.005430272451711931,
+            0.0,
+            -0.09251837653837075
+          ]
+        },
+        "reactions": {
+          "1": [
+            -4.574716544194532e-16,
+            0.0,
+            6.0936098803868886
+          ],
+          "2": [
+            -3.875727295802077e-16,
+            0.0,
+            3.9519582272367586
+          ],
+          "3": [
+            4.0095517414959827e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 1.0000000045936615,
+        "displacement_ratio": 0.07202611085178141,
+        "strict_feasible": false,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 4.0095517414959827e-16,
+        "condition_number": 5.426683207435666,
+        "equilibrium": {
+          "net_force_kip": [
+            -4.440892098500626e-16,
+            0.0,
+            -1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            7.105427357601002e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:21.276597+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "8223f48cf7905398bd73ee96b62a6ef6b110ffa8317d028ab4e0c26a62f4d35f",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 45.568107623648075,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.520474008929801,
+                "stress": 9.530150920904328,
+                "ratio": 0.3812060368361731,
+                "length": 140.0,
+                "area": 0.36940380463520917
+              },
+              {
+                "id": 2,
+                "force": -7.026385545149407,
+                "stress": -12.683025240947652,
+                "ratio": 0.507321009637906,
+                "length": 109.77249200050075,
+                "area": 0.5539991769837721
+              },
+              {
+                "id": 3,
+                "force": -5.279695784890963,
+                "stress": -9.530150953718145,
+                "ratio": 0.38120603814872583,
+                "length": 127.47548783981962,
+                "area": 0.5539991769837721
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.0460076251354002,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.005430272451711931,
+                0.0,
+                -0.09251837653837075
+              ]
+            },
+            "reactions": {
+              "1": [
+                -4.574716544194532e-16,
+                0.0,
+                6.0936098803868886
+              ],
+              "2": [
+                -3.875727295802077e-16,
+                0.0,
+                3.9519582272367586
+              ],
+              "3": [
+                4.0095517414959827e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.507321009637906,
+            "displacement_ratio": 0.046259188269185375,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 4.0095517414959827e-16,
+            "condition_number": 5.426683207435666,
+            "equilibrium": {
+              "net_force_kip": [
+                -4.440892098500626e-16,
+                0.0,
+                -1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                7.105427357601002e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:21.276597+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "8223f48cf7905398bd73ee96b62a6ef6b110ffa8317d028ab4e0c26a62f4d35f",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 45.568107623648075,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684204,
+                "stress": 8.477386827298364,
+                "ratio": 0.33909547309193455,
+                "length": 140.0,
+                "area": 0.36940380463520917
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921171,
+                "stress": 3.128614528145568,
+                "ratio": 0.12514458112582272,
+                "length": 109.77249200050075,
+                "area": 0.5539991769837721
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467039,
+                "stress": -8.477386856487351,
+                "ratio": 0.33909547425949405,
+                "length": 127.47548783981962,
+                "area": 0.5539991769837721
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.0409253157179921,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.07373818090846097,
+                0.0,
+                -0.020643856160948694
+              ]
+            },
+            "reactions": {
+              "1": [
+                -3.9999999999999996,
+                0.0,
+                -1.5000000000000004
+              ],
+              "2": [
+                -1.764221685261819e-16,
+                0.0,
+                3.5000000000000004
+              ],
+              "3": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.33909547425949405,
+            "displacement_ratio": 0.03686909045423049,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.764221685261819e-16,
+            "condition_number": 5.426683207435666,
+            "equilibrium": {
+              "net_force_kip": [
+                4.440892098500626e-16,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -1.1368683772161603e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:21.277606+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "8223f48cf7905398bd73ee96b62a6ef6b110ffa8317d028ab4e0c26a62f4d35f",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 45.568107623648075,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.235095126505234,
+                "stress": 25.000000028762578,
+                "ratio": 1.000000001150503,
+                "length": 140.0,
+                "area": 0.36940380463520917
+              },
+              {
+                "id": 2,
+                "force": -5.6584628562719,
+                "stress": -10.213847044104272,
+                "ratio": 0.40855388176417085,
+                "length": 109.77249200050075,
+                "area": 0.5539991769837721
+              },
+              {
+                "id": 3,
+                "force": -13.849979488216418,
+                "stress": -25.000000114841534,
+                "ratio": 1.0000000045936615,
+                "length": 127.47548783981962,
+                "area": 0.5539991769837721
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.12068965531126762,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.12449741639559189,
+                0.0,
+                -0.14405222170356283
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.3999999999999995,
+                0.0,
+                4.912331856464266
+              ],
+              "2": [
+                -7.245168950708935e-16,
+                0.0,
+                10.342349872684112
+              ],
+              "3": [
+                8.881784197001252e-16,
+                0.0,
+                -1.7763568394002505e-15
+              ]
+            },
+            "stress_ratio": 1.0000000045936615,
+            "displacement_ratio": 0.07202611085178141,
+            "strict_feasible": false,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.7763568394002505e-15,
+            "condition_number": 5.426683207435666,
+            "equilibrium": {
+              "net_force_kip": [
+                8.881784197001252e-16,
+                0.0,
+                -1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -1.7053025658242404e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "SLSQP",
+          "seed": 17,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "multistart_completed",
+          "converged": true,
+          "iterations": 66,
+          "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+          "initial_policy": "shared_uniform_population",
+          "starts": [
+            {
+              "variables_in2": [
+                14.10069530204796,
+                7.190338320517893
+              ],
+              "start_evaluation": 20,
+              "phase": "slsqp_multistart",
+              "limit": 63,
+              "message": "stage_budget",
+              "evaluations": 43
+            },
+            {
+              "variables_in2": [
+                3.0224106445812966,
+                34.92195246421188
+              ],
+              "start_evaluation": 63,
+              "phase": "slsqp_multistart",
+              "limit": 107,
+              "message": "Optimization terminated successfully",
+              "iterations": 14,
+              "converged": true,
+              "evaluations": 42
+            },
+            {
+              "variables_in2": [
+                32.20017123577837,
+                28.5408548197336
+              ],
+              "start_evaluation": 105,
+              "phase": "slsqp_multistart",
+              "limit": 149,
+              "message": "stage_budget",
+              "evaluations": 44
+            },
+            {
+              "variables_in2": [
+                29.148879745074566,
+                1.3835297825896362
+              ],
+              "start_evaluation": 149,
+              "phase": "slsqp_multistart",
+              "limit": 194,
+              "message": "Optimization terminated successfully",
+              "iterations": 13,
+              "converged": true,
+              "evaluations": 35
+            },
+            {
+              "variables_in2": [
+                8.96602789136311,
+                21.18469032428116
+              ],
+              "start_evaluation": 184,
+              "phase": "slsqp_multistart",
+              "limit": 239,
+              "message": "Optimization terminated successfully",
+              "iterations": 16,
+              "converged": true,
+              "evaluations": 45
+            }
+          ],
+          "hybrid": false,
+          "evaluations": 230,
+          "budget": 240,
+          "requests": 522,
+          "cache_hits": 290,
+          "budget_rejections": 2,
+          "failed_analyses": 0,
+          "fem_evaluations": 230,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 224,
+          "feasible_candidates": 99,
+          "elapsed_seconds": 0.8211902000002738
+        }
+      },
+      "max_abs_stress_ksi": 25.000000114841534,
+      "max_displacement_components_in": [
+        0.12449741639559189,
+        0.0,
+        0.14405222170356283
+      ],
+      "active_constraints": [
+        "Esfuerzo B1 · ULS",
+        "Esfuerzo B3 · ULS"
+      ],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/007_SLSQP_seed17/best.trusslab.json",
+      "metrics": {
+        "evaluations": 230,
+        "budget": 240,
+        "requests": 522,
+        "cache_hits": 290,
+        "budget_rejections": 2,
+        "failed_analyses": 0,
+        "fem_evaluations": 230,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 224,
+        "feasible_candidates": 99,
+        "elapsed_seconds": 0.8246050000016112
+      }
+    },
+    {
+      "id": "008_ASAM_SLSQP_seed17",
+      "algorithm": "ASAM+SLSQP",
+      "seed": 17,
+      "trace": "runs/008_ASAM_SLSQP_seed17/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "hybrid_completed",
+        "converged": false,
+        "iterations": 15,
+        "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+        "initial_policy": "shared_uniform_population",
+        "starts": [
+          {
+            "variables_in2": [
+              0.5815466873088212,
+              1.578188844770358
+            ],
+            "start_evaluation": 167,
+            "phase": "local_refinement",
+            "limit": 239,
+            "message": "Optimization terminated successfully",
+            "iterations": 6,
+            "converged": true,
+            "evaluations": 17
+          }
+        ],
+        "hybrid": true,
+        "global_weight_lb": 111.1584409599865,
+        "refinement_improved": true
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.36940380490392594,
+        0.5539988964415354
+      ],
+      "areas_in2": [
+        0.36940380490392594,
+        0.5539988964415354,
+        0.5539988964415354
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:21.998544+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "be505d906a05fdd0fdabb9f83a2974006d9efe68ea057f61826b4526522aba28",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 45.56809197032781,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.520474006176828,
+            "stress": 9.5301509065193,
+            "ratio": 0.381206036260772,
+            "length": 140.0,
+            "area": 0.36940380490392594
+          },
+          {
+            "id": 2,
+            "force": -7.026385539654851,
+            "stress": -12.683031653649438,
+            "ratio": 0.5073212661459775,
+            "length": 109.77249200050075,
+            "area": 0.5539988964415354
+          },
+          {
+            "id": 3,
+            "force": -5.2796957807622995,
+            "stress": -9.530155772285868,
+            "ratio": 0.38120623089143474,
+            "length": 127.47548783981962,
+            "area": 0.5539988964415354
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.04600762506595524,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.005430261031776871,
+            0.0,
+            -0.09251841511575136
+          ]
+        },
+        "reactions": {
+          "1": [
+            1.2800033423390078e-15,
+            0.0,
+            6.093609872865455
+          ],
+          "2": [
+            -3.776302388149597e-16,
+            0.0,
+            3.9519582191048723
+          ],
+          "3": [
+            4.2989452602613966e-16,
+            0.0,
+            0.0
+          ]
+        },
+        "stress_ratio": 1.0000005106308827,
+        "displacement_ratio": 0.07202613652523772,
+        "strict_feasible": false,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 4.2989452602613966e-16,
+        "condition_number": 5.426681734034121,
+        "equilibrium": {
+          "net_force_kip": [
+            1.3322676295501878e-15,
+            0.0,
+            1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            4.263256414560601e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:21.998544+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "be505d906a05fdd0fdabb9f83a2974006d9efe68ea057f61826b4526522aba28",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 45.56809197032781,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.520474006176828,
+                "stress": 9.5301509065193,
+                "ratio": 0.381206036260772,
+                "length": 140.0,
+                "area": 0.36940380490392594
+              },
+              {
+                "id": 2,
+                "force": -7.026385539654851,
+                "stress": -12.683031653649438,
+                "ratio": 0.5073212661459775,
+                "length": 109.77249200050075,
+                "area": 0.5539988964415354
+              },
+              {
+                "id": 3,
+                "force": -5.2796957807622995,
+                "stress": -9.530155772285868,
+                "ratio": 0.38120623089143474,
+                "length": 127.47548783981962,
+                "area": 0.5539988964415354
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04600762506595524,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.005430261031776871,
+                0.0,
+                -0.09251841511575136
+              ]
+            },
+            "reactions": {
+              "1": [
+                1.2800033423390078e-15,
+                0.0,
+                6.093609872865455
+              ],
+              "2": [
+                -3.776302388149597e-16,
+                0.0,
+                3.9519582191048723
+              ],
+              "3": [
+                4.2989452602613966e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.5073212661459775,
+            "displacement_ratio": 0.04625920755787568,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 4.2989452602613966e-16,
+            "condition_number": 5.426681734034121,
+            "equilibrium": {
+              "net_force_kip": [
+                1.3322676295501878e-15,
+                0.0,
+                1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                4.263256414560601e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:21.999558+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "be505d906a05fdd0fdabb9f83a2974006d9efe68ea057f61826b4526522aba28",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 45.56809197032781,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684212,
+                "stress": 8.47738682113163,
+                "ratio": 0.3390954728452652,
+                "length": 140.0,
+                "area": 0.36940380490392594
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921171,
+                "stress": 3.128616112460127,
+                "ratio": 0.1251446444984051,
+                "length": 109.77249200050075,
+                "area": 0.5539988964415354
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467038,
+                "stress": -8.477391149393137,
+                "ratio": 0.3390956459757255,
+                "length": 127.47548783981962,
+                "area": 0.5539988964415354
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04092531568822166,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.07373820564837273,
+                0.0,
+                -0.020643859319733608
+              ]
+            },
+            "reactions": {
+              "1": [
+                -4.0,
+                0.0,
+                -1.5
+              ],
+              "2": [
+                5.027579817147396e-16,
+                0.0,
+                3.5000000000000004
+              ],
+              "3": [
+                8.881784197001252e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 0.3390956459757255,
+            "displacement_ratio": 0.036869102824186366,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 8.881784197001252e-16,
+            "condition_number": 5.426681734034121,
+            "equilibrium": {
+              "net_force_kip": [
+                1.3322676295501878e-15,
+                0.0,
+                4.440892098500626e-16
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:22.000558+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "be505d906a05fdd0fdabb9f83a2974006d9efe68ea057f61826b4526522aba28",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 45.56809197032781,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.235095123201669,
+                "stress": 25.00000000163377,
+                "ratio": 1.0000000000653508,
+                "length": 140.0,
+                "area": 0.36940380490392594
+              },
+              {
+                "id": 2,
+                "force": -5.658462849678436,
+                "stress": -10.213852204443127,
+                "ratio": 0.40855408817772504,
+                "length": 109.77249200050075,
+                "area": 0.5539988964415354
+              },
+              {
+                "id": 3,
+                "force": -13.849979483262024,
+                "stress": -25.000012765772066,
+                "ratio": 1.0000005106308827,
+                "length": 127.47548783981962,
+                "area": 0.5539988964415354
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.12068965518030096,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.12449744227552861,
+                0.0,
+                -0.14405227305047544
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.399999999999999,
+                0.0,
+                4.912331847438549
+              ],
+              "2": [
+                -3.1359349515282227e-16,
+                0.0,
+                10.342349862925847
+              ],
+              "3": [
+                -8.881784197001252e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 1.0000005106308827,
+            "displacement_ratio": 0.07202613652523772,
+            "strict_feasible": false,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 8.881784197001252e-16,
+            "condition_number": 5.426681734034121,
+            "equilibrium": {
+              "net_force_kip": [
+                8.881784197001252e-16,
+                0.0,
+                1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "ASAM+SLSQP",
+          "seed": 17,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "hybrid_completed",
+          "converged": false,
+          "iterations": 15,
+          "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+          "initial_policy": "shared_uniform_population",
+          "starts": [
+            {
+              "variables_in2": [
+                0.5815466873088212,
+                1.578188844770358
+              ],
+              "start_evaluation": 167,
+              "phase": "local_refinement",
+              "limit": 239,
+              "message": "Optimization terminated successfully",
+              "iterations": 6,
+              "converged": true,
+              "evaluations": 17
+            }
+          ],
+          "hybrid": true,
+          "global_weight_lb": 111.1584409599865,
+          "refinement_improved": true,
+          "evaluations": 185,
+          "budget": 240,
+          "requests": 232,
+          "cache_hits": 46,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 185,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 179,
+          "feasible_candidates": 169,
+          "elapsed_seconds": 0.7144735000001674
+        }
+      },
+      "max_abs_stress_ksi": 25.000012765772066,
+      "max_displacement_components_in": [
+        0.12449744227552861,
+        0.0,
+        0.14405227305047544
+      ],
+      "active_constraints": [
+        "Esfuerzo B1 · ULS",
+        "Esfuerzo B3 · ULS"
+      ],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/008_ASAM_SLSQP_seed17/best.trusslab.json",
+      "metrics": {
+        "evaluations": 185,
+        "budget": 240,
+        "requests": 232,
+        "cache_hits": 46,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 185,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 179,
+        "feasible_candidates": 169,
+        "elapsed_seconds": 0.7181682999980694
+      }
+    },
+    {
+      "id": "009_DE_SLSQP_seed17",
+      "algorithm": "DE+SLSQP",
+      "seed": 17,
+      "trace": "runs/009_DE_SLSQP_seed17/evaluations.jsonl.gz",
+      "sap_validation": {
+        "status": "pending"
+      },
+      "search": {
+        "message": "hybrid_completed",
+        "converged": false,
+        "iterations": 17,
+        "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+        "initial_policy": "shared_uniform_population",
+        "starts": [
+          {
+            "variables_in2": [
+              0.4613246777852247,
+              2.1024606997720348
+            ],
+            "start_evaluation": 167,
+            "phase": "local_refinement",
+            "limit": 239,
+            "message": "Optimization terminated successfully",
+            "iterations": 11,
+            "converged": true,
+            "evaluations": 34
+          }
+        ],
+        "hybrid": true,
+        "global_weight_lb": 135.6677603493266,
+        "refinement_improved": true
+      },
+      "status": "feasible",
+      "variables_in2": [
+        0.3694038050613967,
+        0.5539991795267237
+      ],
+      "areas_in2": [
+        0.3694038050613967,
+        0.5539991795267237,
+        0.5539991795267237
+      ],
+      "result": {
+        "engine": "FEM · NumPy (geometría preparada)",
+        "timestamp": "2026-10-18T08:12:22.702415+00:00",
+        "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+        "model_fingerprint": "93cdef6e840347a34af371c26cc2f64fc15a85abf291475a5e5818d21f8c3463",
+        "analysis_status": "solved",
+        "analysis_case": "C1",
+        "weight_lb": 45.56810778251834,
+        "members": [
+          {
+            "id": 1,
+            "force": 3.5204740089547566,
+            "stress": 9.530150909976784,
+            "ratio": 0.38120603639907136,
+            "length": 140.0,
+            "area": 0.3694038050613967
+          },
+          {
+            "id": 2,
+            "force": -7.026385545199211,
+            "stress": -12.683025182820282,
+            "ratio": 0.5073210073128113,
+            "length": 109.77249200050075,
+            "area": 0.5539991795267237
+          },
+          {
+            "id": 3,
+            "force": -5.2796957849283865,
+            "stress": -9.530150910040662,
+            "ratio": 0.3812060364016265,
+            "length": 127.47548783981962,
+            "area": 0.5539991795267237
+          }
+        ],
+        "displacements": {
+          "1": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "2": [
+            0.046007625082646546,
+            0.0,
+            0.0
+          ],
+          "3": [
+            0.005430272522815734,
+            0.0,
+            -0.09251837616992513
+          ]
+        },
+        "reactions": {
+          "1": [
+            -7.285234894641147e-16,
+            0.0,
+            6.093609880463558
+          ],
+          "2": [
+            2.5259560094158714e-16,
+            0.0,
+            3.9519582273189617
+          ],
+          "3": [
+            -4.122505311775977e-16,
+            0.0,
+            1.7763568394002505e-15
+          ]
+        },
+        "stress_ratio": 1.0000000000067317,
+        "displacement_ratio": 0.07202611059445478,
+        "strict_feasible": false,
+        "feasibility_tolerance": 1e-06,
+        "feasible": true,
+        "residual_kip": 1.7763568394002505e-15,
+        "condition_number": 5.426683217420006,
+        "equilibrium": {
+          "net_force_kip": [
+            -8.881784197001252e-16,
+            0.0,
+            1.7763568394002505e-15
+          ],
+          "net_moment_kip_in": [
+            0.0,
+            -2.842170943040401e-14,
+            0.0
+          ],
+          "passed": true
+        },
+        "case_results": {
+          "C1": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:22.702415+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "93cdef6e840347a34af371c26cc2f64fc15a85abf291475a5e5818d21f8c3463",
+            "analysis_status": "solved",
+            "analysis_case": "C1",
+            "weight_lb": 45.56810778251834,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.5204740089547566,
+                "stress": 9.530150909976784,
+                "ratio": 0.38120603639907136,
+                "length": 140.0,
+                "area": 0.3694038050613967
+              },
+              {
+                "id": 2,
+                "force": -7.026385545199211,
+                "stress": -12.683025182820282,
+                "ratio": 0.5073210073128113,
+                "length": 109.77249200050075,
+                "area": 0.5539991795267237
+              },
+              {
+                "id": 3,
+                "force": -5.2796957849283865,
+                "stress": -9.530150910040662,
+                "ratio": 0.3812060364016265,
+                "length": 127.47548783981962,
+                "area": 0.5539991795267237
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.046007625082646546,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.005430272522815734,
+                0.0,
+                -0.09251837616992513
+              ]
+            },
+            "reactions": {
+              "1": [
+                -7.285234894641147e-16,
+                0.0,
+                6.093609880463558
+              ],
+              "2": [
+                2.5259560094158714e-16,
+                0.0,
+                3.9519582273189617
+              ],
+              "3": [
+                -4.122505311775977e-16,
+                0.0,
+                1.7763568394002505e-15
+              ]
+            },
+            "stress_ratio": 0.5073210073128113,
+            "displacement_ratio": 0.046259188084962564,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.7763568394002505e-15,
+            "condition_number": 5.426683217420006,
+            "equilibrium": {
+              "net_force_kip": [
+                -8.881784197001252e-16,
+                0.0,
+                1.7763568394002505e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -2.842170943040401e-14,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "C2": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:22.704314+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "93cdef6e840347a34af371c26cc2f64fc15a85abf291475a5e5818d21f8c3463",
+            "analysis_status": "solved",
+            "analysis_case": "C2",
+            "weight_lb": 45.56810778251834,
+            "members": [
+              {
+                "id": 1,
+                "force": 3.1315789473684217,
+                "stress": 8.47738681751786,
+                "ratio": 0.33909547270071444,
+                "length": 140.0,
+                "area": 0.3694038050613967
+              },
+              {
+                "id": 2,
+                "force": 1.7332498736921174,
+                "stress": 3.128614513784689,
+                "ratio": 0.12514458055138755,
+                "length": 109.77249200050075,
+                "area": 0.5539991795267237
+              },
+              {
+                "id": 3,
+                "force": -4.696465341467039,
+                "stress": -8.477386817574686,
+                "ratio": 0.33909547270298745,
+                "length": 127.47548783981962,
+                "area": 0.5539991795267237
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.04092531567077588,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.0737381806553774,
+                0.0,
+                -0.020643856115624637
+              ]
+            },
+            "reactions": {
+              "1": [
+                -4.000000000000001,
+                0.0,
+                -1.5000000000000002
+              ],
+              "2": [
+                -4.839482027961284e-16,
+                0.0,
+                3.5
+              ],
+              "3": [
+                0.0,
+                0.0,
+                2.220446049250313e-16
+              ]
+            },
+            "stress_ratio": 0.33909547270298745,
+            "displacement_ratio": 0.0368690903276887,
+            "strict_feasible": true,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 4.839482027961284e-16,
+            "condition_number": 5.426683217420006,
+            "equilibrium": {
+              "net_force_kip": [
+                -1.7763568394002505e-15,
+                0.0,
+                0.0
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "passed": true
+            }
+          },
+          "ULS": {
+            "engine": "FEM · NumPy (geometría preparada)",
+            "timestamp": "2026-10-18T08:12:22.705314+00:00",
+            "model_id": "4384f0cb964a4bf0a5f5f3160fc7f38c",
+            "model_fingerprint": "93cdef6e840347a34af371c26cc2f64fc15a85abf291475a5e5818d21f8c3463",
+            "analysis_status": "solved",
+            "analysis_case": "ULS",
+            "weight_lb": 45.56810778251834,
+            "members": [
+              {
+                "id": 1,
+                "force": 9.235095126535182,
+                "stress": 25.000000000000718,
+                "ratio": 1.0000000000000286,
+                "length": 140.0,
+                "area": 0.3694038050613967
+              },
+              {
+                "id": 2,
+                "force": -5.658462856331664,
+                "stress": -10.213846997328833,
+                "ratio": 0.40855387989315334,
+                "length": 109.77249200050075,
+                "area": 0.5539991795267237
+              },
+              {
+                "id": 3,
+                "force": -13.84997948826133,
+                "stress": -25.000000000168296,
+                "ratio": 1.0000000000067317,
+                "length": 127.47548783981962,
+                "area": 0.5539991795267237
+              }
+            ],
+            "displacements": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.12068965517241727,
+                0.0,
+                0.0
+              ],
+              "3": [
+                0.12449741607598273,
+                0.0,
+                -0.14405222118890956
+              ]
+            },
+            "reactions": {
+              "1": [
+                -6.400000000000002,
+                0.0,
+                4.912331856556267
+              ],
+              "2": [
+                1.2899238725364544e-15,
+                0.0,
+                10.342349872782755
+              ],
+              "3": [
+                -8.881784197001252e-16,
+                0.0,
+                0.0
+              ]
+            },
+            "stress_ratio": 1.0000000000067317,
+            "displacement_ratio": 0.07202611059445478,
+            "strict_feasible": false,
+            "feasibility_tolerance": 1e-06,
+            "feasible": true,
+            "residual_kip": 1.2899238725364544e-15,
+            "condition_number": 5.426683217420006,
+            "equilibrium": {
+              "net_force_kip": [
+                -1.7763568394002505e-15,
+                0.0,
+                3.552713678800501e-15
+              ],
+              "net_moment_kip_in": [
+                0.0,
+                -1.7053025658242404e-13,
+                0.0
+              ],
+              "passed": true
+            }
+          }
+        },
+        "display_case": "C1",
+        "governing_cases": {
+          "stress_ratio": "ULS",
+          "displacement_ratio": "ULS"
+        },
+        "constraint_violation": 0.0,
+        "external_validation": "pending",
+        "optimization": {
+          "method": "DE+SLSQP",
+          "seed": 17,
+          "initial_weight_lb": 171.09922323751817,
+          "global_optimum_proven": false,
+          "message": "hybrid_completed",
+          "converged": false,
+          "iterations": 17,
+          "initial_population_sha256": "cf09ad16def673be398e7f499770c6a4b1aa434a11513653979946d633fc4bcd",
+          "initial_policy": "shared_uniform_population",
+          "starts": [
+            {
+              "variables_in2": [
+                0.4613246777852247,
+                2.1024606997720348
+              ],
+              "start_evaluation": 167,
+              "phase": "local_refinement",
+              "limit": 239,
+              "message": "Optimization terminated successfully",
+              "iterations": 11,
+              "converged": true,
+              "evaluations": 34
+            }
+          ],
+          "hybrid": true,
+          "global_weight_lb": 135.6677603493266,
+          "refinement_improved": true,
+          "evaluations": 202,
+          "budget": 240,
+          "requests": 421,
+          "cache_hits": 218,
+          "budget_rejections": 1,
+          "failed_analyses": 0,
+          "fem_evaluations": 202,
+          "sap_evaluations": 0,
+          "independent_fem_audits": 0,
+          "best_evaluation": 199,
+          "feasible_candidates": 168,
+          "elapsed_seconds": 0.6652356000013242
+        }
+      },
+      "max_abs_stress_ksi": 25.000000000168296,
+      "max_displacement_components_in": [
+        0.12449741607598273,
+        0.0,
+        0.14405222118890956
+      ],
+      "active_constraints": [
+        "Esfuerzo B1 · ULS",
+        "Esfuerzo B3 · ULS"
+      ],
+      "active_constraint_relative_tolerance": 0.0001,
+      "best_project": "runs/009_DE_SLSQP_seed17/best.trusslab.json",
+      "metrics": {
+        "evaluations": 202,
+        "budget": 240,
+        "requests": 421,
+        "cache_hits": 218,
+        "budget_rejections": 1,
+        "failed_analyses": 0,
+        "fem_evaluations": 202,
+        "sap_evaluations": 0,
+        "independent_fem_audits": 0,
+        "best_evaluation": 199,
+        "feasible_candidates": 168,
+        "elapsed_seconds": 0.6683798000012757
+      }
+    }
+  ],
+  "statistics": [
+    {
+      "algorithm": "ASAM",
+      "n_observed": 2,
+      "n_completed": 2,
+      "n_valid": 2,
+      "n_failed_runs": 0,
+      "n_cancelled": 0,
+      "best_lb": 65.70763928543707,
+      "worst_lb": 83.60541817614398,
+      "mean_lb": 74.65652873079053,
+      "median_lb": 74.65652873079053,
+      "sample_std_lb": 12.655640821796304,
+      "feasibility_rate": 1.0,
+      "mean_seconds": 0.9756522000006953,
+      "mean_evaluations_to_best": 159.0,
+      "failed_analyses": 0,
+      "limited_sample": true
+    },
+    {
+      "algorithm": "DE",
+      "n_observed": 2,
+      "n_completed": 2,
+      "n_valid": 2,
+      "n_failed_runs": 0,
+      "n_cancelled": 0,
+      "best_lb": 59.37390682158416,
+      "worst_lb": 73.11992474411315,
+      "mean_lb": 66.24691578284865,
+      "median_lb": 66.24691578284865,
+      "sample_std_lb": 9.71990248733207,
+      "feasibility_rate": 1.0,
+      "mean_seconds": 0.9010411500021291,
+      "mean_evaluations_to_best": 197.0,
+      "failed_analyses": 0,
+      "limited_sample": true
+    },
+    {
+      "algorithm": "SLSQP",
+      "n_observed": 2,
+      "n_completed": 2,
+      "n_valid": 2,
+      "n_failed_runs": 0,
+      "n_cancelled": 0,
+      "best_lb": 45.568107623648075,
+      "worst_lb": 45.568107757849646,
+      "mean_lb": 45.56810769074886,
+      "median_lb": 45.56810769074886,
+      "sample_std_lb": 9.489484071972009e-08,
+      "feasibility_rate": 1.0,
+      "mean_seconds": 0.8061367000009341,
+      "mean_evaluations_to_best": 180.5,
+      "failed_analyses": 0,
+      "limited_sample": true
+    },
+    {
+      "algorithm": "ASAM+SLSQP",
+      "n_observed": 2,
+      "n_completed": 2,
+      "n_valid": 2,
+      "n_failed_runs": 0,
+      "n_cancelled": 0,
+      "best_lb": 45.56808866960595,
+      "worst_lb": 45.56809197032781,
+      "mean_lb": 45.56809031996688,
+      "median_lb": 45.56809031996688,
+      "sample_std_lb": 2.33396280832888e-06,
+      "feasibility_rate": 1.0,
+      "mean_seconds": 0.6821715499991114,
+      "mean_evaluations_to_best": 179.5,
+      "failed_analyses": 0,
+      "limited_sample": true
+    },
+    {
+      "algorithm": "DE+SLSQP",
+      "n_observed": 2,
+      "n_completed": 2,
+      "n_valid": 2,
+      "n_failed_runs": 0,
+      "n_cancelled": 0,
+      "best_lb": 45.5681071006552,
+      "worst_lb": 45.56810778251834,
+      "mean_lb": 45.56810744158677,
+      "median_lb": 45.56810744158677,
+      "sample_std_lb": 4.821500515134302e-07,
+      "feasibility_rate": 1.0,
+      "mean_seconds": 0.6535899499995139,
+      "mean_evaluations_to_best": 192.5,
+      "failed_analyses": 0,
+      "limited_sample": true
+    }
+  ],
+  "status": "completed",
+  "validation_cost": {
+    "sap_analyses": 0,
+    "independent_fem_audits": 0
+  },
+  "configuration_sha256": "e47e3736754543ea927b57a5bcadd7aebe4d7f5eb6a54a1d1a5d97441d0b8181",
+  "elapsed_seconds": 8.153808400002163
+}

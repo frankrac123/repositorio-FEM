@@ -156,3 +156,26 @@ La siguiente ejecución conjunta terminó con 76 pruebas aprobadas (196.36 s), p
 La suite completa final aprobó **78/78 pruebas, 0 fallos, 0 omitidas, 187.95 s**, con Qt y ambas integraciones SAP activadas. Registro completo `audit_final_local.txt` y JUnit `audit_final_local.xml`. El despacho STA estándar y la espera con mensajes permiten completar las operaciones; los avisos 0x800706ba **no desaparecieron** y también se observaron dentro de Analyze.RunAnalysis. No se afirma haber corregido su origen en el SDK.
 
 Se verificó que [CPython 3.11.9 faulthandler](https://github.com/python/cpython/blob/v3.11.9/Modules/faulthandler.c#L358-L417) imprime ese encabezado antes de devolver EXCEPTION_CONTINUE_SEARCH; el encabezado por sí solo no demuestra un cierre del proceso. En esta ejecución el proceso continuó, SAP devolvió estados/códigos válidos y se comprobaron respuestas, equilibrio y sesiones. Se conserva el registro sin ocultar avisos y se documenta esta incidencia de diagnóstico nativo como limitación pendiente. No se desactivó faulthandler para maquillar los resultados.
+
+
+## Reproducción cerrada desde GitHub y SHA del código
+
+**Commit de producción auditado y reproducido: `700bbdf10f6f54888a496f0b3d3f7af9ec4f6ab4`.** Fue descargado mediante fetch/checkout desde el remoto, no copiado desde la carpeta de desarrollo. El manifiesto `published_reproduction.json` registra huella de cada módulo de producción, versiones, ejecutable, sistema y **cero cambios rastreados** en el clon.
+
+Resultado del clon limpio: **78 pruebas, 0 fallos, 0 errores, 0 omitidas; 198.185 s en JUnit** (198.23 s mostrado por pytest). Se activaron las ocho pruebas Qt y las dos integraciones SAP reales. El user site de Python estaba desactivado y el paquete trusslab se importó desde el clon; la generación COM se realizó dentro de su .venv. Pip check no encontró dependencias rotas.
+
+También se repitieron las 40 corridas de los cinco métodos en el clon: 49.17 s para el ensayo numérico, pesos idénticos a la instalación original en las 20 corridas comparadas (máxima diferencia 0.0 lb). Después se ejecutó el experimento completo con SAP real en ese mismo checkout: **aprobado en 174.88 s**, incluyendo A–E y dos sesiones persistentes que verificaron diseño inicial y ganador de las cerchas 2D/3D en C1/C2/ULS. Sus mejores diseños, SDB, campañas completas, repeticiones, resultados, configuraciones y CSV se conservaron en la evidencia clean_planar/clean_spatial. Los algoritmos no recibieron un peso objetivo ni áreas publicadas como arranque.
+
+GitHub Actions aprobó ambos trabajos numéricos, Windows y Ubuntu: https://github.com/frankrac123/repositorio-FEM/actions/runs/39110130233. CI no ejecuta Qt ni SAP; esos ensayos constan separadamente arriba.
+
+Una evaluación presupuestada significa un candidato con todos los casos seleccionados, no cada resolución individual de Kff. Las referencias numéricas del Caso I también aparecen en textos iniciales heredados de UI; refresh reemplaza los contadores/selección con el documento real antes del uso. No gobiernan ensamblaje ni optimización; el inventario conserva las referencias encontradas.
+
+### Ejecutar sin esperar al cierre de copias SAP visibles
+
+Al redirigir salida nativa, PowerShell puede seguir esperando EOF de handles heredados por las ventanas SAP que deliberadamente permanecen abiertas, incluso después de que pytest haya terminado. Se verificó que los procesos Python habían salido; no se cerraron las copias SAP para desbloquear el shell. `scripts/run_audit_tests.py` utiliza archivos directos y espera el handle de pytest; guarda su código de salida, duración y número de diagnósticos nativos. Usar:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/run_audit_tests.py --output data/audit/final_process -- -q --junitxml=data/audit/final_tests.xml
+```
+
+Los cambios posteriores al SHA de producción anterior añaden este ejecutor de pruebas, documentación y evidencia; no modifican la aplicación. El SHA exacto de entrega se obtiene con git rev-parse HEAD y se registra en el manifiesto que genera scripts/repro_manifest.py después de probar el checkout publicado. El informe entregado fuera del historial Git incorpora ese SHA final sin intentar incluir el hash de un commit dentro de sí mismo.

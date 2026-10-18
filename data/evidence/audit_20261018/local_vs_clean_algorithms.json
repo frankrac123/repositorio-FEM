@@ -1,0 +1,14 @@
+[
+  {
+    "model": "planar",
+    "run_count": 10,
+    "max_weight_difference_lb": 0.0,
+    "statuses_identical": true
+  },
+  {
+    "model": "spatial",
+    "run_count": 10,
+    "max_weight_difference_lb": 0.0,
+    "statuses_identical": true
+  }
+]

@@ -1,0 +1,14 @@
+STRUCTURAL A_case_i
+Iniciando instancia independiente de SAP2000�
+Modelo creado. Ejecutando an�lisis SAP2000�
+STRUCTURAL B_D_E_planar
+Iniciando instancia independiente de SAP2000�
+Modelo creado. Ejecutando an�lisis SAP2000�
+STRUCTURAL C_D_E_spatial
+Iniciando instancia independiente de SAP2000�
+Modelo creado. Ejecutando an�lisis SAP2000�
+ALGORITHMS planar
+REAL SAP BATCH INITIAL + WINNER planar
+ALGORITHMS spatial
+REAL SAP BATCH INITIAL + WINNER spatial
+AUDIT PASSED 174.87769859999753
